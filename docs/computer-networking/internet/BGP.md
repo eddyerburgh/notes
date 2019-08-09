@@ -5,7 +5,7 @@ description: Notes on the BGP protocol.
 nav_order: 10
 parent: Internet
 grand_parent: Computer Networking
-permalink: /computer-networking/internet/BGP
+permalink: /computer-networking/internet/bgp
 ---
 
 <!-- prettier-ignore-start -->
