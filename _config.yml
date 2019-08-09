@@ -9,6 +9,8 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: ""
 url: "https://notes.eddyerburgh.me"
 
+ga_tracking: UA-74647525-3
+
 markdown: kramdown
 theme: "just-the-docs"
 plugins:
