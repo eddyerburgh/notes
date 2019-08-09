@@ -2,6 +2,8 @@
 
 A collection of notes I’ve taken while self-studying computer science.
 
+https://notes.eddyerburgh.me/
+
 ## Motivation
 
 Writing notes makes me retain the knowledge I gain from reading books, papers, and specifications.
