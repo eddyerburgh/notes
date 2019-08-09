@@ -1,0 +1,27 @@
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+title: Edd's Notes
+description: >- # this means to ignore newlines until "baseurl:"
+  Notes from learning computer science.
+baseurl: ""
+url: "https://notes.eddyerburgh.me"
+
+markdown: kramdown
+theme: "just-the-docs"
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll/scholar
+
+scholar:
+  style: bibliography/custom
+  source: bibliography
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
