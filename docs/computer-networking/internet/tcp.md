@@ -2,7 +2,7 @@
 layout: default
 title: TCP
 description: Notes on the TCP protocol.
-nav_order: 2
+nav_order: 3
 parent: Internet
 grand_parent: Computer Networking
 permalink: /computer-networking/internet/tcp
