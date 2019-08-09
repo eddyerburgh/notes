@@ -12,7 +12,7 @@ A collection of notes I've taken while self-studying computer science.
 
 ## Motivation
 
-Writing notes makes me retain the knowledge I gain from reading books, papers, and specifications.
+Writing notes helps me retain the knowledge I gain from reading books, papers, and specifications.
 
 ## Topics
 

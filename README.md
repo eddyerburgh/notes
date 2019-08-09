@@ -6,7 +6,7 @@ https://notes.eddyerburgh.me/
 
 ## Motivation
 
-Writing notes makes me retain the knowledge I gain from reading books, papers, and specifications.
+Writing notes helps me retain the knowledge I gain from reading books, papers, and specifications.
 
 ## Topics
 
