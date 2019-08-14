@@ -4,6 +4,7 @@ title: Bluetooth
 description: Notes on the Bluetooth protocol.
 has_children: true
 has_toc: false
+nav_order: 5
 parent: Computer Networking
 permalink: /computer-networking/bluetooth
 ---
@@ -45,7 +46,7 @@ Multiple piconets can exist in the same room, and they can be connected through 
 
 There can be up to 255 **parked nodes** on a piconet. Parked nodes are devices that the master has switched to a low-power state. In parked state a device can't do anything except for respond to an activation or beacon signal from the master {% cite computer-networks -l 320-1 %}.
 
-The reason for the master/slave architecture was the aim to implement complete bluetooth chips for under $5. Because of this, slaves are relatively dumb {% cite computer-networks -l 321 %}.
+The reason for the master/slave architecture was the aim to implement complete bluetooth chips for under \$5. Because of this, slaves are relatively dumb {% cite computer-networks -l 321 %}.
 
 A piconet is a centralized TDM (Time-Division Multiplexing) system. The master controls the clock and determines which devices get to communicate in which time slot. All communication is between the master and slave, direct slave to slave communication is not possible {% cite computer-networks -l 321 %}.
 
@@ -117,9 +118,9 @@ An **ACL** link is used for packet-switched data available at irregular interval
 
 "The data sent over ACL links come from the L2CAP layer". The L2CAP has three main functions:
 
-* Accepts packets (up to 64KB) from higher layers and breaks them into frames for transmission, the frames are reassembled at the receiving end
-* Handles multiplexing and demultiplexing of multiple packet sources
-* Handles error control and retransmission
+- Accepts packets (up to 64KB) from higher layers and breaks them into frames for transmission, the frames are reassembled at the receiving end
+- Handles multiplexing and demultiplexing of multiple packet sources
+- Handles error control and retransmission
 
 {% cite computer-networks -l 325 %}
 
@@ -134,9 +135,9 @@ The Bluetooth standard defines several frame formats. The two frames that are st
 
 The first field is an access code that usually identifies the master.
 
-Next is a 54-bit header that contains several fields. The Address field identifies which of the active devices the frame is intended for. The Type field identifies the frame type (ACL, SCO, poll, or null),  the  type of error correction used in the data field, and how many slots long the frame is {% cite computer-networks -l 325-6 %}.
+Next is a 54-bit header that contains several fields. The Address field identifies which of the active devices the frame is intended for. The Type field identifies the frame type (ACL, SCO, poll, or null), the type of error correction used in the data field, and how many slots long the frame is {% cite computer-networks -l 325-6 %}.
 
-The Flow bit (F) is set by a slave when its buffer is full and it can't receive any more data. The Acknowledgement bit (A) adds an ACK to the frame, The Sequence bit (S) is used to number frames, to enable retransmission. Since the protocol is  is stop-and-wait, 1 bit is enough {% cite computer-networks -l 326 %}.
+The Flow bit (F) is set by a slave when its buffer is full and it can't receive any more data. The Acknowledgement bit (A) adds an ACK to the frame, The Sequence bit (S) is used to number frames, to enable retransmission. Since the protocol is is stop-and-wait, 1 bit is enough {% cite computer-networks -l 326 %}.
 
 The header is repeated three times. This is to add redundancy. Redundancy is important in Bluetooth, which runs in a noisy environment over low-powered devices {% cite computer-networks -l 326 %}.
 

@@ -2,6 +2,7 @@
 layout: default
 title: Internet
 description: Notes on the architecture and protocols of the Internet.
+nav_order: 2
 has_children: true
 has_toc: false
 parent: Computer Networking

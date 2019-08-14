@@ -4,9 +4,9 @@ title: Operating Systems
 description: An introduction to operating systems.
 has_children: true
 has_toc: false
+nav_order: 2
 permalink: /operating-systems
 ---
-
 
 <!-- prettier-ignore-start -->
 
@@ -27,9 +27,9 @@ An operating system (OS) is the "software that manages a computer’s resources 
 
 OSes provide:
 
-* Resource allocation
-* Isolation
-* Communication
+- Resource allocation
+- Isolation
+- Communication
 
 An OS is responsible for **resource allocation**. It must allocate finite memory and processors to running applications.
 

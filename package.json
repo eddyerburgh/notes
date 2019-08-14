@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "format": "prettier --write **/*.md"
+    "format": "prettier --write docs/**/*.md"
   },
   "dependencies": {
     "prettier": "^1.18.2"
