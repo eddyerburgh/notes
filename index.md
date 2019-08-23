@@ -16,7 +16,7 @@ Writing notes helps me retain the knowledge I gain from reading books, papers, a
 
 ## Topics
 
-- Networking
+- Computer networking
 - Systems programming
 
 ## Future Topics

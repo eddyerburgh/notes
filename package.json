@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "rm -rf _site && bundle exec jekyll serve -Ilo",
-    "format": "prettier --write 'docs/**/*.md'"
+    "format": "prettier --write '**/*.md'"
   },
   "dependencies": {
     "prettier": "^1.18.2"
