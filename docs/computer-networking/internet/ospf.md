@@ -2,7 +2,7 @@
 layout: default
 title: OSPF
 description: Notes on the OSPF protocol.
-nav_order: 5
+nav_order: 9
 parent: Internet
 grand_parent: Computer Networking
 permalink: /computer-networking/internet/ospf
