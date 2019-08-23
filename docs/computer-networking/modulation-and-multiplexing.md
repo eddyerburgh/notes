@@ -145,7 +145,11 @@ FDM divides the spectrum into **frequency bands**. Each user has exclusive posse
 
 A **guard band** keeps the channels separated {% cite computer-networks -l 133 %}.
 
-Digital data can be divided without using guard bands. In **OFDM (Orthogonal Frequency Division Multiplexing)** the channel bandwidth is divided into subcarriers, which independently send data. Signals from each carrier extend into adjacent channels. However, "the frequency response of each subcarrier is designed so that 0 is at the center of the adjacent subcarriers". So subcarriers can be sampled from their center frequencies, without any interference from their neighbors {% cite computer-networks -l 133-4 %}.
+### OFDM
+
+Digital data can be divided without using guard bands. In **OFDM (Orthogonal Frequency Division Multiplexing)** the channel bandwidth is divided into subcarriers, which independently send data.
+
+Signals from each carrier extend into adjacent channels. However, "the frequency response of each subcarrier is designed so that 0 is at the center of the adjacent subcarriers". So subcarriers can be sampled from their center frequencies, without any interference from their neighbors {% cite computer-networks -l 133-4 %}.
 
 <figure>
   <img src="{{site.baseurl}}/assets/img/networking/modulation-and-multiplexing/ofdm.svg" alt="">

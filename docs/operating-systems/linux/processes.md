@@ -208,7 +208,6 @@ The process is a core operating system abstraction.
 
 Linux represents processes with the `task_struct` struct, and the `thread_info` struct. In Linux, threads are simply a task that share resources with other tasks.
 
-
 ## References
 
 {% bibliography --cited_in_order %}

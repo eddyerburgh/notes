@@ -74,7 +74,6 @@ Instead, the DNS namespace is divide into nonoverlapping **zones**. The zone bou
   <figcaption><h4>Figure: A portion of the Internet domain space divided into zones (circled) {% cite computer-networks -l 613 %}</h4></figcaption>
 </figure>
 
-
 Looking up a name and finding an address is called **name resolution**. A resolver passes the query to a local name server. If the domain falls under the jurisdiction of the name server, it returns the authoritative resource records. **Authoritative records** are in contrast to **cached records**, which may be out of date {% cite computer-networks -l 620 %}.
 
 If the local name server doesn't have information about the domain, the server starts a remote query. First, the local name server makes a query to one of the **root name servers**. "These name servers have information about each top-level". In order to contact one of the root name servers, the local name server must have information about one or more of the name servers. This is normally retrieved from a system configuration file {% cite computer-networks -l 620-1 %}.

@@ -4,7 +4,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "format": "prettier --write docs/**/*.md"
+    "dev": "rm -rf _site && bundle exec jekyll serve -Ilo",
+    "format": "prettier --write 'docs/**/*.md'"
   },
   "dependencies": {
     "prettier": "^1.18.2"

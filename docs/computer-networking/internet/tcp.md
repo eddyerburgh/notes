@@ -81,6 +81,7 @@ It's still possible for an IP packet to be fragmented when passing over a networ
    |                             Data                              |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ```
+
 {% cite rfc793 -l 14 computer-networks -l 557 %}
 
 The **Source Port** and **Destination Port** fields specify the TCP ports of the connection endpoints. A TCP port and an IP address identify a connection.
@@ -168,8 +169,8 @@ When the Window value is 0, the sender can't send any data. There are two except
 
 TCP uses timers to do part of its work. These include:
 
-* RTO timer
-* Persistence timer
+- RTO timer
+- Persistence timer
 
 The RTO (Retransmission TimeOut) timer is used for retransmission. Each time a segment is sent, a retransmission timer is started. If the timer completes before the segment has been acknowledged, the segment is retransmitted. The timer value is calculated dynamically, and adjusted according to current network conditions {% cite computer-networks -l 568-9 %}.
 

@@ -358,23 +358,3 @@ The BGP decision algorithm is the same in confederations except there is a new t
 ## References
 
 {% bibliography --cited_in_order %}
-
-<!--
-
-
-### Peer groups
-
-"A BGP peer group is a group of BGP neighbors that share the same update policies" {% cite internet-routing-architecture -l 178 %}. You can use peer groups to mass assign routing policies for multiple BGP speakers at once {% cite internet-routing-architecture -l 179 %}.
-
-Updates are also shared between peer groups, so updates are only calculated once, rather than for each peer {% cite internet-routing-architecture -l 179 %}.
-
-eBGP peer groups must follow some rules:
-
-- They cannot have their hub router be a transit for external AS
-- They must be on the same IP subnet {% cite internet-routing-architecture -l 180 %} -->
-
-<!-- ## Interacting with IGP
-
-IGP protocols often can't handle full BGP route tables. Instead, non BGP routers in an AS can learn to reach routers in other ASes by either having BGP routers inject BGP routes into the IGP, or sending traffic to the BGP default routes {% cite internet-routing-architecture -l 233-4 %}.
-
-Border routers can inject the default router into IGP, and rely on the IGP to propagate the default to other routers that aren't running BGP. Once a packet reaches a BGP router, the BGP router can direct the packet to the next location. -->
