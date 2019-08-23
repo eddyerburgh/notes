@@ -11,6 +11,10 @@ url: "https://notes.eddyerburgh.me"
 
 ga_tracking: UA-74647525-4
 
+aux_links:
+  "view on GitHub":
+    - "//github.com/eddyerburgh/notes"
+
 markdown: kramdown
 theme: "just-the-docs"
 plugins:
