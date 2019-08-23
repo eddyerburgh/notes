@@ -42,7 +42,7 @@ TCP connections are full duplex and point-to-point. TCP doesn’t support multic
 "A TCP connection is a byte stream, not a message stream. Message boundaries are not preserved end to end." If a process writes four times to a TCP stream in 512-byte chunks, the data could be delivered as four 512-byte chunks, or two 1024-byte chunks. There's no way for the receiver to detect the units the data was written in {% cite computer-networks -l 554 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/internet/tcp/tcp-byte-stream.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/internet/tcp/tcp-byte-stream.svg" alt="">
   <figcaption><h4>Figure: Data delivered to application {% cite computer-networks -l 555 %} </h4></figcaption>
 </figure>
 
@@ -120,7 +120,7 @@ One server must be listening for connections. The server listens for incoming co
 To establish a connection, the client executes a CONNECT primitive with the IP address and port number of the server, and the maximum segment size it will accept. The CONNECT primitive sends a TCP segment with the SYN bit on and the ACK bit off and waits for a response {% cite computer-networks -l 560 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/internet/tcp/tcp-connection-established.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/internet/tcp/tcp-connection-established.svg" alt="">
   <figcaption><h4>Figure: TCP connection established {% cite computer-networks -l 561 %} </h4></figcaption>
 </figure>
 

@@ -56,7 +56,7 @@ A layer has an interface for other layers to communicate with it. These interfac
 Entities of corresponding layers on a different machine are called **peers**. Peer processes think of communication as horizontal. They expect messages in a certain format and act as if they are communicating with each other directly. Interfaces are a way for each layer to interact with the layers above and below it {% cite computer-networks %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/protocol-peers.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/protocol-peers.svg" alt="">
   <figcaption><h4>Figure: Protocol peers</h4></figcaption>
 </figure>
 
@@ -67,7 +67,7 @@ A **network architecture** is a set of layers and protocols, and a protocol stac
 The OSI model is a conceptual protocol layer model. The OSI model has 7 layers, each responsible for different parts of networking.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/osi-model.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/osi-model.svg" alt="">
   <figcaption><h4>Figure: The OSI model</h4></figcaption>
 </figure>
 
@@ -102,7 +102,7 @@ One benefit of packet-switched networks is that you can send different packet ty
 Packets generally contain a header section and a data section. The header section contains delivery metadata for the packet, like the destination address, and the data section contains the packet data {% cite intro-computer-networks -l 14 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/packet.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/packet.svg" alt="">
   <figcaption><h4>Figure: Packet</h4></figcaption>
 </figure>
 

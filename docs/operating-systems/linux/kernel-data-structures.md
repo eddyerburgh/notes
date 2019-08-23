@@ -42,7 +42,7 @@ struct list_element {
 ```
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/linux/kernel-data-structures/singly-linked-list.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/operating-systems/linux/kernel-data-structures/singly-linked-list.svg" alt="">
   <figcaption><h4>Figure: Singly linked list {% cite lkd -l 86 %}</h4></figcaption>
 </figure>
 
@@ -60,7 +60,7 @@ struct list_element {
 ```
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/linux/kernel-data-structures/doubly-linked-list.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/operating-systems/linux/kernel-data-structures/doubly-linked-list.svg" alt="">
   <figcaption><h4>Figure: Doubly linked list {% cite lkd -l 86 %}</h4></figcaption>
 </figure>
 
@@ -71,7 +71,7 @@ Normally the last element in a linked list points to a special value, like `NULL
 In a circular linked list the last element instead points to the first element in the list. Circular linked lists can be both singly linked and doubly linked.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/linux/kernel-data-structures/circular-doubly-linked-list.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/operating-systems/linux/kernel-data-structures/circular-doubly-linked-list.svg" alt="">
   <figcaption><h4>Figure: Circular doubly linked list {% cite lkd -l 87 %}</h4></figcaption>
 </figure>
 
@@ -238,7 +238,7 @@ Queues are a first-in-first-out data structure. Data is removed from the queue i
 Queues are useful for implementing the producer consumer pattern. A producer pushes data to a queue and a consumer removes data from the queue in order to do something with it {% cite lkd -l 96 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/linux/kernel-data-structures/queue.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/operating-systems/linux/kernel-data-structures/queue.svg" alt="">
   <figcaption><h4>Figure: A queue {% cite lkd -l 96 %}</h4></figcaption>
 </figure>
 

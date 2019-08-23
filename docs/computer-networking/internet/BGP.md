@@ -34,7 +34,7 @@ Autonomous systems (ASes) are collections of connected routers managed by a sing
 IP routers are responsible for the next hop an IP packet takes. In order to know where to forward a request to, IP routers need to share route information with each other. ASes use Interior Gateway Protocols (IGPs), like [RIP](https://en.wikipedia.org/wiki/Routing_Information_Protocol) and [OSPF](https://en.wikipedia.org/wiki/Open_Shortest_Path_First), to share route information within their AS, and Exterior Gateway Protocols (EGPs) to share routing information with other ASes {% cite internet-routing-architecture %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/bgp/autonomous-systems.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/internet/bgp/autonomous-systems.svg" alt="">
   <figcaption><h4>Figure: Autonomous systems sharing route information {% cite internet-routing-architecture %}</h4></figcaption>
 </figure>
 
@@ -53,7 +53,7 @@ ASes can be categorized based on how they interact with other ASes.
 Single-homed ASes only connect to one other AS via a single exit.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/bgp/single-homed-as.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/internet/bgp/single-homed-as.svg" alt="">
   <figcaption><h4>Figure: A single-homed AS {% cite internet-routing-architecture %}</h4></figcaption>
 </figure>
 
@@ -64,7 +64,7 @@ Single-homed ASes can be given a number from the private range of AS numbers {% 
 A multi-homed AS has at least two exit points to outside world. A non-transit AS doesn't allow traffic to go through it, whereas a transit AS does {% cite internet-routing-architecture -l 98-9 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/bgp/multi-homed-non-transit-as.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/internet/bgp/multi-homed-non-transit-as.svg" alt="">
   <figcaption><h4>Figure: A multi-homed non-transit AS {% cite internet-routing-architecture %}</h4></figcaption>
 </figure>
 
@@ -319,7 +319,7 @@ Defaults should be routers in larger ASes that are closer to large backbone rout
 Using iBGP requires all routers to be in a full mesh. This can be a performance problem for large iBGP networks of 100+ routers. Route reflectors (RRs) solve this problem. RRs are central BGP routers that other routers connect to over iBGP. The route reflector is configured to reflect all routes to the connected BGP routers. {% cite internet-routing-architecture -l 254-55 %}
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/bgp/route-reflector.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/internet/bgp/route-reflector.svg" alt="">
   <figcaption><h4>Figure: A route reflector {% cite internet-routing-architecture %}</h4></figcaption>
 </figure>
 
@@ -345,7 +345,7 @@ Confederations are another way of handling a large iBGP mesh {% cite internet-ro
 A confederation is where an AS is split into multiple sub-ASes that interact with each other using eBGP, but internally use iBGP. A confederation behaves like a single AS to outside peers {% cite internet-routing-architecture -l 263 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/bgp/bgp-confederation.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/internet/bgp/bgp-confederation.svg" alt="">
   <figcaption><h4>Figure: AS split into two confederations {% cite internet-routing-architecture %}</h4></figcaption>
 </figure>
 

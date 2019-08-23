@@ -32,7 +32,7 @@ Public IP addresses are administratively assigned. Originally they were assigned
 IP addresses are 32 bits (4 bytes) long. Commonly, IPv4 addresses are represented in **dotted decimal notation**, where each byte is written in decimal, separated by a period. For example, 172.16.254.1.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/ipv4/ipv4-address.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/internet/ipv4/ipv4-address.svg" alt="">
   <figcaption><h4>Figure: IPv4 address</h4></figcaption>
 </figure>
 
@@ -51,7 +51,7 @@ The prefix of an IP address can't be inferred from the IP address, so routing pr
 The length of the prefix can be used to create a subnet mask, which produces the network portion when logically ANDed with an IP address.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/ipv4/ipv4-subnet-mask.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/internet/ipv4/ipv4-subnet-mask.svg" alt="">
   <figcaption><h4>Figure: Calculating network prefix using subnet mask</h4></figcaption>
 </figure>
 
@@ -177,7 +177,7 @@ Network Address Translation is an approach to use a single IP address for a netw
 Instead of assigning an IP address to each host in an internal network, a public IP address is assigned only to the gateway router. The gateway router, known as a NAT router, connects the internal network to the Internet. All hosts in the internal network are assigned private IP addresses. When an internal host makes a request, the NAT router will translate the source private IP address into its public IP address, and keep the translation in a special NAT forwarding table. When the NAT gateway receives a response from the remote machine, it will check its NAT forwarding table, see that the request is for the internal host, replace the destination IP address with the private source IP address, and forward the packet to the internal host {% cite intro-computer-networks -l 200-1 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/ipv4/nat.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/internet/ipv4/nat.svg" alt="">
   <figcaption><h4>Figure: NAT router {% cite intro-computer-networks -l 201 %} </h4></figcaption>
 </figure>
 

@@ -42,7 +42,7 @@ A router connected to two or more areas is called an **area border router**. An 
 An AS boundary router injects routes to external ASes into the area. External routes appear as "destinations that can be reached via the AS boundary router with some cost" {% cite computer-networks -l 477 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/ospf/areas.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/internet/ospf/areas.svg" alt="">
   <figcaption><h4>Figure: The relationship between ASes, backbones, and areas {% cite computer-networks -l 477 %}</h4></figcaption>
 </figure>
 

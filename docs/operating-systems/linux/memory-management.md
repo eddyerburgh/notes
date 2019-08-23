@@ -283,7 +283,7 @@ Take the `inode` structure. An `inode` is a filesystem structure that represents
 An `inode` is allocated from the `inode_cachep` cache (this is the standard naming convention). The cache is made up from many slabs, and each slab contains as many inode objects as can fit. When the kernel requests a new `inode` object, the slab allocator returns a pointer to an already allocated, but currently unused structure from a partial slab if one exists, or an empty slab if one does not. When the kernel is finished with the inode, the slab allocator will mark the object as free.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/linux/memory-management/slab-cache.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/operating-systems/linux/memory-management/slab-cache.svg" alt="">
   <figcaption><h4>Figure: The relationship between caches, slabs, and objects {% cite lkd -l 247 %}</h4></figcaption>
 </figure>
 

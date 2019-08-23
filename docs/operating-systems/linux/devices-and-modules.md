@@ -199,7 +199,7 @@ Kobjects, ktypes, and ksets are all interrelated. The key object is the kobject,
 You can see a visual representation of the relationship between these parts in the following image:
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/linux/devices-and-modules/kobjects-ksets.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/operating-systems/linux/devices-and-modules/kobjects-ksets.svg" alt="">
   <figcaption><h4>Figure: Relation of kobjects, ktypes, and ksets {% cite lkd -l 352 %}</h4></figcaption>
 </figure>
 

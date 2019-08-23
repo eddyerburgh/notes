@@ -40,7 +40,7 @@ In baseband transmission, the signal occupies frequencies from zero up to a maxi
 **NRZ (Non-Return-to-Zero)** is a simple transmission scheme. In NRZ, a positive voltage could represent a 1, and a negative voltage could represent a 0. For optical fiber, the presence of light could represent a 1 and the absence of light could represent a 0 {% cite computer-networks -l 125 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/modulation-and-multiplexing/line-codes.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/modulation-and-multiplexing/line-codes.svg" alt="">
   <figcaption><h4>Figure 1: Different line codes {% cite computer-networks -l 126 %}</h4></figcaption>
 </figure>
 
@@ -126,7 +126,7 @@ In **FSK (Frequency Shift Keying)**, two or more different frequencies are used 
 In **PSK (Phase Shift Keying)** the carrier wave is shifted 0 or 180 degrees each time time a symbol changes. Because there are two phases, it's sometimes called **BPSK (Binary Phase Shift Keying)** {% cite computer-networks -l 130 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/modulation-and-multiplexing/modulation-schemes.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/modulation-and-multiplexing/modulation-schemes.svg" alt="">
   <figcaption><h4>Figure: Modulation schemes {% cite computer-networks -l 131 %}</h4></figcaption>
 </figure>
 
@@ -139,7 +139,7 @@ These schemes can be combined together, although frequency and phase cannot. Nor
 FDM divides the spectrum into **frequency bands**. Each user has exclusive possession of a band that they can use to send their signal {% cite computer-networks -l 133 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/modulation-and-multiplexing/frequency-division-multiplexing.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/modulation-and-multiplexing/frequency-division-multiplexing.svg" alt="">
   <figcaption><h4>Figure: Frequency division multiplexing {% cite computer-networks -l 134 %}</h4></figcaption>
 </figure>
 
@@ -152,7 +152,7 @@ Digital data can be divided without using guard bands. In **OFDM (Orthogonal Fre
 Signals from each carrier extend into adjacent channels. However, "the frequency response of each subcarrier is designed so that 0 is at the center of the adjacent subcarriers". So subcarriers can be sampled from their center frequencies, without any interference from their neighbors {% cite computer-networks -l 133-4 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/modulation-and-multiplexing/ofdm.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/modulation-and-multiplexing/ofdm.svg" alt="">
   <figcaption><h4>Figure: Orthogonal frequency division multiplexing (OFDM) {% cite computer-networks -l 134 %}</h4></figcaption>
 </figure>
 
@@ -163,7 +163,7 @@ Signals from each carrier extend into adjacent channels. However, "the frequency
 In TDM, users take turns round-robin style to get the entire bandwidth. Bits from each input are taken on a fixed time slot, and then output to the aggregate stream. The stream runs at the sum of each individual stream {% cite computer-networks -l 135 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/modulation-and-multiplexing/time-division-multiplexing.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/modulation-and-multiplexing/time-division-multiplexing.svg" alt="">
   <figcaption><h4>Figure: Time division multiplexing (TDM) {% cite computer-networks -l 135 %}</h4></figcaption>
 </figure>
 

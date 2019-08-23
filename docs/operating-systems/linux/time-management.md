@@ -99,7 +99,7 @@ jiffies = jiffies_64;
 So `jiffies` is the lower 32 bits of `jiffies_64`. Code can access jiffies as before. Since most code accessing jiffies only cares about elapses in time, rather than absolute time, the code can work fine with 32 bits. Time management code uses the entire 64 bit `jiffies_64`, which is accessible with `get_jiffies_64()` {% cite lkd -l 214 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/linux/time-management/jiffies-overlay.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/operating-systems/linux/time-management/jiffies-overlay.svg" alt="">
   <figcaption><h4>Figure: Layout of `jiffies` and `jiffies_64`. {% cite lkd -l 214 %}</h4></figcaption>
 </figure>
 

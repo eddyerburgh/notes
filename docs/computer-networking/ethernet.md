@@ -39,7 +39,7 @@ When IEEE need to add a new media system or capability to Ethernet, they develop
 Ethernet covers layer 1 (the physical layer) and layer 2 (the data link layer) of the OSI model. Within those two layers, Ethernet is further divided into sublayers defined in the Ethernet protocol {% cite ethernet-definitive-guide -l 17-8 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/ethernet/ethernet-sublayers.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/ethernet/ethernet-sublayers.svg" alt="">
   <figcaption><h4>Figure: The major IEEE sublayers {% cite ethernet-definitive-guide -l 19 %}</h4></figcaption>
 </figure>
 
@@ -67,7 +67,7 @@ Frames are chunks of information. Frames contain data (like TCP packets) and met
 There are three sizes of frame defined in the Ethernet standard. An ethernet interface must support at least one of them. The standard recommends using the recent **envelope frame**, the other two frames are **basic frames** {% cite ethernet-definitive-guide -l 44 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/ethernet/ethernet-frames.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/ethernet/ethernet-frames.svg" alt="">
   <figcaption><h4>Figure: Ethernet frames {% cite ethernet-definitive-guide -l 28 %}</h4></figcaption>
 </figure>
 
@@ -155,7 +155,7 @@ Full duplex mode was added to the standard in 1997. In full duplex mode both sta
 Recent Ethernet protocols (greater than 100 Mb/s) only support full duplex mode {% cite ethernet-definitive-guide -l 30 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/ethernet/ethernet-full-duplex.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/ethernet/ethernet-full-duplex.svg" alt="">
   <figcaption><h4>Figure: Full duplex operation {% cite ethernet-definitive-guide -l 54 %}</h4></figcaption>
 </figure>
 
@@ -188,7 +188,7 @@ A switch device is a computer that retransmits frames to the port that the frame
 A switch checks the destination address of a frame, and retransmits it to the correct station if it knows the port number of the destination station.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/ethernet/switch-ethernet.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/ethernet/switch-ethernet.svg" alt="">
   <figcaption><h4>Figure: A switched Ethernet network</h4></figcaption>
 </figure>
 

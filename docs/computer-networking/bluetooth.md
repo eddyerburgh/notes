@@ -40,7 +40,7 @@ The basic unit of a Bluetooth system is called a **piconet**. a piconet consists
 Multiple piconets can exist in the same room, and they can be connected through a bridge node that takes part in multiple piconets. An interconnected collection of piconets is called a **scatternet** {% cite computer-networks -l 320 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/bluetooth/piconets.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/bluetooth/piconets.svg" alt="">
   <figcaption><h4>Figure: Two piconets connected to form a scatternet {% cite computer-networks -l 321 %}</h4></figcaption>
 </figure>
 
@@ -63,7 +63,7 @@ Some profiles are used as building blocks for other profiles. The generic access
 Bluetooth has many protocols grouped roughly into layers.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/bluetooth/protocol-architecture.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/bluetooth/protocol-architecture.svg" alt="">
   <figcaption><h4>Figure: The Bluetooth protocol architecture {% cite computer-networks -l 323 %}</h4></figcaption>
 </figure>
 
@@ -129,7 +129,7 @@ An **ACL** link is used for packet-switched data available at irregular interval
 The Bluetooth standard defines several frame formats. The two frames that are studied in this section are typical Bluetooth frames at basic and enhanced data rates.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/bluetooth/bluetooth-frame.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/bluetooth/bluetooth-frame.svg" alt="">
   <figcaption><h4>Figure: Typical Bluetooth data frame at basic and enhanced rates {% cite computer-networks -l 326 %}</h4></figcaption>
 </figure>
 

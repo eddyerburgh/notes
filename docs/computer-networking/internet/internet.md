@@ -37,7 +37,7 @@ The location at which packets enter an ISPs network is the ISPs POP (point of pr
 Typically, ISPs connect their networks to exchange traffic at Internet Service Exchanges (IXPs). IXPs are rooms of routers, with at least one router per ISP. The routers are connected over a LAN so that ISPs can exchange traffic between their backbone networks {% cite intro-computer-networks -l 63 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/internet/internet-architecture.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/internet/internet-architecture.svg" alt="">
   <figcaption><h4>Figure: Internet architecture</h4></figcaption>
 </figure>
 

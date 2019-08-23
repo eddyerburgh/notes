@@ -40,7 +40,7 @@ ret = write(fd, buf, len);
 `write()` writes len bytes pointed to by `buf` to the current position in the file represented by the file descriptor `fd`. The implementation of `write()` is implemented in `sys_write()` system call. This then calls the filesystems' write method, which will write the data to the media (or do whatever the filesystem does on write) {% cite lkd -l 262-3 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/linux/filesystem/data-flow.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/operating-systems/linux/filesystem/data-flow.svg" alt="">
   <figcaption><h4>Figure: The flow of data from a `write()` call {% cite lkd -l 263 %}</h4></figcaption>
 </figure>
 
@@ -688,7 +688,7 @@ The most important `bio` fields are:
 You can see the relationship between each of these structures in the following figure:
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/linux/filesystem/bio.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/operating-systems/linux/filesystem/bio.svg" alt="">
   <figcaption><h4>Figure: Relationship between `bio`, `bio_vec`, and `page` {% cite lkd -l 295 %}</h4></figcaption>
 </figure>
 
@@ -751,7 +751,7 @@ The scheduler also inserts requests into a second queue. Read requests are inser
 If the request at the head of the read queue or the write queue expires, the Deadline scheduler will begin taking jobs from the head of the FIFO queue.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/linux/filesystem/dispatch-queue.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/operating-systems/linux/filesystem/dispatch-queue.svg" alt="">
   <figcaption><h4>Figure: The three queues of the Deadline I/O scheduler {% cite lkd -l 301 %}</h4></figcaption>
 </figure>
 

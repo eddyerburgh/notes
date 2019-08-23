@@ -344,7 +344,7 @@ The top-level page table is the page global directory (PGD), which consists of a
 "In most architectures, page table lookups are handled (at least to some degree) by hardware. In normal operation, hardware can handle much of the responsibility of using the page tables. The kernel must set things up, however, in such a way that the hardware is happy and can do its thing" {% cite lkd -l 321 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/linux/process-address-space/virtual-to-physical.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/operating-systems/linux/process-address-space/virtual-to-physical.svg" alt="">
   <figcaption><h4>Figure: Virtual-to-physical address lookup {% cite lkd -l 321 %}</h4></figcaption>
 </figure>
 

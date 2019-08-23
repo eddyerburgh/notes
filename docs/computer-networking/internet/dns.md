@@ -30,7 +30,7 @@ DNS is a hierarchical naming system. The internet is divided into hundreds of **
 Domains can be represented as a tree.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/dns/tree-domains.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/internet/dns/tree-domains.svg" alt="">
   <figcaption><h4>Figure: A portion of the Internet domain space {% cite computer-networks -l 613 %}</h4></figcaption>
 </figure>
 
@@ -70,7 +70,7 @@ In theory, a single name server should contain the entire DNS database and respo
 Instead, the DNS namespace is divide into nonoverlapping **zones**. The zone boundaries are defined by the zone administrator. Normally a zone has one primary name server {% cite computer-networks -l 619-20 %}.
 
 <figure>
-  <img src="{{site.baseurl}}/assets/img/networking/dns/tree-domains-zones.svg" alt="">
+  <img src="{{site.baseurl}}/assets/img/computer-networking/internet/dns/tree-domains-zones.svg" alt="">
   <figcaption><h4>Figure: A portion of the Internet domain space divided into zones (circled) {% cite computer-networks -l 613 %}</h4></figcaption>
 </figure>
 
