@@ -4,7 +4,7 @@ title: IPv4
 description: Notes on the IPv4 protocol.
 nav_order: 1
 parent: Internet
-grand_parent: Computer Networking
+grand_parent: Computer networking
 permalink: /computer-networking/internet/ipv4
 ---
 

@@ -4,7 +4,7 @@ title: UDP
 description: Notes on the UDP protocol.
 nav_order: 2
 parent: Internet
-grand_parent: Computer Networking
+grand_parent: Computer networking
 permalink: /computer-networking/internet/udp
 ---
 

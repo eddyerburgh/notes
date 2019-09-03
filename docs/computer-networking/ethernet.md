@@ -4,7 +4,7 @@ title: Ethernet
 description: Notes on the Ethernet protocol.
 nav_order: 1
 has_toc: false
-parent: Computer Networking
+parent: Computer networking
 permalink: /computer-networking/ethernet
 ---
 

@@ -4,7 +4,7 @@ title: Filesystem
 description: Notes on how Linux implements filesystem.
 nav_order: 9
 parent: Linux
-grand_parent: Operating Systems
+grand_parent: Operating systems
 permalink: /operating-systems/linux/filesystem
 ---
 

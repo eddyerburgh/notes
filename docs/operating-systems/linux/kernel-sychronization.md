@@ -4,7 +4,7 @@ title: Kernel synchronization
 description: Notes on synchronization in the Linux kernel.
 nav_order: 6
 parent: Linux
-grand_parent: Operating Systems
+grand_parent: Operating systems
 permalink: /operating-systems/linux/kernel-synchronization
 ---
 

@@ -4,7 +4,7 @@ title: Linux
 description: An introduction to Linux.
 has_children: true
 has_toc: false
-parent: Operating Systems
+parent: Operating systems
 permalink: /operating-systems/linux
 ---
 

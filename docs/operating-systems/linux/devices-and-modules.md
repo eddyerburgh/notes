@@ -4,7 +4,7 @@ title: Devices and modules
 description: Notes on how Linux handles devices and modules.
 nav_order: 12
 parent: Linux
-grand_parent: Operating Systems
+grand_parent: Operating systems
 permalink: /operating-systems/linux/devices-and-modules
 ---
 

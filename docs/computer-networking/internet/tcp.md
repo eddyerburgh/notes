@@ -4,7 +4,7 @@ title: TCP
 description: Notes on the TCP protocol.
 nav_order: 3
 parent: Internet
-grand_parent: Computer Networking
+grand_parent: Computer networking
 permalink: /computer-networking/internet/tcp
 ---
 

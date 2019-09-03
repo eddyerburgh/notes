@@ -4,7 +4,7 @@ title: OSPF
 description: Notes on the OSPF protocol.
 nav_order: 9
 parent: Internet
-grand_parent: Computer Networking
+grand_parent: Computer networking
 permalink: /computer-networking/internet/ospf
 ---
 

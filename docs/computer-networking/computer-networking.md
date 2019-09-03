@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Computer Networking
+title: Computer networking
 description: An introduction to computer networking including the hardware and basic principles.
 has_children: true
 has_toc: false
-nav_order: 1
+nav_order: 3
 permalink: /computer-networking
 ---
 

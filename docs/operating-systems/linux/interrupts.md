@@ -4,7 +4,7 @@ title: Interrupts
 description: Notes on how Linux implements interrupts.
 nav_order: 5
 parent: Linux
-grand_parent: Operating Systems
+grand_parent: Operating systems
 permalink: /operating-systems/linux/interrupts
 ---
 

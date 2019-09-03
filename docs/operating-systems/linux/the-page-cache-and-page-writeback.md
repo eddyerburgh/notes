@@ -4,7 +4,7 @@ title: The page cache and page writeback
 description: Notes on the Linux kernel page cache.
 nav_order: 11
 parent: Linux
-grand_parent: Operating Systems
+grand_parent: Operating systems
 permalink: /operating-systems/linux/the-page-cache-and-page-writeback
 ---
 

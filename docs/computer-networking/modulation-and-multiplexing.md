@@ -5,7 +5,7 @@ description: Notes on modulation and multiplexing.
 has_children: true
 has_toc: false
 nav_order: 4
-parent: Computer Networking
+parent: Computer networking
 permalink: /computer-networking/modulation-and-multiplexing
 ---
 

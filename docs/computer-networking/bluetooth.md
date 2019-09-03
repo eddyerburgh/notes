@@ -5,7 +5,7 @@ description: Notes on the Bluetooth protocol.
 has_children: true
 has_toc: false
 nav_order: 5
-parent: Computer Networking
+parent: Computer networking
 permalink: /computer-networking/bluetooth
 ---
 

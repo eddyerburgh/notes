@@ -4,7 +4,7 @@ title: DNS
 description: Notes on the DNS protocol.
 nav_order: 10
 parent: Internet
-grand_parent: Computer Networking
+grand_parent: Computer networking
 permalink: /computer-networking/internet/dns
 ---
 

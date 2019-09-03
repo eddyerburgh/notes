@@ -4,7 +4,7 @@ title: System calls
 description: Notes on system calls in the Linux kernel.
 nav_order: 3
 parent: Linux
-grand_parent: Operating Systems
+grand_parent: Operating systems
 permalink: /operating-systems/linux/system-calls
 ---
 

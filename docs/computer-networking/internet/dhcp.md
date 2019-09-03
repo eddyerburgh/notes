@@ -4,7 +4,7 @@ title: DHCP
 description: Notes on the DHCP protocol.
 nav_order: 6
 parent: Internet
-grand_parent: Computer Networking
+grand_parent: Computer networking
 permalink: /computer-networking/internet/dhcp
 ---
 
@@ -109,7 +109,7 @@ _secs_ is the number of seconds since the client began the address acquisition o
 
 _flags_ contains the _Broadcast_ flag bit. The _Broadcast_ bit is set by a client that hasn't yet received an IP address and can't receive unicast datagrams {% cite rfc2131 -l 25 %}.
 
-_ciaddr_ (client IP address) is only filled in if the "client is in BOUND, RENEW or REBINDING state and can respond to ARP requests"  {% cite rfc2131 -l 10 %}.
+_ciaddr_ (client IP address) is only filled in if the "client is in BOUND, RENEW or REBINDING state and can respond to ARP requests" {% cite rfc2131 -l 10 %}.
 
 _yiaddr_ (your IP address) is the client's IP address, filled in by the server.
 

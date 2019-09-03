@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Operating Systems
+title: Operating systems
 description: An introduction to operating systems.
 has_children: true
 has_toc: false
@@ -10,7 +10,7 @@ permalink: /operating-systems
 
 <!-- prettier-ignore-start -->
 
-# Operating Systems
+# Operating systems
 {:.no_toc}
 
 An operating system (OS) is the "software that manages a computer’s resources for its users and their applications" {% cite oses-principles-and-practice -l 4 %}.

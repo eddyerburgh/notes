@@ -4,7 +4,7 @@ title: ARP
 description: Notes on the ARP protocol.
 nav_order: 5
 parent: Internet
-grand_parent: Computer Networking
+grand_parent: Computer networking
 permalink: /computer-networking/internet/arp
 ---
 

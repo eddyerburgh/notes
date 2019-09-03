@@ -4,7 +4,7 @@ title: Time management
 description: Notes on time management in the Linux kernel.
 nav_order: 7
 parent: Linux
-grand_parent: Operating Systems
+grand_parent: Operating systems
 permalink: /operating-systems/linux/time-management
 ---
 

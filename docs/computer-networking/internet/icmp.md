@@ -4,7 +4,7 @@ title: ICMP
 description: Notes on the ICMP protocol.
 nav_order: 4
 parent: Internet
-grand_parent: Computer Networking
+grand_parent: Computer networking
 permalink: /computer-networking/internet/icmp
 ---
 

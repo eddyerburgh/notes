@@ -4,7 +4,7 @@ title: BGP
 description: Notes on the BGP protocol.
 nav_order: 10
 parent: Internet
-grand_parent: Computer Networking
+grand_parent: Computer networking
 permalink: /computer-networking/internet/bgp
 ---
 

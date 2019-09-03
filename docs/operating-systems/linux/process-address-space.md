@@ -4,7 +4,7 @@ title: The process address space
 description: Notes on the process address space in the Linux kernel.
 nav_order: 10
 parent: Linux
-grand_parent: Operating Systems
+grand_parent: Operating systems
 permalink: /operating-systems/linux/process-address-space
 ---
 
