@@ -31,7 +31,7 @@ In a min-heap tree, the root node is always the node with the lowest value.
 
 ## Representing a heap
 
-A heap can be represented as an array, rather than using pointers like a typical binary tree. The position of the keys in the array is used to determine the position of the key in the tree  {% cite algorithm-design-manual -l 110 %}.
+A heap can be represented as an array, rather than using pointers like a typical binary tree. The position of the keys in the array is used to determine the position of the key in the tree {% cite algorithm-design-manual -l 110 %}.
 
 The root of the tree is the first position in the array. Its left and right sub children are stored at position 2 and 3 respectively {% cite algorithm-design-manual -l 110 %}.
 
