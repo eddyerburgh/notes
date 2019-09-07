@@ -17,11 +17,11 @@ Writing notes helps me retain the knowledge I gain from reading books, papers, a
 ## Topics
 
 - Computer networking
-- Systems programming
+- Data structures and algorithms
+- Operating systems
 
 ## Future Topics
 
-- Data structures and algorithms
 - Distributed systems
 - Computer architecture
 - Compilers
