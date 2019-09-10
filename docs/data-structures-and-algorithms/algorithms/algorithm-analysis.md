@@ -68,7 +68,7 @@ Worst-case complexity is normally the most useful measure. This is because the b
 
 ## Big O notation
 
-Big O is a mathematical notation that describes the limiting behavior as a value tends towards infinity.
+Big O is a mathematical notation that describes the limiting behavior of a function as its input tends towards infinity.
 
 Big O is useful in algorithm analysis because the functions that we get from counting steps often require a lot of detail to specify. For example, a worst-case analysis might produce a function like this:
 
