@@ -35,7 +35,7 @@ In this section, a vertex can exist in one of three states during traversal:
 
 {% cite algorithm-design-manual -l 161 %}
 
-To completely explore a vertex V, each edge leaving V must be explored. Edges that go to a discovered or processed vertex are ignored {% cite algorithm-design-manual -l 161 %}.
+To completely explore a vertex v, each edge leaving v must be explored. Edges that go to a discovered or processed vertex are ignored {% cite algorithm-design-manual -l 161 %}.
 
 An undirected edge will be considered twice, once from each vertex. Directed edges are only considered once {% cite algorithm-design-manual -l 161 %}.
 
