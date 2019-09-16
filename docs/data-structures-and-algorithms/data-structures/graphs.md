@@ -141,7 +141,7 @@ Another problem with adjacency matrices is that they quickly grow large. For thi
 
 ### Adjacency list
 
-An **adjacency list** is a data structure that uses a array of lists to store the edges of vertices.
+An **adjacency list** is a data structure that uses an array of lists to store the edges of vertices.
 
 Adjacency lists are more efficient at representing sparse graphs than adjacency matrices {% cite algorithm-design-manual -l 152 %}.
 
