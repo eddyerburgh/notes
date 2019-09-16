@@ -135,7 +135,7 @@ bool has_edge(int ix, int y) {
 
 {% cite open-data-structures -l 249 %}
 
-However, `out_edges` and `in_edges` are O(n) operations. The entire matrix must be checked to find the edges {% cite algorithm-design-manual -l 151 %}.
+However, `out_edges` and `in_edges` are O(n) operations. An entire row/column must be checked to find the edges:
 
 Another problem with adjacency matrices is that they quickly grow large. For this reason they are often impractical.
 
