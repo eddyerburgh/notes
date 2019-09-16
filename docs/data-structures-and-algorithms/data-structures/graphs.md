@@ -42,7 +42,7 @@ Typical graph operations are:
 - `remove_edge(x,y)`: remove the edge (x,y) from E
 - `has_edge(x,y)`: Check if edge (x,y) ∈ E
 - `out_edges(x)`: Return a List of all integers y such that (x,y) ∈ E
-- `in_edges(x)`: Return a List of all integers y such that (x,y) ∈ E
+- `in_edges(x)`: Return a List of all integers y such that (y,x) ∈ E
 
 {% cite open-data-structures -l 248 %}
 
