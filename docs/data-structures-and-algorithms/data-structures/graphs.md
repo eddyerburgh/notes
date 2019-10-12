@@ -25,7 +25,7 @@ Graphs can be used to represent almost any relationship: from road networks, to 
 
 ## Introduction
 
-A graph G=(V,E) consists of a set of _vertices_ V and a set of _edges_ E {% cite algorithm-design-manual -l 145 %}.
+A graph $$G=(V,E)$$ consists of a set of _vertices_ $$V$$ and a set of _edges_ $$E$$ {% cite algorithm-design-manual -l 145 %}.
 
 A **vertex** is a node in a graph. An **edge** represents a path between two vertices.
 
@@ -34,15 +34,19 @@ A **vertex** is a node in a graph. An **edge** represents a path between two ver
   <figcaption><h4>Figure: A graph</h4></figcaption>
 </figure>
 
-The **degree** of a vertex is the number of edges that are _incident to_ (connected to) the vertex {% cite algorithm-design-manual -l 150 %}.
+The **degree** of a vertex is the number of edges that are incident to the vertex {% cite algorithm-design-manual -l 150 %}.
+
+_Definition: an edge ($$u,v$$) is **incident** to the vertices $$u$$ and $$v$$._
 
 Typical graph operations are:
 
-- `add_edge(x,y)`: add the edge (x,y) to E
-- `remove_edge(x,y)`: remove the edge (x,y) from E
-- `has_edge(x,y)`: Check if edge (x,y) ∈ E
-- `out_edges(x)`: Return a List of all integers y such that (x,y) ∈ E
-- `in_edges(x)`: Return a List of all integers y such that (y,x) ∈ E
+| operation          | description                                                   |
+| ------------------ | ------------------------------------------------------------- |
+| `add_edge(x,y)`    | Add the edge $$(x,y)$$ to $$E$$.                              |
+| `remove_edge(x,y)` | Remove the edge $$(x,y)$$ from $$E$$.                         |
+| `has_edge(x,y)`    | Check if edge $$(x,y)\in E$$.                                 |
+| `out_edges(x)`     | Return a List of all integers $$y$$ such that $$(x,y)\in E$$. |
+| `in_edges(x)`      | Return a List of all integers $$y$$ such that $$(y,x)\in E$$. |
 
 {% cite open-data-structures -l 248 %}
 
@@ -50,9 +54,9 @@ Typical graph operations are:
 
 Different graph properties affect the data structure used to represent them and the algorithms available to interact with them.
 
-**Undirected versus directed**
+### Undirected vs directed
 
-A graph G=(V,E) is undirected if an edge (x,y) in set E means that (x,y) is also in set E. If this is not the case, then the graph is a **directed graph** {% cite algorithm-design-manual -l 146 %}.
+A graph $$G=(V,E)$$ is undirected if an edge $$(x,y)$$ in set $$E$$ means that $$(x,y)$$ is also in set $$E$$. If this is not the case, then the graph is a **directed graph** {% cite algorithm-design-manual -l 146 %}.
 
 <figure>
   <img src="{{site.baseurl}}/assets/img/data-structures-and-algorithms/data-structures/graphs/undirected-vs-directed-graph.svg" alt="">
@@ -61,18 +65,18 @@ A graph G=(V,E) is undirected if an edge (x,y) in set E means that (x,y) is also
 
 Directed graphs are common when representing roads, which are often one-way only {% cite algorithm-design-manual -l 146 %}.
 
-**Weighted versus unweighted**
+### Weighted vs unweighted
 
-In a **weighted graph**, each edge is assigned a value (weight). For example, the edge in a road network might be assigned a value for drive time {% cite algorithm-design-manual -l 146 %}.
+In a **weighted graph**, each edge is assigned a value (a weight). For example, the edge in a road network might be assigned a cost for drive time {% cite algorithm-design-manual -l 146 %}.
 
 <figure>
   <img src="{{site.baseurl}}/assets/img/data-structures-and-algorithms/data-structures/graphs/weighted-graph.svg" alt="">
   <figcaption><h4>Figure: A weighted graph</h4></figcaption>
 </figure>
 
-In an unweighted graph there is no cost associated with an edge {% cite algorithm-design-manual -l 147 %}.
+In an unweighted graph there is no value associated with an edge {% cite algorithm-design-manual -l 147 %}.
 
-**Simple vs non-simple**
+### Simple vs non-simple
 
 A simple graph is a graph without self-loops or multiple edges {% cite algorithm-design-manual -l 147 %}.
 
@@ -83,41 +87,43 @@ A simple graph is a graph without self-loops or multiple edges {% cite algorithm
 
 A non-simple graph can contain these types of edges {% cite algorithm-design-manual -l 147 %}.
 
-**Sparse vs dense**
+### Sparse vs dense
 
-A graph is sparse if only a small number of the possible vertex pairs have edges defined between them. A dense graph is a graph where lots of the possible vertex pairs have edges defined between them {% cite algorithm-design-manual -l 148 %}.
+A graph is sparse if only a small number of the possible vertex pairs have edges defined between them.
 
-There's no hard limit, but dense graphs typically have a quadratic number of edges {% cite algorithm-design-manual -l 148 %}.
+A dense graph is a graph where lots of the possible vertex pairs have edges defined between them {% cite algorithm-design-manual -l 148 %}.
 
-**Cyclic vs acyclic**
+Dense graphs typically have a quadratic number of edges {% cite algorithm-design-manual -l 148 %}.
+
+### Cyclic vs acyclic
 
 Cyclic graphs contain cycles, Acyclic graphs don't {% cite algorithm-design-manual -l 148 %}.
 
 Trees are acyclic graphs {% cite algorithm-design-manual -l 148 %}.
 
-**Labelled vs unlabelled**
+### Labelled vs unlabelled
 
 In a labelled graph, each vertex is assigned a unique name. In an unlabelled graph, vertices do not have an associated name {% cite algorithm-design-manual -l 149 %}.
 
 ## Representing a graph
 
-There are two common ways to represent a graph G=(V,E):
+There are two common ways to represent a graph $$G=(V,E)$$:
 
 - Adjacency matrix
 - Adjacency lists
 
 ### Adjacency matrix
 
-An **adjacency matrix** is an n x n matrix M, where n is the number of vertices.
+An **adjacency matrix** is an $$n$$x$$n$$ matrix $$M$$, where $$n$$ is the number of vertices.
 
-M[x, y] = 1 if (x, y) is an edge of G, and 0 if it isn't {% cite algorithm-design-manual -l 151 %}.
+$$M[x, y] = 1$$ if $$(x, y)$$ is an edge of $$G$$, and $$0$$ if it isn't {% cite algorithm-design-manual -l 151 %}.
 
 <figure>
   <img src="{{site.baseurl}}/assets/img/data-structures-and-algorithms/data-structures/graphs/adjacency-matrix.svg" alt="">
   <figcaption><h4>Figure: A graph and its adjacency matrix</h4></figcaption>
 </figure>
 
-Common operations like `add_edge`, `remove_edge`, and `has_edge` are O(1) operations:
+Common operations like `add_edge`, `remove_edge`, and `has_edge` are $$O(1)$$ operations:
 
 ```c
 void add_edge(int x, int y) {
@@ -135,7 +141,7 @@ bool has_edge(int ix, int y) {
 
 {% cite open-data-structures -l 249 %}
 
-However, `out_edges` and `in_edges` are O(n) operations. An entire row/column must be checked to find the edges:
+`out_edges` and `in_edges` are $$O(n)$$ operations. An entire row/column must be checked to find the edges.
 
 Another problem with adjacency matrices is that they quickly grow large. For this reason they are often impractical.
 
@@ -166,14 +172,14 @@ typedef struct {
 
 {% cite algorithm-design-manual -l 153 %}
 
-A directed edge (x, y) is represented as a y `edgenode` in x's adjacency list (at `g->edges[x]`). An undirected edge appears twice, once in x's list as y, and once in y's list as x {% cite algorithm-design-manual -l 153 %}.
+A directed edge $$(x, y)$$ is represented as a $$y$$ `edgenode` in $$x$$'s adjacency list (at `g->edges[x]`). An undirected edge appears twice, once in $$x$$'s list as $$y$$, and once in $$y$$'s list as $$x$$ {% cite algorithm-design-manual -l 153 %}.
 
 <figure>
   <img src="{{site.baseurl}}/assets/img/data-structures-and-algorithms/data-structures/graphs/adjacency-list.svg" alt="">
   <figcaption><h4>Figure: A graph and its adjacency list</h4></figcaption>
 </figure>
 
-The following code initializes an adjacency list with m vertices:
+The following code initializes an adjacency list with $$m$$ vertices:
 
 ```c
 void initialize_graph(graph *g, bool directed, int m) {

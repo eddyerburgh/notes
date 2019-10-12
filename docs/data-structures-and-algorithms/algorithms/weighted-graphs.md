@@ -2,7 +2,7 @@
 layout: default
 title: Weighted graphs
 description: Notes on weighted graph algorithms.
-nav_order: 3
+nav_order: 4
 parent: Algorithms
 grand_parent: Data structures and algorithms
 permalink: /data-structures-and-algorithms/algorithms/weighted-graphs
@@ -29,7 +29,7 @@ Weighted graphs are useful for modelling real-world problems where different pat
 
 ## Minimum Spanning Trees
 
-A **spanning tree** of a graph G=(V,E) is a subset of edges that form a tree connecting all vertices in V. A **minimum spanning tree** is a spanning tree with the lowest possible sum of all edges {% cite algorithm-design-manual -l 192 %}.
+A **spanning tree** of a graph $$G=(V,E)$$ is a subset of edges that form a tree connecting all vertices in $$V$$. A **minimum spanning tree** is a spanning tree with the lowest possible sum of all edges {% cite algorithm-design-manual -l 192 %}.
 
 <figure>
   <img src="{{site.baseurl}}/assets/img/data-structures-and-algorithms/algorithms/weighted-graphs/spanning-tree.svg" alt="">
@@ -108,7 +108,7 @@ void prim(graph *g, int start) {
 }
 ```
 
-An improved implementation of Prim's algorithm uses a priority queue to achieve O(m+n lg n).
+An improved implementation of Prim's algorithm uses a priority queue to achieve $$O(m+nlg_n)$$.
 
 ### Kruskal’s Algorithm
 
@@ -127,7 +127,7 @@ Kruskal-MST(G)
       merge component(v) and component(w)
 ```
 
-Checking that vertices are in the same components can be done in O(lg n) by using a [union-find]({{ '/data-structures-and-algorithms/data-structures/union-find' | relative_url }}) data structure. This means the running time depends on the sort. If the sort is O(nlg n) then algorithm is O(mlg m) (where m is the number of edges) {% cite algorithm-design-manual -l 197 %}.
+Checking that vertices are in the same components can be done in $$O(lg_n)$$ by using a [union-find]({{ '/data-structures-and-algorithms/data-structures/union-find' | relative_url }}) data structure. This means the running time depends on the sort. If the sort is $$O(nlg_n)$$ then algorithm is $$O(mlg_m)$$ (where $$m$$ is the number of edges) {% cite algorithm-design-manual -l 197 %}.
 
 The following implementation uses a union-find:
 
@@ -166,16 +166,15 @@ void kruskal(graph *g) {
 
 There are many variations of minimum spanning tree:
 
-* **Maximum spanning tree**: creates the maximum value path {% cite algorithm-design-manual -l 201 %}.
+- **Maximum spanning tree**: creates the maximum value path {% cite algorithm-design-manual -l 201 %}.
 
-* **Minimum product spanning tree**: the minimum spanning tree when multiplying edge weights. This can be determined by running minimum weight spanning tree algorithms on the log of each path (since log a × b = log a + log b) {% cite algorithm-design-manual -l 201 %}.
+- **Minimum product spanning tree**: the minimum spanning tree when multiplying edge weights. This can be determined by running minimum weight spanning tree algorithms on the log of each path (since $$lg(a\cdot b)=lg(a)+lg(b)$$) {% cite algorithm-design-manual -l 201 %}.
 
-* **Minimum bottleneck spanning tree**: a tree that minimizes the maximum edge weight. Every minimum spanning tree has this property. {% cite algorithm-design-manual -l 201 %}
-
+- **Minimum bottleneck spanning tree**: a tree that minimizes the maximum edge weight. Every minimum spanning tree has this property. {% cite algorithm-design-manual -l 201 %}
 
 ## Shortest paths
 
-The shortest path problem is the problem of finding the shortest path between two vertices (x,y) so that the sum of the edge weights is the minimum possible.
+The shortest path problem is the problem of finding the shortest path between two vertices $$(x,y)$$ so that the sum of the edge weights is the minimum possible.
 
 ### Dijkstra's algorithm
 
@@ -247,8 +246,7 @@ dijkstra(graph *g, int start) {
 
 {% cite algorithm-design-manual -l 208 %}
 
-The time complexity of Dijkstra's algorithm is O(n^2).
-
+The time complexity of Dijkstra's algorithm is $$O(n^2)$$.
 
 _Note: Dijkstra's algorithm is only correct when run on graphs with non-negative edges_ {% cite algorithm-design-manual -l 210 %}.
 
@@ -258,7 +256,7 @@ You could run Dijkstra's algorithm on a graph with weighted vertices by converti
 
 The all-pairs shortest path problem involves determining the shortest path between each pair of vertices in a graph.
 
-This could be solved by running Dijkstra's algorithm n times. An alternative is the Floyd–Warshall algorithm.
+This could be solved by running Dijkstra's algorithm $$n$$ times. An alternative is the Floyd–Warshall algorithm.
 
 ### Floyd–Warshall algorithm
 
@@ -275,11 +273,11 @@ typedef struct {
 } adjacency_matrix;
 ```
 
-For unweighted graphs, an edge between two vertices (x,y) is often represented as a 1 in `weight[x][y]` and non-edges are represented as a 1.
+For unweighted graphs, an edge between two vertices $$(x,y)$$ is often represented as a 1 in `weight[x][y]` and non-edges are represented as a 1.
 
-For weighted graphs, an edge (x,y) can be represented as the weight of the edge at `weight[x][y]`, and non-edges as infinity {% cite algorithm-design-manual -l 210 %}.
+For weighted graphs, an edge $$(x,y)$$ can be represented as the weight of the edge at `weight[x][y]`, and non-edges as infinity {% cite algorithm-design-manual -l 210 %}.
 
-The Floyd–Warshall algorithm works by storing the cost from edge (x,y) in `weight[x][y]`. The algorithm compares all possible paths through a graph between each edge by iterating over them. On each iteration, it checks the value of `weight[x][y]` with `weight[x][k] + weight[k][y]`. If the combined value of the edges (x,k) and (k,y) are lower than (x,y), then the value stored at (x,y) is replaced with the path from (x,k) to (k,y).
+The Floyd–Warshall algorithm works by storing the cost from edge $$(x,y)$$ in `weight[x][y]`. The algorithm compares all possible paths through a graph between each edge by iterating over them. On each iteration, it checks the value of `weight[x][y]` with `weight[x][k] + weight[k][y]`. If the combined value of the edges $$(x,k)$$ and $$(k,y)$$ are lower than $$(x,y)$$, then the value stored at $$(x,y)$$ is replaced with the path from $$(x,k)$$ to $$(k,y)$$.
 
 You can see an implementation of the algorithm:
 
@@ -303,7 +301,7 @@ void floyd(adjacency_matrix *g) {
 
 {% cite algorithm-design-manual -l 211 %}
 
-The Floyd–Warshall algorithm runs in O(n^3), the same as running Dijkstra's algorithm on each node. But Floyd's often has better performance than Dijkstra's in practice because the loops are so tight {% cite algorithm-design-manual -l 211 %}.
+The Floyd–Warshall algorithm runs in $$O(n^3)$$, the same as running Dijkstra's algorithm on each node. But Floyd's often has better performance than Dijkstra's in practice because the loops are so tight {% cite algorithm-design-manual -l 211 %}.
 
 (see a [video demonstration of the Floyd–Warshall algorithm](https://www.youtube.com/watch?v=4OQeCuLYj-4)).
 

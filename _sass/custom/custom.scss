@@ -10,3 +10,11 @@ figure {
 .site-footer {
   display: none;
 }
+
+.page-content a {
+  white-space: normal!important;
+}
+
+.page-content .citation {
+  white-space: nowrap!important;
+}

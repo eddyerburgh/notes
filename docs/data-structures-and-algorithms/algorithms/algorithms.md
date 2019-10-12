@@ -2,7 +2,7 @@
 layout: default
 title: Algorithms
 description: Notes on algorithms.
-nav_order: 2
+nav_order: 1
 has_children: true
 has_toc: false
 parent: Data structures and algorithms

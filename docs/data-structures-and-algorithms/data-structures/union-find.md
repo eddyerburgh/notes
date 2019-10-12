@@ -27,9 +27,9 @@ A union-find data structure (also known as a disjoint set), is used to efficient
 
 The key union-find operations are:
 
-* `make_set(x)`: make set with `x` as a member of its set.
-* `find(x)`: return the root element of `x`.
-* `union(x,y)`: combine the sets of `x` and `y`.
+- `make_set(x)`: make set with `x` as a member of its set.
+- `find(x)`: return the root element of `x`.
+- `union(x,y)`: combine the sets of `x` and `y`.
 
 Union-find represents sets as a **backwards tree**, where each node has a corresponding parent. The root node defines which set the node and all its children are in.
 

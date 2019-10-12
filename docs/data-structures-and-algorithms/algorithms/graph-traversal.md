@@ -25,7 +25,7 @@ permalink: /data-structures-and-algorithms/algorithms/graph-traversal
 
 Traversing a [graph]({{ '/data-structures-and-algorithms/data-structures/graphs' | relative_url }}) to visit every edge and vertex is a common problem {% cite algorithm-design-manual -l 161 %}.
 
-It is usually necessary to keep track of whether a vertex has been visited or not to avoid visiting vertices multiple times. This can be done by adding a flag to determine whether a vertex has been visited or not {% cite algorithm-design-manual -l 161 %}.
+It's usually necessary to keep track of whether a vertex has been visited or not to avoid visiting vertices multiple times. This can be done by adding a flag to determine whether a vertex has been visited or not {% cite algorithm-design-manual -l 161 %}.
 
 In this section, a vertex can exist in one of three states during traversal:
 
@@ -35,11 +35,11 @@ In this section, a vertex can exist in one of three states during traversal:
 
 {% cite algorithm-design-manual -l 161 %}
 
-To completely explore a vertex v, each edge leaving v must be explored. Edges that go to a discovered or processed vertex are ignored {% cite algorithm-design-manual -l 161 %}.
+To completely explore a vertex $$v$$, each edge leaving $$v$$ must be explored. Edges that go to a discovered or processed vertex are ignored {% cite algorithm-design-manual -l 161 %}.
 
 An undirected edge will be considered twice, once from each vertex. Directed edges are only considered once {% cite algorithm-design-manual -l 161 %}.
 
-This section will look at breadth-first search (BFS) and depth-first-search (DFS) algorithms.
+This section will look at breadth-first search (BFS) and depth-first-search (DFS) algorithms for traversing a graph.
 
 <!-- prettier-ignore-start -->
 *Note: the code examples work on an adjacency list, as defined in the [graphs section]({{ '/data-structures-and-algorithms/data-structures/graphs' | relative_url }}).*
@@ -49,7 +49,7 @@ This section will look at breadth-first search (BFS) and depth-first-search (DFS
 
 BFS (breadth-first search) is a common tree traversal algorithm.
 
-When BFS is run on an undirected graph, a direction is assigned to each edge from the discoverer u to the discovered v. Thus, u is denoted as the parent of v {% cite algorithm-design-manual -l 162 %}.
+When BFS is run on an undirected graph, a direction is assigned to each edge from the discoverer $$u$$ to the discovered $$v$$. Thus, $$u$$ is denoted as the parent of $$v$$ {% cite algorithm-design-manual -l 162 %}.
 
 Apart from the root node, each node has one parent. This defines a tree of the vertices in a graph {% cite algorithm-design-manual -l 162 %}.
 
@@ -80,7 +80,7 @@ BFS(G,s)
     state[u] = “processed”
 ```
 
-The following BFS implementation uses two arrays (`processed` and `discovered`) to store info about the state of a vertex (initially set to `false`). As well as a `parent` array used to store the parent of a vertex:
+The following BFS implementation uses two arrays (`processed` and `discovered`) to store information about the state of a vertex (initially set to `false`). As well as a `parent` array used to store the parent of a vertex:
 
 ```c
 bool processed[MAXV+1];
@@ -135,7 +135,7 @@ void bfs(graph *g, int start) {
 
 The behavior of BFS is defined by the functions `process_vertex_early`, `process_edge`, and `process_vertex_late` {% cite algorithm-design-manual -l 164 %}.
 
-The vertex that discovered vertex i is at `parent[i]`. Because vertices are discovered in order of increasing distance from the root node, the tree path from each node x ∈ V uses the smallest number of edges on a root-to-x path {% cite algorithm-design-manual -l 165 %}.
+The vertex that discovered vertex `i` is at `parent[i]`. Because vertices are discovered in order of increasing distance from the root node, the tree path from each node $$x\in V$$ uses the minimum number of edges on a root-to-x path {% cite algorithm-design-manual -l 165 %}.
 
 The path from a vertex can be reconstructed by following the chain of parents:
 
@@ -152,12 +152,12 @@ void find_path(int start, int end, int parents[]) {
 
 {% cite algorithm-design-manual -l 165 %}
 
-- The BFS shortest path tree from x to y is only useful if x is the root of the tree.
+- The BFS shortest path tree from $$x$$ to $$y$$ is only useful if $$x$$ is the root of the tree.
 - BFS only gives shortest path if path is unweighted.
 
 {% cite algorithm-design-manual -l 166 %}
 
-BFS runs in O(n + m) time on a graph of n-vertices and m-edges {% cite algorithm-design-manual -l 166 %}.
+BFS runs in $$O(n + m)$$ time on a graph of $$n$$ vertices and $$m$$ edges {% cite algorithm-design-manual -l 166 %}.
 
 ### Connected components
 
@@ -333,13 +333,13 @@ void dfs(graph *g, int v) {
 
 The behavior of DFS depends on when the vertex is processed. It can be either processed before outgoing edges have been traversed (`process_vertex_early`) or after they have been processed (`process_vertex_late`) {% cite algorithm-design-manual -l 172 %}.
 
-In undirected graphs, each edge (x,y) is in the adjacency list of x and y. This means there are two times to process each edge, once when exploring x and once when exploring y. Normally the first time you see an edge is the time to do processing, but sometimes you may want to perform an action when you see an edge for the second time {% cite algorithm-design-manual -l 172 %}.
+In undirected graphs, each edge $$(x,y)$$ is in the adjacency list of $$x$$ and $$y$$. This means there are two times to process each edge, once when exploring $$x$$ and once when exploring $$y$$. Normally the first time you see an edge is the time to do processing, but sometimes you may want to perform an action when you see an edge for the second time {% cite algorithm-design-manual -l 172 %}.
 
-You can tell whether an edge (x,y) has not been traversed before if y is undiscovered. You can tell that an edge has been traversed before if y is discovered but not processed. If y is discovered and is an ancestor of x (and thus in a discovered state) then it is the first time it has been traversed, unless y is an immediate ancestor of x {% cite algorithm-design-manual -l 173 %}.
+You can determine whether an edge $$(x,y)$$ has not been traversed yet if $$y$$ is undiscovered. You can determine whether an edge _has_ been traversed before if $$y$$ is discovered but not processed. If $$y$$ is discovered and is an ancestor of $$x$$ (and thus in a discovered state) then it is the first time it has been traversed, unless $$y$$ is an immediate ancestor of $$x$$ {% cite algorithm-design-manual -l 173 %}.
 
 ### Finding cycles
 
-If there is a back edge from (x, y) then a cycle exists between x and y. If there are no back edges, then there are no cycles {% cite algorithm-design-manual -l 173 %}.
+If there is a back edge from $$(x,y)$$ then a cycle exists between $$x$$ and $$y$$. If there are no back edges, then there are no cycles {% cite algorithm-design-manual -l 173 %}.
 
 You can check for cycles with dfs by modifying `process_edge`:
 
@@ -366,7 +366,7 @@ The **connectivity** of a graph is the smallest number of vertices whose deletio
 
 A **bridge** is a single edge whose deletion would disconnect the graph. A graph without a bridge edge is **edge-biconnected** {% cite algorithm-design-manual -l 177 %}.
 
-You can use DFS to check for articulation vertices in linear time. Note that a back edge from x to y ensures that none of the vertices on the path from x to y are articulation vertices. Finding articulation vertices requires maintaining the extent to which back edges link chunks of the DFS tree back to ancestor nodes {% cite algorithm-design-manual -l 174-5 %}.
+You can use DFS to check for articulation vertices in linear time. Note that a back edge from $$x$$ to $$y$$ ensures that none of the vertices on the path from $$x$$ to $$y$$ are articulation vertices. Finding articulation vertices requires maintaining the extent to which back edges link chunks of the DFS tree back to ancestor nodes {% cite algorithm-design-manual -l 174-5 %}.
 
 Let `reachable_ancestors[v]` denote the earliest reachable ancestor of vertex v. Initially, `reachable_ancestors[v] = v`:
 
@@ -401,8 +401,8 @@ void process_edge(int x, int y) {
 There are three cases of articulation vertices:
 
 1. Root cut-nodes. If the root of a DFS tree has two or more children then it must be an articulation vertex.
-2. Bridge cut-nodes. If the earliest reachable vertex from v is v, then deleting the edge (parent[v], v) would disconnect the graph.
-3. Parent cut-nodes. If the earliest reachable vertex from v is the parent of v, then the parent of v is an articulation vertex (unless the parent of v is the root).
+2. Bridge cut-nodes. If the earliest reachable vertex from $$v$$ is $$v$$, then deleting the edge $$(parent[v], v)$$ would disconnect the graph.
+3. Parent cut-nodes. If the earliest reachable vertex from $$v$$ is the parent of $$v$$, then the parent of $$v$$ is an articulation vertex (unless the parent of $$v$$ is the root).
 
 {% cite algorithm-design-manual -l 176 %}
 
