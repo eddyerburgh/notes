@@ -19,10 +19,10 @@ Writing notes helps me retain the knowledge I gain from reading books, papers, a
 - Computer networking
 - Data structures and algorithms
 - Operating systems
+- Distributed systems
 
 ## Future Topics
 
-- Distributed systems
 - Computer architecture
 - Compilers
 - Software design
