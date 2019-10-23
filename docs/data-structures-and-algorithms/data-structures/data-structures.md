@@ -26,9 +26,19 @@ This section is an overview of data structures.
 
 ## Introduction
 
-A data structures is a representation of data and a collection of associated operations {% cite open-data-structures -l 5 %}.
+A data structure is a representation of data and a collection of associated operations {% cite open-data-structures -l 5 %}.
 
 Data structures affect how long it takes to access and update data. There are many data structures to choose from, each with their own costs and benefits.
+
+Data structures are implementations of **abstract data types** {% cite open-data-structures -l 4 %}.
+
+### Abstract data types
+
+ADTs (Abstract Data Types) define the set of operations supported by a data structure {% cite open-data-structures -l 4 %}.
+
+An ADT is the interface of a data structure, it doesn't define how a data structure implements the operations {% cite open-data-structures -l 4 %}.
+
+There can be many implementations of an ADT {% cite open-data-structures -l 4 %}.
 
 ## Contiguous vs Linked data structures
 
