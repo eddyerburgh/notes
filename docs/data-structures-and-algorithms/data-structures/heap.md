@@ -23,9 +23,9 @@ permalink: /data-structures-and-algorithms/data-structures/heap
 
 ## Introduction
 
-Heaps are a data structure for supporting the priority queue operations `insert` and `extract-min`. Heaps maintain a partial order of elements that is weaker than sorted order, but stronger than random order {% cite algorithm-design-manual -l 109 %}.
+Heaps are a data structure for supporting the priority queue operations `insert` and `extract_min`. Heaps maintain a partial order of elements that is weaker than sorted order, but stronger than random order {% cite algorithm-design-manual -l 109 %}.
 
-A heap is represented as a tree. A heap-labelled tree is a binary tree where the key labelling of each node _dominates_ each of its children. In a min-heap, a node dominates its children by holding a smaller key than its children. In a max-heap tree, a node dominates its children by holding a larger key than its children {% cite algorithm-design-manual -l 110 %}.
+A heap-labelled tree is a binary tree where the key labelling of each node _dominates_ each of its children. In a min-heap, a node dominates its children by holding a smaller key than its children. In a max-heap tree, a node dominates its children by holding a larger key than its children {% cite algorithm-design-manual -l 110 %}.
 
 In a min-heap tree, the root node is always the node with the lowest value.
 
@@ -40,9 +40,9 @@ The root of the tree is the first position in the array. Its left and right sub 
   <figcaption><h4>Figure: A min-heap with its representation as an array {% cite algorithm-design-manual -l 110 %}</h4></figcaption>
 </figure>
 
-the 2^l keys of the lth level will be stored at 2^l−1 to 2^l - 1 respectively {% cite algorithm-design-manual -l 110 %}.
+the $$2^l$$ keys of the $$l$$th level will be stored at $$2^{l−1}$$ to $$2^l - 1$$ respectively {% cite algorithm-design-manual -l 110 %}.
 
-_Note: The index starts at index 1 to simplify calculations._
+_Note: The index starts at 1 to simplify calculations._
 
 A heap can be represented as a structure with an array and a number value:
 
@@ -55,7 +55,7 @@ typedef struct {
 
 {% cite algorithm-design-manual -l 110 %}
 
-The good thing about this format is that the position of the children at a key position k can be worked out easily. The left child of k sits at 2k, the right at 2k + 1. The parent of k holds position n/2:
+The good thing about this format is that the position of the children at a key position $$k$$ can be worked out easily. The left child of $$k$$ sits at $$2k$$, the right at $$2k + 1$$. The parent of $$k$$ holds position $$n/2$$:
 
 ```c
 int pq_parent(int n) {
@@ -75,7 +75,7 @@ int pq_young_child(int n) {
 
 ## Constructing a heap
 
-Heaps can be built by inserting each element into the left-most open spot in the array (n + 1). this ensures a tree remains balanced, but it does not guarantee the dominance order of the keys {% cite algorithm-design-manual -l 112 %}.
+Heaps can be built by inserting each element into the left-most open spot in the array ($$n + 1$$). this ensures a tree remains balanced, but it does not guarantee the dominance order of the keys {% cite algorithm-design-manual -l 112 %}.
 
 The solution for ensuring a dominance relation is to swap any unsatisfied element with its parent. The other child is still dominated, because the new parent's value is even higher/ lower than the previous element's value {% cite algorithm-design-manual -l 112 %}.
 
@@ -105,7 +105,7 @@ void bubble_up(priority_queue *q, int p) {
 
 {% cite algorithm-design-manual -l 112 %}
 
-The swap takes constant time at each level. Since the height of a heap is log n, the max insert will take O(log n). In other words, a heap of n elements can be constructed in O(nlog n) time:
+The swap takes constant time at each level. Since the height of a heap is $$log n$$, the max insert will take $$O(log n)$$. In other words, a heap of $$n$$ elements can be constructed in $$O(nlog n)$$ time:
 
 ```c
 void make_heap(priority_queue *q, item_type s[], int n) {
@@ -168,7 +168,7 @@ void bubble_down(priority_queue *q, int p) {
 
 {% cite algorithm-design-manual -l 113 %}
 
-This process takes in the worst case O(log n).
+This process takes in the worst case $$O(log n)$$.
 
 ## References
 
