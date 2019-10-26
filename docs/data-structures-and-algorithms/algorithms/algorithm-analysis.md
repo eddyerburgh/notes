@@ -104,9 +104,9 @@ There are a few common classes:
 | Notation | Name        | Description    |
 | -------- | ----------- | -------------  |
 | $$O(1)$$     | Constant    | No matter the size of the input, the algorithm will take the same amount of time to complete. |
-| $$O(log_n)$$ | Logarithmic | Logarithmic algorithms grow slowly because they halve the amount of data they work with on each iteration. For example, [binary search](https://en.wikipedia.org/wiki/Binary_search_algorithm). |
+| $$O(log n)$$ | Logarithmic | Logarithmic algorithms grow slowly because they halve the amount of data they work with on each iteration. For example, [binary search](https://en.wikipedia.org/wiki/Binary_search_algorithm). |
 | $$O(n)$$     | Linear      | Linear algorithms grow linearly with n. For example an algorithm to calculate the exponent of a number by multiplying a value n times in a loop. |
-| $$O(nlog_n)$$ | Superlinear | Superlinear algorithms grow just a little faster than linear algorithms. Common sorting algorithms like Mergesort and Quicksort run in superlinear time. |
+| $$O(nlog n)$$ | Superlinear | Superlinear algorithms grow just a little faster than linear algorithms. Common sorting algorithms like Mergesort and Quicksort run in superlinear time. |
 | $$O(n^2)$$    | Quadratic   | Quadratic algorithms run slowly. An example is an algorithm that checks for duplicates in an array by looping over each element, and then looping over every other element to check for matches. |
 | $$O(2^n)$$ | Exponential | Exponential algorithms are very slow. An example is a recursive algorithm to find the nth term of the fibonacci sequence. |
 | $$O(n!)$$ | Factorial | Factorial algorithms quickly become useless. They occur when generating all permutations of n {% cite algorithm-design-manual -l 39 %}.|

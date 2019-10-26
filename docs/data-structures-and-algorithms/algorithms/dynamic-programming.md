@@ -190,7 +190,7 @@ def lengthOfLIS(self, nums):
     return longest
 ```
 
-_Note: there are improved $$O(nlog_n)$$ solutions to this problem. For example, see this [Leetcode longest increasing substring solution](<https://leetcode.com/problems/longest-increasing-subsequence/discuss/74824/JavaPython-Binary-search-O(nlogn)-time-with-explanation>)._
+_Note: there are improved $$O(nlog n)$$ solutions to this problem. For example, see this [Leetcode longest increasing substring solution](<https://leetcode.com/problems/longest-increasing-subsequence/discuss/74824/JavaPython-Binary-search-O(nlogn)-time-with-explanation>)._
 
 ## References
 
