@@ -115,7 +115,7 @@ There are a few common classes:
 
 You can see the growth rate of the common classes in the following table:
 
-| $$f(n)$$        | $$lg_n$$      | $$n$$        | $$nlg_n$$      | $$n^2$$                  | $$2_n$$       | $$n!$$             |
+| $$f(n)$$      | $$lg_n$$ | $$n$$    | $$nlg_n$$ | $$n^2$$             | $$2_n$$  | $$n!$$         |
 | ------------- | -------- | -------- | --------- | ------------------- | -------- | -------------- |
 | 10            | 0.003 μs | 0.01 μs  | 0.033 μs  | 0.1 μs              | 1 μs     | 3.63 ms        |
 | 20            | 0.004 μs | 0.02 μs  | 0.086 μs  | 0.4 μs              | 1 ms     | 77.1 years     |
