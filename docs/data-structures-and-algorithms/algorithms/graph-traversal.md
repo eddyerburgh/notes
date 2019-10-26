@@ -25,13 +25,13 @@ permalink: /data-structures-and-algorithms/algorithms/graph-traversal
 
 Traversing a [graph]({{ '/data-structures-and-algorithms/data-structures/graphs' | relative_url }}) to visit every edge and vertex is a common problem {% cite algorithm-design-manual -l 161 %}.
 
-It's usually necessary to keep track of whether a vertex has been visited or not to avoid visiting vertices multiple times. This can be done by adding a flag to determine whether a vertex has been visited or not {% cite algorithm-design-manual -l 161 %}.
+It's usually necessary to keep track of whether a vertex has been visited or not to avoid visiting vertices multiple times. This can be using a flag {% cite algorithm-design-manual -l 161 %}.
 
 In this section, a vertex can exist in one of three states during traversal:
 
 1. Undiscovered. The vertex has not been visited.
 2. Discovered. The vertex has been visited but all its incident edges have not yet been visited.
-3. Processed. The vertex and all of its incident edges have been visited.
+3. Processed. The vertex and all its incident edges have been visited.
 
 {% cite algorithm-design-manual -l 161 %}
 
