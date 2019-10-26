@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Trees
-description: Notes on search trees.
+description: Notes on trees.
 has_toc: false
 parent: Data structures
 grand_parent: Data structures and algorithms
