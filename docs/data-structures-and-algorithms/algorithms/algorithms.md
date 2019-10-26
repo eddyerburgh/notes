@@ -24,7 +24,7 @@ permalink: /data-structures-and-algorithms/algorithms
 
 ## Introduction
 
-An algorithm is a procedure that takes input and produces output that accomplishes a specific task {% cite algorithm-design-manual -l 3 %}.
+An algorithm is a procedure that takes input and produces output to accomplish a specific task {% cite algorithm-design-manual -l 3 %}.
 
 An algorithm should solve a general, well-specified problem. A specification for an algorithm should include the complete set of instances it will operate on, and the algorithm's output after running on one of these instances {% cite algorithm-design-manual -l 3 %}.
 
@@ -82,11 +82,11 @@ Good counter-examples are verifiable and simple {% cite algorithm-design-manual 
 
 Failure to prove an algorithm as incorrect does not make it correct. **Mathematical induction** is a common method to prove the correctness of an algorithm.
 
-The way to prove a predicate (P) through induction is to:
+The way to prove a predicate $$P$$ through induction is to:
 
-- Prove the case P(0)
-- Assume that P(k) is true
-- Prove P(k+1)
+- Prove the case $$P(0)$$
+- Assume that $$P(k)$$ is true
+- Prove $$P(k+1)$$
 
 _see this [video teaching proof by induction](https://www.youtube.com/watch?v=wblW_M_HVQ8) for further explanation_
 
@@ -94,7 +94,7 @@ _see this [video teaching proof by induction](https://www.youtube.com/watch?v=wb
 
 Summations are common in algorithm analysis.
 
-Sigma notation is a way of expressing summation formulas. For example, the sum of 1 to n in sigma notation is:
+Sigma notation is a way of expressing summation formulas. For example, the sum of 1 to $$n$$ in sigma notation is:
 
 $$\sum_{i=1}^{n} i$$
 
