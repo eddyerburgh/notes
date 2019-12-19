@@ -27,61 +27,59 @@ ARP (Address Resolution Protocol) is a protocol for translating network addresse
 
 ARP maps a \<protocol, address\> pair to a link layer address {% cite rfc826 %}.
 
-ARP builds and maintains a table of \<protocol type, sender protocol address, sender hardware address\>, which is used to resolve addresses quickly.
+To resolve addresses quickly, ARP builds and maintains a **translation table** with entries containing the protocol type, sender protocol address, and sender hardware address.
 
 ## Address resolution
 
-Most commonly, ARP is used to translate an IPv4 address to a MAC address.
-
 When a host wants to translate an IPv4 address to a MAC address, the host calls the Address Resolution module. The Address Resolution module checks its table for the \<protocol type, target protocol address\> pair. If the table contains the mapping, it will return the MAC address for the IPv4 address.
 
-If the Address Resolution module unable to find the pair, it must send an ARP request packet. In this case, the host will broadcast an ARP request packet over Ethernet {% cite rfc826 %}.
+If the Address Resolution module is unable to find the pair, it must send an ARP request packet. In this case, the host will broadcast an ARP request packet over Ethernet {% cite rfc826 %}.
 
-Each host on the LAN will check to see if their address matches the target IP address in the ARP request. If a host has the target protocol address, it updates its table with the details of the request sender, and sends an ARP reply to the sender {% cite rfc826 %}.
+Each host on the LAN will check to see if their address matches the target IP address in the ARP request. If a host is assigned the target protocol address, it updates its table with the details of the request sender, and sends an ARP reply to the sender {% cite rfc826 %}.
 
 ## ARP format
 
 ARP packets are sent in Ethernet frames, with the protocol version set to ARP {% cite rfc826 %}.
 
-An ARP packet comes in two forms: request and reply. Both share the same format:
+There are two types of ARP packets: request and reply. Both share the same format.
 
 ```
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |         Hardware type         |         Protocol type         |
+   |         Hardware Type         |         Protocol Type         |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |      HAL      |      PAL      |           Operation           |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                    Sender hardware Address                    |
+   |                    Sender Hardware Address                    |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                    Sender protocol Address                    |
+   |                    Sender Protocol Address                    |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                    Target hardware Address                    |
+   |                    Target Hardware Address                    |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                    Target protocol Address                    |
+   |                    Target Protocol Address                    |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ```
 
 In ARP, a **protocol address** is the address of the protocol that is being resolved (e.g. IPv4). The **hardware address** is the address of the link layer protocol (e.g. Ethernet).
 
-The _Hardware type_ field specifies the hardware protocol type (Ethernet is 1).
+The _Hardware Type_ field specifies the hardware protocol type (Ethernet is `1`).
 
-_Protocol type_ specifies the protocol type of the protocol addresses (IPv4 is 0x0800).
+_Protocol Type_ specifies the protocol type of the protocol addresses (IPv4 is `2048`).
 
-_HAL_ (Hardware address length) is the length in octets of the hardware address.
+_HAL (Hardware Address Length)_ is the length of the hardware address in octets.
 
-_PAL_ (Protocol address length) is the length in octets of the protocol address.
+_PAL (Protocol Address Length)_ is the length of the protocol address in octets.
 
-_Operation_ is the operation that the sender is performing. _request_ is 1, _reply_ is 2.
+_Operation_ is the operation that the sender is performing. Request is `1`, reply is `2`.
 
-_Sender hardware address_ is the hardware address of the sender. In a reply, this is the hardware address of the host that the original sender was looking for.
+_Sender Hardware Address_ is the hardware address of the sender. In a reply, this is the hardware address of the host that the original sender was looking for.
 
-_Sender protocol address_ is the protocol address of the sender.
+_Sender Protocol Address_ is the protocol address of the sender.
 
-_Target hardware address_ is the hardware address of the target protocol address. This is blank when the sender sends a request.
+_Target Hardware Address_ is the hardware address of the target protocol address. This is blank when the sender sends a request.
 
-_Target protocol address_ is the protocol address that is being resolved.
+_Target Protocol Address_ is the protocol address that is being resolved.
 
 {% cite rfc826 %}
 
