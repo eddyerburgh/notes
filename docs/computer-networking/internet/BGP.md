@@ -13,11 +13,9 @@ permalink: /computer-networking/internet/bgp
 # BGP
 {:.no_toc}
 
-BGP is a protocol for sharing IP route information between administrative zones known as _autonomous systems_.
+BGP (Border Gateway Protocol) is a protocol for sharing IP route information between administrative zones known as _autonomous systems_.
 
-It was mainly created to help large network operators, like ISPs, apply routing policies to selectively allow and disallow traffic from other networks.
-
-Misconfigured BGP can have catastrophic consequences. In 2008 YouTube became unreachable to most of the Internet for a day because of a botched attempt to block YouTube in Pakistan by an ISP.
+BGP was created mainly to help large network operators, like ISPs, apply routing policies to selectively allow and disallow traffic from other networks.
 
 ## Table of contents
 {: .no_toc }
@@ -29,9 +27,9 @@ Misconfigured BGP can have catastrophic consequences. In 2008 YouTube became unr
 
 ## Autonomous systems
 
-Autonomous systems (ASes) are collections of connected routers managed by a single organization, for example an ISP, or a large company like Amazon. The Internet is made up of ASes that route traffic internally and externally between each other.
+**Autonomous systems** (ASes) are collections of connected routers managed by a single organization, for example an ISP, or a large company like Amazon. The Internet is made up of ASes that route traffic internally and externally between each other.
 
-IP routers are responsible for the next hop an IP packet takes. In order to know where to forward a request to, IP routers need to share route information with each other. ASes use Interior Gateway Protocols (IGPs), like [RIP](https://en.wikipedia.org/wiki/Routing_Information_Protocol) and [OSPF](https://en.wikipedia.org/wiki/Open_Shortest_Path_First), to share route information within their AS, and Exterior Gateway Protocols (EGPs) to share routing information with other ASes {% cite internet-routing-architecture %}.
+IP routers are responsible for the next hop an IP packet takes. In order to know where to forward a request to, IP routers need to share route information with each other. ASes use IGPs (Interior Gateway Protocols), like [RIP](https://en.wikipedia.org/wiki/Routing_Information_Protocol) and [OSPF](https://en.wikipedia.org/wiki/Open_Shortest_Path_First), to share route information within their AS, and EGPs (Exterior Gateway Protocols) to share routing information with other ASes {% cite internet-routing-architecture %}.
 
 <figure>
   <img src="{{site.baseurl}}/assets/img/computer-networking/internet/bgp/autonomous-systems.svg" alt="">
@@ -50,14 +48,14 @@ ASes can be categorized based on how they interact with other ASes.
 
 ### Single-homed ASes
 
-Single-homed ASes only connect to one other AS via a single exit.
+Single-homed ASes connect to another AS via a single exit.
 
 <figure>
   <img src="{{site.baseurl}}/assets/img/computer-networking/internet/bgp/single-homed-as.svg" alt="">
   <figcaption><h4>Figure: A single-homed AS {% cite internet-routing-architecture %}</h4></figcaption>
 </figure>
 
-Single-homed ASes can be given a number from the private range of AS numbers {% cite internet-routing-architecture -l 97%}. Private AS numbers should not be sent in the AS path list because they are not unique, so they should be stripped by the provider {% cite internet-routing-architecture -l 156-7%}.
+Single-homed ASes can be given a number from the private range of AS numbers {% cite internet-routing-architecture -l 97%}.
 
 ### Multi-homed ASes
 
@@ -70,9 +68,9 @@ A multi-homed AS has at least two exit points to outside world. A non-transit AS
 
 ## BGP4 protocol
 
-BGP works by establishing connections to other BGP routers, known as **BGP peers**. BGP peers initially send all their routing information to each other and then send UPDATE messages periodically with any routing changes. A BGP router receives UPDATE messages and uses them to rebuild its IP routing table.
+BGP works by establishing connections to other BGP routers, known as BGP peers. **BGP peers** initially send all their routing information to each other and then send UPDATE messages periodically with any routing changes. A BGP router receives UPDATE messages and uses them to rebuild its IP routing table.
 
-If a route becomes unreachable or a better path becomes available, BGP routers resend information. Withdrawn routes are included in the UPDATE messages.
+If a route becomes unreachable or a better path becomes available, BGP routers resend information.
 
 Most of the complexity in BGP comes from the BGP decision process: the process used to decide which routes should be used when a BGP router receives multiple possible routes for a single prefix. BGP uses different metrics to determine which routes should be preferred, such as the number of ASes that a route passes through {% cite Caesar:2005:BRP %}.
 
@@ -86,15 +84,15 @@ Routers running iBGP are called transit routers, routers performing eBGP are kno
 
 ### Neighbor negotiation
 
-When a BGP peer is started it must first connect to its neighbors. Neighbors establish a TCP connection on port 179, and then send an OPEN message containing information to create the connection, like the BGP identifier (the senders ID) and the Hold time.
+When a BGP peer is started it must first connect to its neighbors. Neighbors establish a TCP connection on port 179, and then send an OPEN message containing information to create the connection, such as the BGP identifier (the senders ID) and the hold time.
 
-The Hold time is the maximum time that can elapse between keepalive messages before a neighbor is considered dead. BGP peers use whichever is the lower value of the two peers. A value of 0 means there's no timeout and the connection is always considered up {% cite internet-routing-architecture %}.
+The **hold time** is the maximum time that can elapse between keepalive messages before a neighbor is considered dead. BGP peers use whichever is the lower value of the two peers. A value of 0 means there's no timeout and the connection is always considered up {% cite internet-routing-architecture %}.
 
 During neighbor session establishment, peer routers determine whether they are in the same AS by inspecting the AS Number.
 
 ### Errors
 
-NOTIFICATION messages are sent when an error is detected. These are normally errors in the format of a received message, like Bad Peer AS, Unacceptable Hold Time, or Malformed Attribute List.
+NOTIFICATION messages are sent when an error is detected. These are normally errors in the format of a received message, like `Bad Peer AS`, `Unacceptable Hold Time`, or `Malformed Attribute List`.
 
 ### UPDATE message
 
@@ -120,9 +118,9 @@ An UPDATE message contains the BGP header, as well as the following content:
 
 {% cite rfc4271 -l 14 %}
 
-The Withdrawn Routes length tells the receiving BGP speaker the total length of the Withdrawn routes field (in octets).
+_Withdrawn Routes Length_ tells the receiving BGP speaker the total length of the _Withdrawn Routes_ field (in octets).
 
-Each Withdrawn route entry is a variable length field which includes the length of the prefix in bits, and the prefix that is being withdrawn:
+Each _Withdrawn Route_ entry is a variable length field which includes the length of the prefix in bits, and the prefix that is being withdrawn:
 
 ```
                   +---------------------------+
@@ -134,17 +132,17 @@ Each Withdrawn route entry is a variable length field which includes the length 
 
 {% cite rfc4271 -l 14 %}
 
-The Total Path Attribute Length field tells the receiving BGP speaker the total length of the Path Attributes field (in octets).
+_Total Path Attribute Length_ tells the receiving BGP speaker the total length of the _Path Attributes_ field (in octets).
 
-The Path Attributes field contains BGP attributes like the ORIGIN attribute that defines the origin of the route information.
+_Path Attributes_ contains BGP attributes like the ORIGIN attribute that defines the origin of the route information.
 
-The final part is the Network layer reachability information (NLRI). The total length of the field isn't included explicitly in the message, but it can be calculated using the UPDATE message length and the other length fields.
+The final part is the _Network Layer Reachability Information_. The total length of the field isn't included explicitly in the message, but it can be calculated using the UPDATE message length and the other length fields.
 
 ### NLRI
 
-Network layer reachability information (NLRI) is an indication of networks that are advertised.
+**NLRI** (Network layer reachability information) is an indication of networks that are advertised.
 
-NLRI contain a Length field, which contains the length of the Prefix field in bits. The Prefix field contains an IP prefix.
+NLRI contain a _Length_ field, which contains the length of the _Prefix_ field in bits. The _Prefix_ field contains an IP prefix.
 
 ```
                   +---------------------------+
@@ -187,17 +185,17 @@ AN AS_PATH is made up of either AS_SEQUENCEs or AS_SETs.
 
 An AS_SEQUENCE is an ordered set of ASes that have been traversed {% cite internet-routing-architecture -l 154 %}, an AS_SET is an unordered list of ASes that have been traversed {% cite internet-routing-architecture -l 158 %}.
 
-The reason for AS_SET is for routers that perform route aggregation. A router that performs route aggregation considers itself the origin of that aggregate, which isn't always true. AS_SET is used to provide full information so that routes that fall within the aggregate can be routed correctly {% cite internet-routing-architecture -l 158-9 %}.
+AS_SET is intended for routers that perform route aggregation. A router that performs route aggregation considers itself the origin of that aggregate, which isn't always true. AS_SET is used to provide full information so that routes that fall within the aggregate can be routed correctly {% cite internet-routing-architecture -l 158-9 %}.
 
 A 2011 RFC recommends not using AS_SET due to the complexity, and instead to only advertise aggregates that are less specific than routes existing in a BGP speakers IP table {% cite rfc6472 -l 2 %}.
 
 **LOCAL_PREF**
 
-The LOCAL_PREF attribute is an optional attribute can be used in iBGP to set a common exit point for routes. LOCAL_PREF is a numeric value. LOCAL_PREF can be used to ensure traffic uses a high speed link {% cite internet-routing-architecture -l 161-2 %}.
+The LOCAL_PREF attribute is an optional attribute can be used in iBGP to set a common exit point for routes. LOCAL_PREF is a numeric value, and it can be used to ensure traffic uses a high speed link {% cite internet-routing-architecture -l 161-2 %}.
 
 **MULTI_EXIT_DISC**
 
-MULTI_EXIT_DISC (MED) is an optional attribute that can be used to hint at the preferred path to a neighbor for entry to an AS that has multiple entries. It's passed on to neighboring ASes once but is reset to 0 before being sent to others {% cite internet-routing-architecture -l 162-3 %}.
+MED (MULTI_EXIT_DISC) is an optional attribute that can be used to hint at the preferred path to a neighbor for entry to an AS that has multiple entries. It's passed on to neighboring ASes once but is reset to 0 before being sent to others {% cite internet-routing-architecture -l 162-3 %}.
 
 By default BGP peers only compare the MED value for paths from external neighbors in the same AS {% cite internet-routing-architecture -l 163 %}.
 
@@ -211,20 +209,20 @@ There are well known COMMUNITIES values like NO_EXPORT and NO_ADVERTISE that are
 
 The ORIGIN attribute is a mandatory attribute generated by the speaker that originates the routing information. There are three possible origins:
 
-- IGP: NLRI is interior to the originating AS
-- EGP: NLRI is learned via EGP
-- INCOMPLETE: NLRI is learned by some other means
+- IGP: NLRI is interior to the originating AS.
+- EGP: NLRI is learned via EGP.
+- INCOMPLETE: NLRI is learned by some other means.
 
-BGP sometimes uses the ORIGIN value in its decision making process. It chooses the path with the lowest ORIGIN value. IGP is the lowest value, EGP second lowest, and INCOMPLETE is highest {% cite internet-routing-architecture -l 167 %}.
+BGP sometimes uses the ORIGIN value in its decision process. When comparing ORIGIN, BGP chooses the path with the lowest ORIGIN value. IGP is the lowest value, EGP second lowest, and INCOMPLETE is highest {% cite internet-routing-architecture -l 167 %}.
 
-### BGP decision making process
+### BGP decision process
 
 The BGP decision process is used to determine which route to advertise if there are multiple routes for the same destination.
 
 The rules are:
 
 - Route is ignored if next hop is inaccessible
-- Prefer route with largest LOCAL_PREFERENCE if different
+- Prefer route with largest LOCAL_PREF if different
 - Prefer routes originated by this router if exists
 - Prefer route with shortest AS_PATH if different
 - Prefer route with lowest ORIGIN value if different
@@ -241,15 +239,15 @@ One of the roles of BGP speakers is to advertise routing information from their 
 
 Dynamically injected routes can be added from the ASes IGP routes. If a network stops advertising the dynamically injected routes itself then the routes will be removed from routing tables {% cite internet-routing-architecture -l 133 %}.
 
-Misconfigured dynamic routing could cause inefficiencies where learned routes are advertised from multiple ASes. In the Cisco BGP implementation, external OSPF routes are blocked automatically from being distributed by BGP. Advertising an entire IGP table through BGP could cause leaked private information {% cite internet-routing-architecture -l 134-5 %}.
+Misconfigured dynamic routing could cause inefficiencies where learned routes are advertised from multiple ASes. In the Cisco BGP implementation, external OSPF routes are blocked automatically from being distributed by BGP {% cite internet-routing-architecture -l 134-5 %}.
 
-Unstable fluctuating routes are removed from being advertised by route dampening if they are unstable {% cite internet-routing-architecture -l 136 %}.
+Fluctuating routes are removed from being advertised by route dampening {% cite internet-routing-architecture -l 136 %}.
 
 Static routing is where routes to destinations are listed manually in the server. Static routing is the most effective way to provide route stability because the route will not be removed by dampening if it fluctuates too much {% cite internet-routing-architecture -l 137 %}.
 
 ### Filtering
 
-Filtering can be done on inbound or outbound routes to control prefixes that are received from neighbors and to control which prefixes should be advertised to neighbors. Filtered roots often have attributes manipulated to affect the decision making process {% cite internet-routing-architecture -l 169-70 %}.
+Filtering can be done on inbound or outbound routes to control prefixes that are received from neighbors and to control which prefixes should be advertised to neighbors. Filtered roots often have attributes manipulated to affect the decision process {% cite internet-routing-architecture -l 169-70 %}.
 
 Routes can be filtered based on IP prefix, AS originator, or BGP attributes. Routes can either be permitted or denied {% cite internet-routing-architecture -l 171 %}.
 
@@ -268,7 +266,7 @@ BGP policies can be divided into four classes:
 
 ### Business relationship policies
 
-Business relationships can be either customer-peer where a customer pays a peer AS administrator to forward its traffic, or peer-peer where two ISPs agree to route traffic for each other {% cite Caesar:2005:BRP %}.
+Business relationships can be either **customer-peer** where a customer pays a peer AS administrator to forward its traffic, or **peer-peer** where two ISPs agree to route traffic for each other {% cite Caesar:2005:BRP %}.
 
 Backup relationships are where ISPs have backup links between each other that are only be used in the case of link failure.
 
@@ -323,26 +321,26 @@ Using iBGP requires all routers to be in a full mesh. This can be a performance 
   <figcaption><h4>Figure: A route reflector {% cite internet-routing-architecture %}</h4></figcaption>
 </figure>
 
-When talking about route reflectors, clients are routers connected to the reflector. iBGP peers of a route reflector are either clients or non clients. A route reflector and its clients are known as a cluster {% cite internet-routing-architecture -l 256 %}.
+When talking about route reflectors, clients are routers connected to the reflector. iBGP peers of a route reflector are either clients or non-clients. A route reflector and its clients are known as a cluster {% cite internet-routing-architecture -l 256 %}.
 
 A reflector must observe the following rules:
 
-- Routes from non client peers are reflected to clients only
-- Routes from client peers are reflected to all clients and non clients except the client that sent the routes
-- Routes received from eBGP peers are sent to all clients and non clients
+- Routes from non-client peers are reflected to clients only.
+- Routes from client peers are reflected to all clients and non-clients, except the client that sent the routes.
+- Routes received from eBGP peers are sent to all clients and non-clients.
   {% cite internet-routing-architecture -l 257 %}
 
 The reflector should be duplicated and clients should be connected physically to multiple reflectors to ensure redundancy {% cite internet-routing-architecture -l 257 %}.
 
 Misconfigured route reflectors can result in routing loops. Route reflectors should not manipulate attributes in iBGP as this can lead to routing loops {% cite internet-routing-architecture -l 259 %}.
 
-In traditional BGP the AS_PATH attribute is used to avoid routing loops that reenter an AS. With RRs there is the possibility that a route will reenter a cluster. You can avoid routing loops in iBGP when using route reflector by using the CLUSTER_LIST attribute, which contains list of all cluster IDs that the update has been through. If a route has already passed through the cluster, the route reflector will drop the updates. You can also use an ORIGINATOR_ID attribute which is an non-transitive BGP attribute. If a router receives an update that originated from itself it will drop the update {% cite internet-routing-architecture -l 261 %}.
+In traditional BGP the AS_PATH attribute is used to avoid routing loops that reenter an AS. With RRs there is the possibility that a route will reenter a cluster. You can avoid routing loops in an RR setup by using the CLUSTER_LIST attribute, which contains a list of all cluster IDs that the update has been through. If a route has already passed through the cluster, the route reflector will drop the updates. You can also use an ORIGINATOR_ID attribute which is an non-transitive BGP attribute. If a router receives an update that originated from itself it will drop the update {% cite internet-routing-architecture -l 261 %}.
 
 ### Confederations
 
 Confederations are another way of handling a large iBGP mesh {% cite internet-routing-architecture -l 263 %}.
 
-A confederation is where an AS is split into multiple sub-ASes that interact with each other using eBGP, but internally use iBGP. A confederation behaves like a single AS to outside peers {% cite internet-routing-architecture -l 263 %}.
+A confederation is where an AS is split into multiple sub-ASes that interact with each other using eBGP, and internally use iBGP. A confederation behaves like a single AS to outside peers {% cite internet-routing-architecture -l 263 %}.
 
 <figure>
   <img src="{{site.baseurl}}/assets/img/computer-networking/internet/bgp/bgp-confederation.svg" alt="">
@@ -353,7 +351,7 @@ The problem with confederations is that they can lead to suboptimal routing. Bec
 
 In order to have an AS behave as single entity the sub ASes use iBGP rules even though they use eBGP to communicate between each other {% cite internet-routing-architecture -l 265 %}.
 
-The BGP decision algorithm is the same in confederations except there is a new type of route-a confederation external route. A confederation external route is preferred below an eBGP route but above an iBGP rote {% cite internet-routing-architecture -l 265-6 %}.
+The BGP decision algorithm is the same in confederations except there is a new type of route: a confederation external route. A confederation external route is preferred below an eBGP route but above an iBGP route {% cite internet-routing-architecture -l 265-6 %}.
 
 ## References
 
