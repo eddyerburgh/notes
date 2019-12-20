@@ -25,19 +25,19 @@ OSPF is a protocol for sharing IP route information within an autonomous system 
 
 ## Introduction
 
-OSPF converts networks, routers, and links into a directed graph. Each arc is assigned a weight by a network administrator. A point-to-point connection between two routers is represented by a pair of arcs, one in each direction {% cite computer-networking-top-down -l 388 %}.
+OSPF converts networks, routers, and links into a directed graph. Each edge is assigned a weight by a network administrator. A point-to-point connection between two routers is represented by a pair of edges, one in each direction {% cite computer-networking-top-down -l 388 %}.
 
-If multiple paths are equally short, OSPF splits traffic across the set. This is called **ECMP** (equal cost multipath).
+If multiple paths are equally short, OSPF splits traffic across the set. This is called **ECMP** (Equal Cost Multipath).
 
 ## Areas
 
-In OSPF, an AS can be broken into numbered areas to help improve scalability. Areas can't overlap, but they don't need to include every router—a router can belong to no area {% cite computer-networks -l 476 %}.
+In OSPF, an AS can be broken into numbered areas to help improve scalability. Areas can't overlap, but they don't need to include every router {% cite computer-networks -l 476 %}.
 
 Routers that exist entirely inside an area are known as **internal routers**. To routers outside an area, an area's destinations are visible, but not its topology {% cite computer-networks -l 476 %}.
 
 Every AS has an a **backbone area** (area 0). Routers in the backbone area are called **backbone routers**. All areas are connected to the backbone (possibly by tunnels), so you can get from any area in an AS to any other via the backbone {% cite computer-networks -l 476 %}.
 
-A router connected to two or more areas is called an **area border router**. An area border router summarizes the destinations in one area, and injects the summary to the other areas. The summary contains cost information, but not details of the topology. This means less computation for other routers {% cite computer-networks -l 476-7 %}.
+A router connected to two or more areas is called an area border router. An **area border router** summarizes the destinations in one area, and injects the summary to the other areas. The summary contains cost information, but not details of the topology. This means less computation for other routers {% cite computer-networks -l 476-7 %}.
 
 An AS boundary router injects routes to external ASes into the area. External routes appear as "destinations that can be reached via the AS boundary router with some cost" {% cite computer-networks -l 477 %}.
 
@@ -56,7 +56,7 @@ For a source and destination in the same area, OSPF chooses the best intra-area 
 
 "OSPF works by exchanging information between adjacent routers, which is not the same as between neighboring routers". It's inefficient to have every node on a LAN communicating with every other route {% cite computer-networks -l 478 %}.
 
-One router is elected as the **designated router**. The designated router is said to be adjacent to all other routers on the LAN, and it exchanges information with each of them. Neighboring routers that aren't adjacent don't share routing information between them. A backup designated router is kept in case of failure {% cite computer-networks -l 478 %}.
+One router is elected as the designated router. The **designated router** is said to be adjacent to all other routers on the LAN, and it exchanges information with each of them. Neighboring routers that aren't adjacent don't share routing information between them. A backup designated router is kept in case of failure {% cite computer-networks -l 478 %}.
 
 During normal operation, each router floods LINK STATE UPDATE messages to its adjacent routers. The messages are acknowledged to ensure reliability. Messages have a sequence number so routers can determine the most up-to-date message {% cite computer-networks -l 478 %}.
 
