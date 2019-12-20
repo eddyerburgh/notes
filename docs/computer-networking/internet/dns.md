@@ -42,12 +42,11 @@ A domain controls how it allocates domains that are under it.
 
 ## Domain resource records
 
-Each domain has a number of **resource records** associated with it. The most common resource for a single host is an IP address, but there are many kinds of records {% cite computer-networks -l 616 %}.
+Each domain has a number of **resource records** associated with it. The most common resource for a single host is an IP address, but there are many different kinds of records {% cite computer-networks -l 616 %}.
 
 When a resolver gives a domain to DNS, it gets back the resource records associated with the name {% cite computer-networks -l 616 %}.
 
-Resource records are five-tuple. They are encoded in binary for efficiency, but they are normally presented as ASCII text,
-with one record per line. These notes will use the following format:
+Resource records are five-tuple. They are encoded in binary for efficiency, but they are normally presented as ASCII text, with one record per line. These notes will use the following format:
 
 \<Domain Name, Time to Live, Class, Type, Value\>
 
