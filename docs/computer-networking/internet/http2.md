@@ -13,7 +13,9 @@ permalink: /computer-networking/internet/http2
 # HTTP/2
 {:.no_toc}
 
-HTTP (Hyper Text Transfer Protocol) is an application-layer protocol used for communicating between a server and a client. HTTP/2 enables a more efficient use of network resources over HTTP/1.1 by introducing header compression and allowing multiple concurrent exchanges over the same connection.
+HTTP (Hyper Text Transfer Protocol) is an application-layer protocol used for communicating between a server and a client.
+
+HTTP/2 enables a more efficient use of network resources over HTTP/1.1 by introducing header compression and allowing multiple concurrent exchanges over the same connection.
 
 ## Table of contents
 {: .no_toc }
@@ -45,17 +47,17 @@ HTTP/2 runs over a TCP connection and uses the same default ports as HTTP/1.x (8
 
 ## Starting HTTP2
 
-Clients that request an HTTP URI without knowing whether the server supports HTTP/2, use the HTTP upgrade mechanism. An HTTP/1.1 request is made that includes an _Upgrade_ header field with "h2c" as its value ("h2" for HTTP/2 over TLS) {% cite rfc7540 -l 8 %}.
+Clients that request an HTTP URI without knowing whether the server supports HTTP/2, use the HTTP upgrade mechanism. An HTTP/1.1 request is made that includes an _Upgrade_ header field with `h2c` as its value (`h2` for HTTP/2 over TLS) {% cite rfc7540 -l 8 %}.
 
 If the server supports HTTP/2, it can accept the upgrade with a status code of 101 (switching protocols). After the 101 response, the server can send HTTP/2 responses {% cite rfc7540 -l 9 %}.
 
 The first HTTP/2 frame sent by the server is a SETTINGS frame (known as a **server connection preface**) {% cite rfc7540 -l 9 %}.
 
-A client that attempts to upgrade to HTTP/2 must include an _HTTP2-Settings_ header field. The value will be the payload of a SETTINGS frame (base64 encoded) containing the HTTP2 settings for the requesting client {% cite rfc7540 -l 10 %}.
+A client that attempts to upgrade to HTTP/2 must include an _HTTP2-Settings_ header field. The value will be the payload of a SETTINGS frame (Base64 encoded) containing the HTTP2 settings for the requesting client {% cite rfc7540 -l 10 %}.
 
 To start an HTTP/2 connection with a server that is known to support HTTP/2, a client must first send a **client connection preface** to the server. After the connection preface has been sent, the client can send HTTP/2 frames to the server {% cite rfc7540 -l 10-1 %}.
 
-_Note: This only affects requests over plaintext TCP. TLS must use TLS protocol negotiation_
+_Note: This only affects requests over plaintext TCP. TLS must use TLS protocol negotiation._
 
 ### HTTP/2 Connection Preface
 
@@ -80,6 +82,7 @@ Streams go through multiple states: idle, open, half-closed, and closed {% cite 
 All streams start idle. Sending or receiving a HEADERS frame causes stream to become open {% cite rfc7540 -l 17 %}.
 
 <!-- prettier-ignore-start -->
+<!-- Prettier can't handle _ -->
 Sending a PUSH_PROMISE reserves an idle (local) stream. Receiving PUSH_PROMISE reserves an idle (remote) stream. A PUSH_PROMISE frame references the stream to be reserved in a _Promised Stream Id_ field {% cite rfc7540 -l 17 %}.
 <!-- prettier-ignore-end -->
 
@@ -119,18 +122,18 @@ An HTTP request or response consists of:
 
 - For a response, zero or more HEADERS frames (and CONTINUATION frames) containing messages of 1xx responses.
 - One HEADERS frame followed by zero or more CONTINUATION frames.
-- Zero or more DATA frames containing the request/respose body.
-- Optional HEADERS frame (and possible CONTINUATION FRAMES) containing the trailer-part.
+- Zero or more DATA frames containing the request/response body.
+- Optional HEADERS frame (and possible CONTINUATION frames) containing the trailer-part.
 
 {% cite rfc7540 -l 52 %}
 
-A request is sent on a new stream, using an unused stream identifier. A corresponding response and request are sent on same stream {% cite rfc7540 -l 52 %}.
+A request is sent on a new stream, using an unused stream identifier. A corresponding response and request are sent on the same stream {% cite rfc7540 -l 52 %}.
 
-The last frame in a sequence has its END_STREAM flag set. END_STREAM puts stream into half-closed (local) state for the client, and half-closed (remote) state for the server {% cite rfc7540 -l 52-3 %}.
+The last frame in a sequence has its END_STREAM flag set. END_STREAM puts the stream into a half-closed (local) state for the client, and half-closed (remote) state for the server {% cite rfc7540 -l 52-3 %}.
 
 HTTP2 uses pseudoheaders that begins with a colon (:) to convey metadata like the target URI (:path), the HTTP method (:method), and the status code of the response (:status) {% cite rfc7540 -l 54 %}.
 
-HTTP/2 connections are persistent, and it's expected that a client won't close a connection until it determines that no further communication is necessary (e.g. if a user navigates away from a webpage). Servers should maintain connections for as long as possible, but are allowed to close connections if necessary (e.g. if a server is running low on memory) {% cite rfc7540 -l 65 %}.
+HTTP/2 connections are persistent, and it's expected that a client won't close a connection until it determines that no further communication is necessary (e.g., if a user navigates away from a webpage). Servers should maintain connections for as long as possible, but are allowed to close connections if necessary (e.g., if a server is running low on memory) {% cite rfc7540 -l 65 %}.
 
 ## Frames
 
@@ -191,16 +194,19 @@ DATA frames contain application data. They are associated with a stream and are 
     +---------------------------------------------------------------+
 ```
 
-The _Pad length_ field is conditional: it only appears if the PADDED flag is set. _Pad length_ contains the length of the _Padding_.
+The _Pad length_ field is conditional: it only appears if the `PADDED` flag is set. _Pad length_ contains the length of the _Padding_.
 
 The _Data_ field is the application data that's being sent.
 
-_Padding_ contains octets set to 0.
+_Padding_ contains octets set to `0`.
 
-The DATA frame has two flags that can be set in the _Flags_ field: END_STREAM, and PADDED.
+The DATA frame has two flags that can be set in the _Flags_ field: `END_STREAM`, and `PADDED`.
 
-- _END_STREAM_: indicates that the frame is the last frame for the identified stream.
+<!-- prettier-ignore-start -->
+<!-- Prettier strips out escape character for _ -->
+- _END\_STREAM_: indicates that the frame is the last frame for the identified stream.
 - _PADDED_: indicates that the _Pad Length_ field exists and _Padding_ exists.
+<!-- prettier-ignore-end -->
 
 The length of the _Data_ field is the length of the frame payload after subtracting the other fields.
 
@@ -224,9 +230,9 @@ HEADERS frames open streams and (optionally) carry a header block fragment {% ci
     +---------------------------------------------------------------+
 ```
 
-The _Pad length_ field is conditional: it only appears if the PADDED flag is set. _Pad length_ contains the length of the _Padding_.
+The _Pad length_ field is conditional: it only appears if the `PADDED` flag is set. _Pad length_ contains the length of the _Padding_.
 
-_E_ indicates that the stream dependency is exclusive (meaning this stream is the only stream dependant on a parent stream). It's only present if the PRIORITY flag is set {% cite rfc7540 -l 33 %}.
+_E_ indicates that the stream dependency is exclusive (meaning this stream is the only stream dependant on a parent stream). It's only present if the `PRIORITY` flag is set {% cite rfc7540 -l 33 %}.
 
 _Stream Dependency_ is a stream identifier for the stream that this stream depends on {% cite rfc7540 -l 33 %}.
 
@@ -234,12 +240,15 @@ _Weight_ is an unsigned 8-bit integer representing the priority of the stream {%
 
 _Header Block Fragment_ contains a header block fragment {% cite rfc7540 -l 33 %}.
 
-The HEADERS frames has the following flags:
+HEADERS frames have the following flags:
 
-- _END_STREAM_: puts the stream into a half-closed state.
-- _END_HEADERS_: indicates the frame has a header block and isn't followed by a CONTINUATION frame {% cite rfc7540 -l 34 %}.
+<!-- prettier-ignore-start -->
+<!-- Prettier strips out escape character for _ -->
+- _END\_STREAM_: puts the stream into a half-closed state.
+- _END\_HEADERS_: indicates the frame has a header block and isn't followed by a CONTINUATION frame {% cite rfc7540 -l 34 %}.
 - _PADDED_: indicates whether the frame contains padding.
 - _PRIORITY_: indicates that Exclusive Flag (_E_), _Stream Dependency_, and _Weight_ fields are present {% cite rfc7540 -l 34 %}.
+<!-- prettier-ignore-end -->
 
 If a header block fragment doesn't fit in a header frame, it's included in a CONTINUATION frame {% cite rfc7540 -l 34 %}.
 
@@ -259,7 +268,7 @@ The PUSH_PROMISE frame is used to implement server push.
     +---------------------------------------------------------------+
 ```
 
-The _Pad length_ field is conditional: it only appears if the PADDED flag is set. _Pad length_ contains the length of the _Padding_.
+The _Pad length_ field is conditional: it only appears if the _PADDED_ flag is set. _Pad length_ contains the length of the _Padding_.
 
 _R_ is a reserved bit.
 
@@ -278,6 +287,7 @@ Server push enables a server to preemptively send responses to a client that has
 Pushed responses are associated with an explicit request from a client. PUSH_PROMISE frames are sent on the stream of the associated request. A PUSH_PROMISE frame includes a promised stream identifier, created from the valid list of stream identifiers {% cite rfc7540 -l 62 %}.
 
 <!-- prettier-ignore-start -->
+<!-- Prettier can't handle _ -->
 A PUSH_PROMISE frame creates a stream in a reserved (local) state for the server and reserved (remote) state for the client using the identifier sent in the _Promised Stream ID_ field {% cite rfc7540 -l 62 %}.
 <!-- prettier-ignore-end -->
 
