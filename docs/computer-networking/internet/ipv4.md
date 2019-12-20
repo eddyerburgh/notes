@@ -81,7 +81,7 @@ The header format is as follows:
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |Version|  IHL  | DS field  | * |          Total Length         |
+   |Version|  IHL  | DS Field  | * |          Total Length         |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |         Identification        |Flags|      Fragment Offset    |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -103,9 +103,9 @@ _Version_ is for the IPv4 version (`0100`).
 
 _IHL_ represents the total length of the header length in 32-bit words. Since IHL is 4 bits, the max header size is 15 32-bit words {% cite intro-computer-networks -l 186 %}.
 
-The _Differentiated Services (DS) field_ is used to specify preferential handling for certain packets, e.g. those involved in VoIP.
+The _DS (Differentiated services) Field_ is used to specify preferential handling for certain packets, e.g. those involved in VoIP.
 
-_Total length_ is the length of the datagram in octets.
+_Total Length_ is the length of the datagram in octets.
 
 _Time to Live_ is used to stop routing loops. It's decremented by 1 at each router. If it reaches `0`, the packet is dropped.
 

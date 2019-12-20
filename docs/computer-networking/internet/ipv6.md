@@ -27,14 +27,14 @@ IPv6 is the next version of IP after IPv4. It solves the problem of address scar
 
 There were several design goals for IPv6:
 
-- Support billions of hosts
-- Reduce the size of routing tables
-- Speed up packet processing
-- Improve security
-- Support different types of service, e.g. VoIP
-- Enable host roaming without changing IP address
-- Enable protocol to evolve in future
-- Permit both protocols to coexist for long period of time
+- Support billions of hosts.
+- Reduce the size of routing tables.
+- Speed up packet processing.
+- Improve security.
+- Support different types of service, e.g., VoIP.
+- Enable host roaming without changing IP address.
+- Enable protocol to evolve in future.
+- Permit both protocols to coexist for long period of time.
 
 {% cite computer-networks -l 456 %}
 
@@ -72,9 +72,9 @@ The main header:
 
 {% cite rfc2460 -l 4 %}
 
-The _Version_ field is always 6. Routers use this field to determine whether to process packets as IPv4 packets or IPv6 packets.
+The _Version_ field is always `6`. Routers use this field to determine whether to process packets as IPv4 packets or IPv6 packets.
 
-The _Traffic class_ field describes the class of service, e.g. VoIP.
+The _Traffic class_ field describes the class of service, e.g., VoIP.
 
 The _Flow label_ field is used to mark groups of packets as having the same requirements.
 
@@ -104,12 +104,12 @@ There are six kinds of extension headers:
 
 | Extension header           | Description                                |
 | -------------------------- | ------------------------------------------ |
-| Hop-by-hop options         | Miscellaneous information for routers      |
-| Destination options        | Additional information for the destination |
-| Routing                    | Loose list of routers to visit             |
-| Fragmentation              | Management of datagram fragments           |
-| Authentication             | Verification of the sender’s identity      |
-| Encrypted security payload | Information about the encrypted contents   |
+| Hop-by-hop options         | Miscellaneous information for routers.      |
+| Destination options        | Additional information for the destination. |
+| Routing                    | Loose list of routers to visit.             |
+| Fragmentation              | Management of datagram fragments.           |
+| Authentication             | Verification of the sender’s identity.      |
+| Encrypted security payload | Information about the encrypted contents.   |
 
 {% cite computer-networks -l 461 %}
 
