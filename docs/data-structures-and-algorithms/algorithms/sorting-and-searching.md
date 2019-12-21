@@ -51,7 +51,7 @@ The base case for merge sort is when the array element is one (hence sorted) {% 
 
 `Merge` works by comparing the first element of each sorted list. The smallest of the two is selected, and added to a target array. This process continues until one array is empty, and all items from the other array can be added to the target array {% cite algorithm-design-manual -l 120 %}.
 
-The number of elements in each subproblem are halved on each level, and the number of halves until reaching 1 element is $$lg_2 n$$. Because recursion goes $$lg n$$ levels deep, and linear work is done per level, the total running time is $$O(nlog n)$$ {% cite algorithm-design-manual -l 122 %}.
+The number of elements in each subproblem are halved on each level, and the number of halves until reaching 1 element is $$\lg_2 n$$. Because recursion goes $$\lg n$$ levels deep, and linear work is done per level, the total running time is $$O(n\log n)$$ {% cite algorithm-design-manual -l 122 %}.
 
 Merging two arrays like this uses a third array to store the results, which must be the size of both arrays. Thus, the memory use of merge sort is $$O(n)$$ memory of the size of the array being sorted check {% cite algorithm-design-manual -l 122 %}.
 
@@ -113,13 +113,13 @@ Quicksort works by first selecting an item ($$p$$), known as the pivot, at posit
 
 The partitioning step can be completed in one linear scan of the array. After partitioning, the two halves can be partitioned independently because elements on either side of the pivot won’t change sides {% cite algorithm-design-manual -l 123 %}.
 
-In the best case the median value is chosen as the pivot each time. This results in halving the problem on each partition, meaning only $$lg n$$ partitions are needed to sort the array, so the best case is $$O(nlog n)$$.
+In the best case the median value is chosen as the pivot each time. This results in halving the problem on each partition, meaning only $$\lg n$$ partitions are needed to sort the array, so the best case is $$O(n\log n)$$.
 
 In the worst case the pivot is always the smallest or largest element in the array. This requires n partitions to sort the array, leading to a worst case of $$O(n^2)$$.
 
-The average case for quicksort is $$O(nlog n)$$. This can be understood intuitively by categorizing keys from $$n/4$$ to $$3n/4$$ as _good enough_. The worst _good enough_ pivot leaves the larger half of the partition with $$3n/4$$ items. Therefore, a tree made from the worst possible _good enough_ pivot would have height $$log4/3 n$$ {% cite algorithm-design-manual -l 126 %}.
+The average case for quicksort is $$O(n\log n)$$. This can be understood intuitively by categorizing keys from $$n/4$$ to $$3n/4$$ as _good enough_. The worst _good enough_ pivot leaves the larger half of the partition with $$3n/4$$ items. Therefore, a tree made from the worst possible _good enough_ pivot would have height $$\log4/3 n$$ {% cite algorithm-design-manual -l 126 %}.
 
-Each pick has a $$1/2$$ probability of picking a _good enough_ pivot. Since the expected number of good picks and bad picks is the same, the bad picks will only double the height of the tree. Thus, the average case is roughly $$2log 4/3n$$, or $$O(log n)$$ {% cite algorithm-design-manual -l 126 %}.
+Each pick has a $$1/2$$ probability of picking a _good enough_ pivot. Since the expected number of good picks and bad picks is the same, the bad picks will only double the height of the tree. Thus, the average case is roughly $$2\log 4/3n$$, or $$O(\log n)$$ {% cite algorithm-design-manual -l 126 %}.
 
 You can see an implementation of quicksort:
 
@@ -159,7 +159,7 @@ Despite quicksort having worst case $$O(n^2)$$ running time, in practice it is o
 
 ## Heapsort
 
-Heapsort works by constructing a [min-heap]({{ '/data-structures-and-algorithms/data-structures/heap' | relative_url }}), an operation which takes $$O(nlog n)$$ in the worst-case. The next step is to extract the minimum element from the heap using an `extract_min` function, which is also an $$O(log n)$$ operation in the worst-case {% cite algorithm-design-manual -l 113 %}.
+Heapsort works by constructing a [min-heap]({{ '/data-structures-and-algorithms/data-structures/heap' | relative_url }}), an operation which takes $$O(n\log n)$$ in the worst-case. The next step is to extract the minimum element from the heap using an `extract_min()` function, which is also an $$O(\log n)$$ operation in the worst-case {% cite algorithm-design-manual -l 113 %}.
 
 ```c
 heapsort(item_type arr[], int n) {
@@ -172,7 +172,7 @@ heapsort(item_type arr[], int n) {
 }
 ```
 
-In total, heapsort has a worst-case running time of $$O(nlog n)$$.
+In total, heapsort has a worst-case running time of $$O(n\log n)$$.
 
 ## Sorting in practice
 
@@ -180,13 +180,13 @@ The best way to define how a sorting algorithm behaves (e.g. whether it should s
 
 A comparison function receives pointers to two items and uses the return value to determine which item should be positioned before the other {% cite algorithm-design-manual -l 107 %}.
 
-The standard C library contains the `qsort` function for sorting, which takes a comparison function:
+The standard C library contains the `qsort()` function for sorting, which takes a comparison function:
 
 ```c
 void qsort(void *base, size_t nel, size_t width, int (*compare) (const void *, const void *));
 ```
 
-`qsort` "sorts the first `nel` elements of an array (pointed to by `base`) where the data type is `width`-bytes long" {% cite algorithm-design-manual -l 108 %}.
+`qsort()` "sorts the first `nel` elements of an array (pointed to by `base`) where the data type is `width`-bytes long" {% cite algorithm-design-manual -l 108 %}.
 
 `compare` determines the order elements are sorted in. It takes two pointers, which point to the elements being compared. It should return a negative integer if the first item belongs before the second, a positive integer if the first item belongs after the second, and zero if they are equivalent {% cite algorithm-design-manual -l 108 %}.
 
@@ -212,9 +212,9 @@ qsort(a, n, sizeof(int), int_compare);
 
 ## Binary search
 
-Binary search is an algorithm for searching a sorted array in $$O(log n)$$ time {% cite algorithm-design-manual -l 132 %}.
+Binary search is an algorithm for searching a sorted array in $$O(\log n)$$ time {% cite algorithm-design-manual -l 132 %}.
 
-Binary search works by checking the middle of an array for a value. If the middle item is larger than the value, binary search stops searching in the upper half of the array. This halves the array that’s being searched each iteration, meaning binary search runs in worst-case $$O(log n)$$ {% cite algorithm-design-manual -l 132 %}.
+Binary search works by checking the middle of an array for a value. If the middle item is larger than the value, binary search stops searching in the upper half of the array. This halves the array that’s being searched each iteration, meaning binary search runs in worst-case $$O(\log n)$$ {% cite algorithm-design-manual -l 132 %}.
 
 ```c
 int binary_search(int arr[], int n, int val) {
