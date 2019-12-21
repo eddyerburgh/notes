@@ -14,7 +14,7 @@ permalink: /data-structures-and-algorithms/data-structures
 # Data structures
 {:.no_toc}
 
-This section is an overview of data structures.
+Data structures affect how long it takes to access and update data. Being able to choose the right data structure for a problem is in an important skill to develop.
 
 ## Table of contents
 {: .no_toc }
@@ -28,9 +28,7 @@ This section is an overview of data structures.
 
 A data structure is a representation of data and a collection of associated operations {% cite open-data-structures -l 5 %}.
 
-Data structures affect how long it takes to access and update data. There are many data structures to choose from, each with their own costs and benefits.
-
-Data structures are implementations of **abstract data types** {% cite open-data-structures -l 4 %}.
+Data structures are implementations of abstract data types {% cite open-data-structures -l 4 %}.
 
 ### Abstract data types
 
@@ -56,7 +54,7 @@ The advantages of contiguously allocated arrays are:
 
 - **Constant time access**. As long as you have the index, you can access an array item in constant time.
 - **Space efficiency**. Arrays only consist of data. No space is spent on pointers or other formatting information.
-- **Memory locality**. It's common to iterate over all items of a data structure. Arrays are very good for this because they exhibit good **memory locality**: each item is directly after the previous item in memory. This works well with the cache system used in modern computer architectures.
+- **Memory locality**. It's common to iterate over all items of a data structure. Arrays are very good for this because they exhibit good **memory locality**: each item exists directly after the previous item in memory. This works well with the cache system used in modern computer architectures.
 
 {% cite algorithm-design-manual -l 66 %}
 
@@ -121,11 +119,11 @@ Stacks and queues are both container data structures that allow you to add and r
 
 Stacks support retrieval based on **LIFO** (last-in-first-out). That is, the last item added to a stack is the first item to be removed. LIFO is often compared to a pile of cafeteria trays. A worker adds more trays to a pile by placing them on top of the existing trays and a customer takes their tray from the top of the pile.
 
-The _put_ and _get_ operations for stacks are usually called `push` and `pop` {% cite algorithm-design-manual -l 71 %}.
+The _put_ and _get_ operations for stacks are usually called `push()` and `pop()` {% cite algorithm-design-manual -l 71 %}.
 
 Queues support retrieval based on **FIFO** (first-in-first-out). They work the same way as real-world queues.
 
-The _put_ and _get_ operations for queues are usually called `enqueue` and `dequeue` {% cite algorithm-design-manual -l 71 %}.
+The _put_ and _get_ operations for queues are usually called `enqueue()` and `dequeue()` {% cite algorithm-design-manual -l 71 %}.
 
 <figure>
   <img src="{{site.baseurl}}/assets/img/data-structures-and-algorithms/data-structures/queue.svg" alt="">
@@ -140,16 +138,14 @@ A dictionary data type enables access to data items by their content, or by a ke
 
 Dictionaries generally support the following operations:
 
-- Search(D,k)
-- Insert(D,x)
-- Delete(D,x)
-
-_Note: D is the dictionary, k is a search key, and x is an item in the dictionary_
+- `search(k)`
+- `insert(k, v)`
+- `delete(k)`
 
 Some dictionary data structures include other useful operations:
 
-- Max or Min(D)
-- Predecessor(D,k) or Successor(D,k)
+- `max()` or `min()`.
+- `predecessor(k)` or `successor(k)`.
 
 {% cite algorithm-design-manual -l 72-3 %}
 
@@ -159,7 +155,7 @@ Hash tables are an efficient way of maintaining a dictionary.
 
 A hash table works by using a hashing function to map a key to an integer. The integer is used as an index to store and retrieve an item from an array (or from a list stored in an array) {% cite algorithm-design-manual -l 89 %}.
 
-Normally the integer produced by the hashing function (H) is larger than the number of slots available in the hash table (m). The large integer can be converted to an integer in the range of the hash table slots by calculating the remainder of H(K)/m using the modulo (%) operator {% cite algorithm-design-manual -l 89 %}.
+Normally the integer produced by the hashing function ($$H$$) is larger than the number of slots available in the hash table ($$m$$). The large integer can be converted to an integer in the range of the hash table slots by calculating the remainder of $$H(K)/m$$ using the modulo (`%`) operator {% cite algorithm-design-manual -l 89 %}.
 
 Hash tables often suffer from **collisions**, where multiple distinct keys hash to the same value. There are different strategies that can be used in the case of collisions {% cite algorithm-design-manual -l 89 %}.
 
@@ -188,15 +184,11 @@ A binary search tree is a rooted binary tree where all nodes in the left subtree
   <figcaption><h4>Figure: Binary search tree {% cite lkd -l 86 %}</h4></figcaption>
 </figure>
 
-Binary search trees offer O(h) search, insertion, and deletion, where h is the height of the tree. If the search tree is _balanced_ (i.e. the difference between the depth of the bottom subtrees is at most 1), then this is log n, where n is the number of items. The problem is that binary search trees will not always be naturally balanced {% cite algorithm-design-manual -l 81-2 %}.
+Binary search trees offer $$O(h)$$ search, insertion, and deletion, where $$h$$ is the height of the tree. If the search tree is _balanced_ (the difference between the depth of the bottom subtrees is at most 1), then this is $$\log n$$, where $$n$$ is the number of items. The problem is that binary search trees will not always be naturally balanced {% cite algorithm-design-manual -l 81-2 %}.
 
 <!-- TODO: link to red-black trees and splay trees section-->
 
 Balanced binary search trees are data structures that maintain a balanced tree by doing extra work during insertion and deletion. For example, red-black trees and splay trees {% cite algorithm-design-manual -l 82 %}.
-
-## Conclusion
-
-This section was an overview of the most common data structures. There are many more data structures, and variations of the data structures outlined here.
 
 ## References
 
