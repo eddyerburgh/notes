@@ -23,7 +23,7 @@ permalink: /data-structures-and-algorithms/data-structures/heap
 
 ## Introduction
 
-Heaps are a data structure for supporting the priority queue operations `insert` and `extract_min`. Heaps maintain a partial order of elements that is weaker than sorted order, but stronger than random order {% cite algorithm-design-manual -l 109 %}.
+Heaps are a data structure for supporting the priority queue operations `insert()` and `extract_min()`. Heaps maintain a partial order of elements that is weaker than sorted order, but stronger than random order {% cite algorithm-design-manual -l 109 %}.
 
 A heap-labelled tree is a binary tree where the key labelling of each node _dominates_ each of its children. In a min-heap, a node dominates its children by holding a smaller key than its children. In a max-heap tree, a node dominates its children by holding a larger key than its children {% cite algorithm-design-manual -l 110 %}.
 
@@ -75,7 +75,7 @@ int pq_young_child(int n) {
 
 ## Constructing a heap
 
-Heaps can be built by inserting each element into the left-most open spot in the array ($$n + 1$$). this ensures a tree remains balanced, but it does not guarantee the dominance order of the keys {% cite algorithm-design-manual -l 112 %}.
+Heaps can be built by inserting each element into the left-most open spot in the array ($$n + 1$$). This ensures a tree remains balanced, but it does not guarantee the dominance order of the keys {% cite algorithm-design-manual -l 112 %}.
 
 The solution for ensuring a dominance relation is to swap any unsatisfied element with its parent. The other child is still dominated, because the new parent's value is even higher/ lower than the previous element's value {% cite algorithm-design-manual -l 112 %}.
 
@@ -105,7 +105,7 @@ void bubble_up(priority_queue *q, int p) {
 
 {% cite algorithm-design-manual -l 112 %}
 
-The swap takes constant time at each level. Since the height of a heap is $$log n$$, the max insert will take $$O(log n)$$. In other words, a heap of $$n$$ elements can be constructed in $$O(nlog n)$$ time:
+The swap takes constant time at each level. Since the height of a heap is $$\log n$$, the max insert will take $$O(\log n)$$. In other words, a heap of $$n$$ elements can be constructed in $$O(n\log n)$$ time:
 
 ```c
 void make_heap(priority_queue *q, item_type s[], int n) {
@@ -168,7 +168,7 @@ void bubble_down(priority_queue *q, int p) {
 
 {% cite algorithm-design-manual -l 113 %}
 
-This process takes in the worst case $$O(log n)$$.
+This process takes in the worst case $$O(\log n)$$.
 
 ## References
 
