@@ -13,8 +13,7 @@ permalink: /computer-networking/ethernet
 # Ethernet
 {:.no_toc}
 
-Ethernet is a standard for sending data from one computer to another. It's used to create LANs that higher-layer protocols, like TCP/IP, are built on top of.
-
+Ethernet is a standard for sending data from one computer to another. It's used to create LANs that higher-layer protocols, like IP, are built on top of.
 
 ## Table of contents
 {: .no_toc }
@@ -26,7 +25,7 @@ Ethernet is a standard for sending data from one computer to another. It's used 
 
 ## Introduction
 
-The Ethernet standard describes both the physical medium that data is sent over, and the format of the data (layer 1 and layer 2 of the OSI model). The standard is created by the IEEE (Institute of Electrical and Electronics Engineers) 802.3 committee.
+The Ethernet standard describes both the physical medium that data is sent over, and the format of the data. The standard is created by the IEEEs 802.3 committee.
 
 Ethernet can run over:
 
@@ -58,11 +57,11 @@ Ethernet has four main parts:
 
 {% cite ethernet-definitive-guide -l 27-8 %}
 
-These all work together to convert bits into signals that are transmitted over a medium from one **station** to another (in the Ethernet spec, computers are referred to as stations).
+These all work together to convert bits into signals that are transmitted over a medium from one station to another.
 
 ## The Ethernet frame
 
-Frames are chunks of information. Frames contain data (like TCP packets) and metadata. Ethernet stations send frames continuously, with a small break between each frame (or by sending a symbol that indicates the start and end of a frame), until all the data is transmitted {% cite ethernet-definitive-guide -l 53 %}.
+Frames contain data (like TCP packets) and metadata. Ethernet stations send frames continuously, with a small break between each frame (or by sending a symbol that indicates the start and end of a frame), until all the data is transmitted {% cite ethernet-definitive-guide -l 53 %}.
 
 There are three sizes of frame defined in the Ethernet standard. An ethernet interface must support at least one of them. The standard recommends using the recent **envelope frame**, the other two frames are **basic frames** {% cite ethernet-definitive-guide -l 44 %}.
 
@@ -71,21 +70,21 @@ There are three sizes of frame defined in the Ethernet standard. An ethernet int
   <figcaption><h4>Figure: Ethernet frames {% cite ethernet-definitive-guide -l 28 %}</h4></figcaption>
 </figure>
 
-The **Preamble** field is a predetermined signal which is used to sync the receiving Ethernet station’s clock to the sending device for 10Mb/s Ethernet. Newer standards no longer use the preamble, but it's maintained for backward compatibility {% cite ethernet-definitive-guide -l 28 %}.
+The _Preamble_ field is a predetermined signal which is used to sync the receiving Ethernet station’s clock to the sending device for 10Mb/s Ethernet. Newer standards no longer use the preamble, but it's maintained for backward compatibility {% cite ethernet-definitive-guide -l 28 %}.
 
-In the 802.3 spec, the preamble field is normally divided into two parts. The first 7 bytes are the preamble, and one byte is called the start frame delimiter (**SFD**) {% cite ethernet-definitive-guide -l 46 %}.
+In the 802.3 spec, the preamble field is normally divided into two parts. The first 7 bytes are the preamble, and one byte is called the start frame delimiter (_SFD_) {% cite ethernet-definitive-guide -l 46 %}.
 
-The **Length/Type** field either provides the length of the data field (if the value is less than 1536), or defines the protocol of the data in the frame (like IPv4) {% cite ethernet-definitive-guide -l 29 %}.
+The _Length/Type_ field either provides the length of the data field (if the value is less than `1536`), or defines the protocol of the data in the frame (like IPv4) {% cite ethernet-definitive-guide -l 29 %}.
 
-The **Data** field contains the payload that is being sent.
+The _Data_ field contains the payload that is being sent.
 
-The **Frame Check Sequence** field contains a cyclic redundancy check (CRC) that is used by the receiving station to verify that the data in the incoming frame isn't corrupted. The receiving station generates another CRC and compares it to the incoming CRC. If the generated value doesn’t match the received frame value, the frame will be dropped {% cite ethernet-definitive-guide -l 29 %}.
+The _Frame Check Sequence_ field contains a cyclic redundancy check (CRC) that is used by the receiving station to verify that the data in the incoming frame isn't corrupted. The receiving station generates another CRC and compares it to the incoming CRC. If the generated value doesn’t match the received frame value, the frame will be dropped {% cite ethernet-definitive-guide -l 29 %}.
 
-The **Envelope prefix** and **Envelope suffix** are intended as 482 bytes that can be used by other higher layer protocols to tag Ethernet frames. The contents aren't defined in 802.3 {% cite ethernet-definitive-guide -l 50 %}.
+The _Envelope Prefix_ and _Envelope Suffix_ are intended as 482 bytes that can be used by other higher layer protocols to tag Ethernet frames. The contents aren't defined in 802.3 {% cite ethernet-definitive-guide -l 50 %}.
 
-The **Source address** and **Destination address** fields are used to send the frame to the correct device, and for the receiving device to send back frames to the original sender. The address is known as a **MAC address** {% cite ethernet-definitive-guide -l 28 %}.
+The _Source address_ and _Destination address_ fields are used to send the frame to the correct device, and for the receiving device to send back frames to the original sender. The address is known as a _MAC address_ {% cite ethernet-definitive-guide -l 28 %}.
 
-A MAC address is a 48-bit structure that should uniquely identify an Ethernet station. Whereas an IP address is dynamically allocated, MAC addresses are physically assigned to an Ethernet station by the manufacturer. The MAC address is normally hard-coded into ROM on a Network Interface Car, but it’s possible to spoof or change the value in the OS {% cite intro-computer-networks -l 23 %}.
+A MAC address is a 48-bit structure that should uniquely identify an Ethernet station. Whereas an IP address is dynamically allocated, MAC addresses are physically assigned to an Ethernet station by the manufacturer. The MAC address is normally hard-coded into ROM on a NIC (Network Interface Card), but it’s possible to spoof or change the value in the OS {% cite intro-computer-networks -l 23 %}.
 
 ## The MAC sublayer
 
@@ -110,7 +109,6 @@ The Carrier Sense portion of the protocol means that each interface must wait un
 The Multiple Access part of the protocol means that each interface connected to the cable has equal priority when transmitting on the cable, and all interfaces can attempt to access the channel when it's idle {% cite ethernet-definitive-guide -l 132 %}.
 
 Collision Detection is required because it's possible that multiple interfaces sense that the channel is idle and attempt to transmit at the same time. When this happens, the transmitting devices detect the collision of signals, and they stop signalling. Each interface then picks a random retransmission time. This process is known as **backoff** {% cite ethernet-definitive-guide -l 32 %}.
-x
 
 ## The signalling components
 
@@ -132,13 +130,13 @@ The media components include the cables and signalling components that create th
 
 The physical medium is both the link cable that connects stations, and the hardware used to interface with the cable.
 
-The physical medium could be one of:
+The link could be one of:
 
 - Coaxial cable
 - Twisted pair
 - Optical fiber
 
-**Coaxial cable** is a copper wire surrounded by insulator, and a shield wire.
+**Coaxial cable** is a copper wire surrounded by insulator and a shield wire.
 
 **Twisted pair** cable is made from pairs of twisted cable. There are lots of cable standards (like CAT 3, CAT 5, CAT 6, etc.). Twisted pair cable can handle multiple wires in a single cable by twisting the wires together to reduce electromagnetic interference. Because twisted pair has multiple wires, it can have multiple channels.
 
