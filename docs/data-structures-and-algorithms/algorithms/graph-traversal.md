@@ -25,7 +25,7 @@ permalink: /data-structures-and-algorithms/algorithms/graph-traversal
 
 Traversing a [graph]({{ '/data-structures-and-algorithms/data-structures/graphs' | relative_url }}) to visit every edge and vertex is a common problem {% cite algorithm-design-manual -l 161 %}.
 
-It's usually necessary to keep track of whether a vertex has been visited or not to avoid visiting vertices multiple times. This can be using a flag {% cite algorithm-design-manual -l 161 %}.
+It's usually necessary to keep track of whether a vertex has been visited or not to avoid visiting vertices multiple times. This can be achieved by using a flag {% cite algorithm-design-manual -l 161 %}.
 
 In this section, a vertex can exist in one of three states during traversal:
 
@@ -47,7 +47,7 @@ This section will look at breadth-first search (BFS) and depth-first-search (DFS
 
 ## Breadth-first search (BFS)
 
-BFS (breadth-first search) is a common tree traversal algorithm.
+BFS (Breadth-First Search) is a common tree traversal algorithm.
 
 When BFS is run on an undirected graph, a direction is assigned to each edge from the discoverer $$u$$ to the discovered $$v$$. Thus, $$u$$ is denoted as the parent of $$v$$ {% cite algorithm-design-manual -l 162 %}.
 
@@ -133,7 +133,7 @@ void bfs(graph *g, int start) {
 }
 ```
 
-The behavior of BFS is defined by the functions `process_vertex_early`, `process_edge`, and `process_vertex_late` {% cite algorithm-design-manual -l 164 %}.
+The behavior of BFS is defined by the functions `process_vertex_early()`, `process_edge()`, and `process_vertex_late()` {% cite algorithm-design-manual -l 164 %}.
 
 The vertex that discovered vertex `i` is at `parent[i]`. Because vertices are discovered in order of increasing distance from the root node, the tree path from each node $$x\in V$$ uses the minimum number of edges on a root-to-x path {% cite algorithm-design-manual -l 165 %}.
 
@@ -331,7 +331,7 @@ void dfs(graph *g, int v) {
 
 {% cite algorithm-design-manual -l 171-2 %}
 
-The behavior of DFS depends on when the vertex is processed. It can be either processed before outgoing edges have been traversed (`process_vertex_early`) or after they have been processed (`process_vertex_late`) {% cite algorithm-design-manual -l 172 %}.
+The behavior of DFS depends on when the vertex is processed. It can be either processed before outgoing edges have been traversed (`process_vertex_early()`) or after they have been processed (`process_vertex_late()`) {% cite algorithm-design-manual -l 172 %}.
 
 In undirected graphs, each edge $$(x,y)$$ is in the adjacency list of $$x$$ and $$y$$. This means there are two times to process each edge, once when exploring $$x$$ and once when exploring $$y$$. Normally the first time you see an edge is the time to do processing, but sometimes you may want to perform an action when you see an edge for the second time {% cite algorithm-design-manual -l 172 %}.
 
@@ -339,9 +339,9 @@ You can determine whether an edge $$(x,y)$$ has not been traversed yet if $$y$$ 
 
 ### Finding cycles
 
-If there is a back edge from $$(x,y)$$ then a cycle exists between $$x$$ and $$y$$. If there are no back edges, then there are no cycles {% cite algorithm-design-manual -l 173 %}.
+If there is a back edge from $$(x, y)$$ then a cycle exists between $$x$$ and $$y$$. If there are no back edges, then there are no cycles {% cite algorithm-design-manual -l 173 %}.
 
-You can check for cycles with dfs by modifying `process_edge`:
+You can check for cycles with `dfs()` by modifying `process_edge()`:
 
 ```c
 void process_edge(int x, int y) {
@@ -489,7 +489,7 @@ int edge_classification(int x, int y) {
 
 ### Topological sorting
 
-Topological sorting works on **directed acyclic graphs** (DAGs). Topological sorting orders vertices so that "all directed edges go from left to right" {% cite algorithm-design-manual -l 179 %}.
+Topological sorting works on DAGs (Directed Acyclic Graphs). Topological sorting orders vertices so that "all directed edges go from left to right" {% cite algorithm-design-manual -l 179 %}.
 
 Every DAG has at least one topological sort {% cite algorithm-design-manual -l 179 %}.
 
