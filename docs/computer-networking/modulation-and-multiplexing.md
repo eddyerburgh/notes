@@ -175,11 +175,11 @@ TDM is used in cellular and telephone networks {% cite computer-networks -l 135 
 
 CDM is commonly called **CDMA (Code Division Multiple Access)**. CDMA allows stations to transmit across the entire frequency spectrum all the time. The multiple simultaneous transmissions are separated using coding theory. For CDMA to work, the receiving station must be able to extract desired signals {% cite computer-networks -l 136 %}.
 
-In CDMA, each bit time is divided into n short intervals (known as chips). Normally there are 64 or 128 chips per bit {% cite computer-networks -l 136 %}.
+In CDMA, each bit time is divided into $$n$$ short intervals (known as chips). Normally there are 64 or 128 chips per bit {% cite computer-networks -l 136 %}.
 
 To transmit a 1, a station sends its chip sequence. To transmit a 0, a station sends the negation of its chip sequence. When multiple stations transmit at the same time, their bipolar sequences add linearly. For example, if during 1 bit period, 3 stations output +1 and 1 station outputs -1, +2 would be received {% cite computer-networks -l 136 %}.
 
-The receiving station recovers the original code by computing the normalized inner product of the received chip sequence and the chip sequence of the station whose bit stream it is trying to recover. "If the received chip sequence is S and the receiver is trying to listen to a station whose chip sequence is C, it just computes the normalized inner product, $$S \dot C$$" {% cite computer-networks -l 137 %}.
+The receiving station recovers the original code by computing the normalized inner product of the received chip sequence and the chip sequence of the station whose bit stream it is trying to recover. "If the received chip sequence is $$S$$ and the receiver is trying to listen to a station whose chip sequence is $$C$$, it just computes the normalized inner product, $$S \times C$$" {% cite computer-networks -l 137 %}.
 
 This works because pairs of chip sequences are orthogonal (meaning that they cancel each other out). To learn more, watch this [video about how CDMA works](https://www.youtube.com/watch?v=XJ81CuujwYE).
 

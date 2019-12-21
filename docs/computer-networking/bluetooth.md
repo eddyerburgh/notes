@@ -88,7 +88,7 @@ The top layer is the **application layer**. In the figure, profiles are represen
 
 Bluetooth adapts its hop sequence to exclude channels on which there are other RF signals. This is called **adaptive frequency hopping**.
 
-There are "three forms of modulation are used to send bits on a channel. The basic scheme is to use frequency shift keying to send a 1-bit symbol every microsecond, giving a gross data rate of 1 Mbps. Enhanced rates were introduced with the 2.0 version of Bluetooth. These rates use phase shift keying to send either 2 or 3 bits per symbol, for gross data rates of 2 or 3 Mbps. The enhanced rates are only used in the data portion of frames" {% cite computer-networks -l 324 %}.
+There are "three forms of modulation are used to send bits on a channel. The basic scheme is to use frequency shift keying to send a 1-bit symbol every microsecond, giving a gross data rate of 1 Mb/s. Enhanced rates were introduced with the 2.0 version of Bluetooth. These rates use phase shift keying to send either 2 or 3 bits per symbol, for gross data rates of 2 or 3 Mb/s. The enhanced rates are only used in the data portion of frames" {% cite computer-networks -l 324 %}.
 
 ## The Bluetooth link layers
 
@@ -111,7 +111,7 @@ When pairing is complete, the link manager sets up the links. There are two main
 1. SCO (Synchronous Connection Oriented)
 2. ACL (Asynchronous ConnectionLess)
 
-**SCO** is used for real-time data, like telephone connection. An SCO link is allocated a fixed slot in each direction. Each SCO link can transmit one 64,000-bps PCM audio channel, and a slave can have up to three SCO links with its master. Frames sent over SCO are never retransmitted {% cite computer-networks -l 325 %}.
+**SCO** is used for real-time data, like telephone connection. An SCO link is allocated a fixed slot in each direction. Each SCO link can transmit one 64,000-b/s PCM audio channel, and a slave can have up to three SCO links with its master. Frames sent over SCO are never retransmitted {% cite computer-networks -l 325 %}.
 
 An **ACL** link is used for packet-switched data available at irregular intervals. ACL frames can be lost, and may need to be retransmitted. A slave can only have one SCO link to its master {% cite computer-networks -l 325 %}.
 

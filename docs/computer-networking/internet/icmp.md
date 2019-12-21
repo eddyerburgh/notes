@@ -29,8 +29,8 @@ An ICMP message is sent in an IP packet, with the _Protocol_ field set to `1` (f
 
 You can see a list of the main message types sent by ICMP:
 
-| Message type                      | Description                      |
-| --------------------------------- | -------------------------------- |
+| Message type                      | Description                       |
+| --------------------------------- | --------------------------------- |
 | Destination unreachable           | Packet could not be delivered.    |
 | Time exceeded                     | Time to live field hit 0.         |
 | Parameter problem                 | Invalid header field.             |

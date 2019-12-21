@@ -102,8 +102,8 @@ Extension headers are an approach for adding extra options to an IPv6 header.
 
 There are six kinds of extension headers:
 
-| Extension header           | Description                                |
-| -------------------------- | ------------------------------------------ |
+| Extension header           | Description                                 |
+| -------------------------- | ------------------------------------------- |
 | Hop-by-hop options         | Miscellaneous information for routers.      |
 | Destination options        | Additional information for the destination. |
 | Routing                    | Loose list of routers to visit.             |
@@ -123,7 +123,7 @@ Each extension header includes a _Next header_ field which works the same way as
 
 ## IPv6 addresses
 
-IPv6 addresses are 128-bits, which gives 3x10^38 possible addresses.
+IPv6 addresses are 128-bits, which gives $$3 \times 10^{38}$$ possible addresses.
 
 The notation for IPv6 address is eight groups of four hexadecimal digits separated by colons:
 

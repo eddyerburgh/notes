@@ -28,7 +28,7 @@ For a customer to join the Internet, a computer (host) must be connected to an I
 
 The host can be connected to the ISP through multiple technologies. For example, DSL (Digital Subscriber Line), which reuses the telephone line connected to your home to transmit digital data. For DSL, the computer is connected to a DSL modem, which converts between digital packets and analog signals that can be sent across a phone line. At the other end of the line, a DSLAM converts between signals and packets {% cite intro-computer-networks -l 62 %}.
 
-There are several other ways to connect to an ISP, an older example being dial-up Internet access. Dial-up connections are slow, at 57kbps, because they are limited to a narrow bandwidth. Faster methods, like DSL, are known as broadband, because they operate over a broader bandwidth {% cite intro-computer-networks -l 63 %}.
+There are several other ways to connect to an ISP, an older example being dial-up Internet access. Dial-up connections are slow, at 57kb/s, because they are limited to a narrow bandwidth. Faster methods, like DSL, are known as broadband, because they operate over a broader bandwidth {% cite intro-computer-networks -l 63 %}.
 
 The location where packets enter an ISP's network is the ISP's POP (point of presence). ISP networks can be regional, national, or international {% cite intro-computer-networks -l 63 %}.
 
