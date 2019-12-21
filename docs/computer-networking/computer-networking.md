@@ -31,9 +31,9 @@ Switching devices acting at the Local Area Network (LAN) layer are called switch
 
 Each switch/ router is responsible for the next destination of packets (the **next hop**). The ultimate destination of a packet is a host computer. You can conceptualize network nodes as either a host or a router (although some can be both) {% cite intro-computer-networks -l 27 %}.
 
-Network nodes must be connected by a shared link, which could be a physical cable, or a wireless link. There are two main type of transmission links: **broadcast** links and **point-to-point** links.
+Network nodes must be connected by a shared link, which could be a physical cable, or a wireless link. There are two main type of transmission links: broadcast links and point-to-point links.
 
-Point-to-point links connect one machine to another. Broadcast links connect multiple machines together. A wireless network is an example of a broadcast link. Ethernet is now (mostly) an example of point-to-point link {% cite computer-networks -l 17 %}.
+**Point-to-point** links connect one machine to another. **Broadcast links** connect multiple machines together. A wireless network is an example of a broadcast link. Ethernet is now (mostly) an example of point-to-point link {% cite computer-networks -l 17 %}.
 
 On a broadcast network, packets sent by one machine are received by all others. Each machine receives every packet. If the packet is addressed to the receiving machine, the machine will process the packet {% cite computer-networks %}.
 
@@ -43,7 +43,7 @@ In order to send and receive data across links, the nodes must agree on how to c
 
 A protocol is "an agreement between the communicating parties on how communication is to proceed" {% cite computer-networks -l 29 %}.
 
-Computer networking is made up of multiple protocols. There are a number of organizations that standardize protocols, like the Institute of Electrical and Electronics Engineers (IEEE) and the Internet Engineering Task Force (IETF).
+Computer networking is made up of multiple protocols. There are a number of organizations that standardize protocols, like IEEE (the Institute of Electrical and Electronics Engineers) and IETF (the Internet Engineering Task Force).
 
 ### Protocol hierarchies
 
@@ -83,7 +83,7 @@ The **session layer** can be used to establish sessions between machines.
 
 The **presentation layer** ensures that the syntax and semantics of the data that’s being transmitted will be understood by other machines.
 
-The **application layer** can contain a variety of protocols that are used by an application. HTTP is a popular application protocol.
+The **application layer** can contain a variety of protocols that are used by an application. HTTP is a popular application layer protocol.
 
 {% cite computer-networks -l 43-5 %}
 
@@ -110,9 +110,9 @@ In the datagram-forwarding model of packet delivery, switches generally read the
 
 ### Routing
 
-In the datagram-forwarding model, each switch has a forwarding table that it uses to determine where to direct each packet it receives. The forwarding table is made up of \<destination,next_hop\> pairs {% cite intro-computer-networks -l 15 %}.
+In the datagram-forwarding model, each switch has a forwarding table that it uses to determine where to direct each packet it receives. The forwarding table is made up of \<destination, next_hop\> pairs {% cite intro-computer-networks -l 15 %}.
 
-The way that entries are added to a forwarding table depends on the protocol. In the case of IP there are several protocols just for building the routing table. For now, you can imagine that they are configured by an administrator {% cite intro-computer-networks -l 16 %}.
+The way that entries are added to a forwarding table depends on the protocol. In the case of IP there are several protocols just for building the routing table {% cite intro-computer-networks -l 16 %}.
 
 Not all switches connected to the Internet have complete tables. IP routes in small networks often have a default destination leading to another network that's connected to the Internet. This is used in case the local network doesn’t have a destination match in its routing table {% cite intro-computer-networks -l 16-17 %}.
 
@@ -142,7 +142,7 @@ Delays in the network are inevitable. There are many different types of delay:
 
 **Bandwidth** can refer to either data rate or throughput, although in these notes it generally refers to data rate.
 
-Data rates are usually measured in bits per second. For example, kilobits per second (Kbps) and megabits per second (Mbps).
+Data rates are usually measured in bits per second. For example, kilobits per second (Kb/s) and megabits per second (Mb/s).
 
 ## LANs and Ethernet
 
@@ -154,7 +154,7 @@ A local-area network (LAN) is a system made from:
 
 Ethernet is the most popular type of LAN, although Wireless LANs (WLANs) are becoming increasingly popular {% cite intro-computer-networks -l 22-23 %}.
 
-Ethernet addresses are six bytes long. Each Ethernet card (Network Interface Card) has a unique address added by the manufacturer to ROM on the card (although the address can be spoofed in software). This is different to IP addresses, which are assigned administratively {% cite intro-computer-networks -l 23 %}.
+Ethernet addresses are six bytes long. Each NIC (Network Interface Card) has a unique address added by the manufacturer to ROM on the card (although the address can be spoofed in software). This is different to IP addresses, which are assigned administratively {% cite intro-computer-networks -l 23 %}.
 
 The network interface monitors all incoming traffic, and if it sees a packet addressed to itself it will read the packet and send the packet to the CPU via an interrupt {% cite intro-computer-networks -l 23 %}.
 
@@ -166,7 +166,7 @@ Ethernet switches must maintain a forwarding table in order to know where to sen
 
 A wide area network (WAN) covers a large geographical area, like a country or continent.
 
-WANs are often made up of different kinds of networking technology, and lots WANs are made up of connected networks (internetworks).
+WANs are often made up of different kinds of networking technology, and lots WANs are made up of connected networks.
 
 The Internet is an example of a WAN. Another example of a WAN is the cellular telephone network.
 
