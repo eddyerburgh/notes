@@ -25,7 +25,7 @@ permalink: /computer-networking/modulation-and-multiplexing
 
 ## Introduction
 
-**Digital modulation** is the process of converting between digital bits and analog signals (such as continuously varying voltage) {% cite computer-networks -l 125 %}.
+**Digital modulation** is the process of converting between digital bits and analog signals (such as a continuously varying voltage) {% cite computer-networks -l 125 %}.
 
 Schemes that directly encode bits into signals result in **baseband transmission**, where the signal occupies frequencies from zero up to a maximum that depends on the signalling rate {% cite computer-networks -l 125 %}.
 
@@ -35,20 +35,20 @@ Channels are often shared by multiple signals. Sharing signals is called **multi
 
 ## Baseband transmission
 
-In baseband transmission, the signal occupies frequencies from zero up to a maximum that depends on the signalling rate {% cite computer-networks -l 125 %}.
+Baseband transmission is the transmission of a raw signal that occupies frequencies from zero up to a maximum that depends on the signalling rate {% cite computer-networks -l 125 %}.
 
-**NRZ (Non-Return-to-Zero)** is a simple transmission scheme. In NRZ, a positive voltage could represent a 1, and a negative voltage could represent a 0. For optical fiber, the presence of light could represent a 1 and the absence of light could represent a 0 {% cite computer-networks -l 125 %}.
-
-<figure>
-  <img src="{{site.baseurl}}/assets/img/computer-networking/modulation-and-multiplexing/line-codes.svg" alt="">
-  <figcaption><h4>Figure 1: Different line codes {% cite computer-networks -l 126 %}</h4></figcaption>
-</figure>
+**NRZ (Non-Return-to-Zero)** is a simple transmission scheme. In NRZ, a positive voltage could represent a 1, and a negative voltage could represent a 0 {% cite computer-networks -l 125 %}.
 
 An NRZ signal is sent down a line, and a receiving station samples the signal at regular intervals to convert the signal back into bits {% cite computer-networks -l 125 %}.
 
 The signal will not look exactly like the signal that was originally sent. It will have been distorted and attenuated by the channel. The receiver must map the received signal to the closest symbols {% cite computer-networks -l 126 %}.
 
 NRZ is normally not used by itself in practice. More complex schemes can convert bits to signals that better meet engineering needs. These schemes are called **line codes** {% cite computer-networks -l 126 %}.
+
+<figure>
+  <img src="{{site.baseurl}}/assets/img/computer-networking/modulation-and-multiplexing/line-codes.svg" alt="">
+  <figcaption><h4>Figure 1: Different line codes {% cite computer-networks -l 126 %}</h4></figcaption>
+</figure>
 
 The engineering needs for transmission schemes are:
 
@@ -62,9 +62,9 @@ The NRZ signal can cycle between positive and negative levels every 2 bits at a 
 
 One strategy for using bandwidth more efficiently is to use more than two signalling levels. You could send 2 bits at once as a single **symbol**. This would require four different symbols, and four different levels. This would work as long as the receiver can distinguish the four levels. With this, the rate that the signal changes is half the bit rate, so the required bandwidth is reduced {% cite computer-networks -l 126 %}.
 
-The rate at which the signal changes is called the **signal rate**. This is different from bit rate. The bit rate is the symbol rate multiplied by the bits per symbol. Another name for symbol rate is the **baud rate** {% cite computer-networks -l 127 %}.
+The rate at which the signal changes is called the **signal rate**. This is different from bit rate. The bit rate is $$\text{symbol rate} \times \text{bits per symbol}$$. Another name for symbol rate is the **baud rate** {% cite computer-networks -l 127 %}.
 
-A good scheme maximises bandwidth efficiency.
+A good scheme maximizes bandwidth efficiency.
 
 ### Clock recovery
 
@@ -72,7 +72,7 @@ In order for a receiver to read bits from a signal, it must know when one symbol
 
 Accurate clocks are too expensive a solution for commodity devices. The alternative is to send a clock signal to the receiver.
 
-Instead of sending a separate signal for the clock, the clock signal can be mixed with the data signal by XORing the two together. The clock makes a transition in every bit time and it runs at twice the bit rate. When the clock is XORed with 0 it makes a low-to-high transition, which is the clock. When it is XORed with 1 it makes a high to low transition, which is the inverse of the clock. This scheme is called **Manchester encoding** (see figure 1). Manchester encoding requires twice as much bandwidth as NRZ encoding, because of the clock {% cite computer-networks -l 127 %}.
+Instead of sending a separate signal for the clock, the clock signal can be mixed with the data signal by XORing the two together. The clock makes a transition in every bit time and it runs at twice the bit rate. When the clock is XORed with 0 it makes a low-to-high transition, which is the clock. When it is XORed with 1 it makes a high to low transition, which is the inverse of the clock. This scheme is called **Manchester encoding** (see Figure 1). Manchester encoding requires twice as much bandwidth as NRZ encoding, because of the clock {% cite computer-networks -l 127 %}.
 
 Another approach is to code the data to ensure there are enough transitions in the signal. NRZ will only have a clock problem for long runs of 0s and 1s, so avoiding long runs make it possible for the receiver to stay synchronized {% cite computer-networks -l 127 %}.
 
@@ -112,8 +112,6 @@ Another approach is to use a line code, like 4B/5B. A common code is the 8B/10B 
 To solve this problem, some input patterns are matched to two symbols: one symbol with an extra 1, and one symbol with an extra 0. In order to keep the signal balanced, the encoder must remember the disparity, next time that it uses an unbalanced symbol, it will choose the symbol that reduces the disparity {% cite computer-networks -l 129-30 %}.
 
 ## Passband transmission
-
-Signals that are shifted to occupy a higher range of frequencies are called passband signals {% cite computer-networks -l 91 %}.
 
 You can take a baseband signal that occupies 0 to B Hz and shift it up to occupy a **passband** of S to S+B Hz. At the receiver, the signal can be shifted back down to baseband. This type of transmission is called passband transmission "because an arbitrary band of frequencies is used to pass the signal" {% cite computer-networks -l 130 %}.
 
@@ -173,15 +171,15 @@ TDM is used in cellular and telephone networks {% cite computer-networks -l 135 
 
 ## Code division multiplexing
 
-**CDM (Code Division Multiplexing)** is a form of **spread spectrum** communication, where a narrowband signal is spread over a wider frequency band. In CDM, this allows multiple users to share the same frequency band {% cite computer-networks -l 135 %}.
+**CDM (Code Division Multiplexing)** is a form of **spread spectrum** communication, where a narrowband signal is spread over a wider frequency band. This allows multiple users to share the same frequency band {% cite computer-networks -l 135 %}.
 
 CDM is commonly called **CDMA (Code Division Multiple Access)**. CDMA allows stations to transmit across the entire frequency spectrum all the time. The multiple simultaneous transmissions are separated using coding theory. For CDMA to work, the receiving station must be able to extract desired signals {% cite computer-networks -l 136 %}.
 
 In CDMA, each bit time is divided into n short intervals (known as chips). Normally there are 64 or 128 chips per bit {% cite computer-networks -l 136 %}.
 
-To transmit a 1, a station sends its chip sequence. To transmit a 0, a station sends the negation of its chip sequence. When multiple stations transmit at the same time, their bipolar sequences add linearly. e.g. if during 1 bit period, 3 stations output +1 and 1 station outputs -1, +2 would be received {% cite computer-networks -l 136 %}.
+To transmit a 1, a station sends its chip sequence. To transmit a 0, a station sends the negation of its chip sequence. When multiple stations transmit at the same time, their bipolar sequences add linearly. For example, if during 1 bit period, 3 stations output +1 and 1 station outputs -1, +2 would be received {% cite computer-networks -l 136 %}.
 
-The receiving station recovers the original code by computing the normalized inner product of the received chip sequence and the chip sequence of the station whose bit stream it is trying to recover. "If the received chip sequence is S and the receiver is trying to listen to a station whose chip sequence is C, it just computes the normalized inner product, S\*C" {% cite computer-networks -l 137 %}.
+The receiving station recovers the original code by computing the normalized inner product of the received chip sequence and the chip sequence of the station whose bit stream it is trying to recover. "If the received chip sequence is S and the receiver is trying to listen to a station whose chip sequence is C, it just computes the normalized inner product, $$S \dot C$$" {% cite computer-networks -l 137 %}.
 
 This works because pairs of chip sequences are orthogonal (meaning that they cancel each other out). To learn more, watch this [video about how CDMA works](https://www.youtube.com/watch?v=XJ81CuujwYE).
 
