@@ -13,7 +13,7 @@ permalink: /operating-systems
 # Operating systems
 {:.no_toc}
 
-An operating system (OS) is the "software that manages a computer’s resources for its users and their applications" {% cite oses-principles-and-practice -l 4 %}.
+As a software engineer, most of the code you write will be run by an operating system. Understanding the internals of operating systems will make you a better programmer.
 
 ## Table of contents
 {: .no_toc }
@@ -23,7 +23,9 @@ An operating system (OS) is the "software that manages a computer’s resources 
 
 <!-- prettier-ignore-end -->
 
-## Responsibilities
+## Introduction
+
+An operating system (OS) is the "software that manages a computer’s resources for its users and their applications" {% cite oses-principles-and-practice -l 4 %}.
 
 OSes provide:
 
