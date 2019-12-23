@@ -13,8 +13,6 @@ permalink: /operating-systems/linux/devices-and-modules
 # Devices and Modules
 {:.no_toc}
 
-This section is about the Linux device model.
-
 ## Table of contents
 {: .no_toc }
 
@@ -135,9 +133,9 @@ struct kobject {
 };
 ```
 
-`parent` points to the kobject's parent. This is used to build a hierarchy that can be used to power down leaf devices before their parents. This is all sysf is: "a user-space filesystem representation of the kobject object hierarchy inside the kernel" {% cite lkd -l 350 %}.
+`parent` points to the kobject's parent. This is used to build a hierarchy that can be used to power down leaf devices before their parents.
 
-`sd` points to a `sysfs_dirent` structure that represents the kobject in sysfs.
+sysfs, the pseudo file system, is simply "a user-space filesystem representation of the kobject object hierarchy inside the kernel" {% cite lkd -l 350 %}. `sd` points to a `sysfs_dirent` structure that represents the kobject in sysfs.
 
 Kobjects are normally embedded in other structures, like the `cdev` struct:
 
@@ -159,7 +157,7 @@ The embedded kobject enables the `cdev` to be represented in the object hierarch
 
 ### Ktypes
 
-Kobjects are associated with a kernel object type (ktype).
+Kobjects are associated with a ktype (kernel object type).
 
 Ktypes are represented with a `kobj_type` struct:
 
