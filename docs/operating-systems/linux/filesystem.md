@@ -13,7 +13,7 @@ permalink: /operating-systems/linux/filesystem
 # Filesystem
 {:.no_toc}
 
-The filesystem is a familiar abstraction. This section is about how Linux provides a consistent filesystem, and how it schedules I/O operations.
+The filesystem is a familiar abstraction. This section is about how Linux provides a consistent filesystem and how it schedules I/O operations.
 
 ## Table of contents
 {: .no_toc }
@@ -25,7 +25,7 @@ The filesystem is a familiar abstraction. This section is about how Linux provid
 
 ## The virtual filesystem
 
-The virtual filesystem (VFS) is a subsystem that implements the file and filesystem-related interfaces. All filesystems rely on the VFS. VFS enables different filesystems on different media to interoperate {% cite lkd -l 261 %}.
+The VFS (Virtual FileSystem ) is a subsystem that implements the file and filesystem-related interfaces. All filesystems rely on the VFS. VFS enables different filesystems on different media to interoperate {% cite lkd -l 261 %}.
 
 ## Filesystem Abstraction Layer
 
@@ -37,7 +37,7 @@ Consider:
 ret = write(fd, buf, len);
 ```
 
-`write()` writes len bytes pointed to by `buf` to the current position in the file represented by the file descriptor `fd`. The implementation of `write()` is implemented in `sys_write()` system call. This then calls the filesystems' write method, which will write the data to the media (or do whatever the filesystem does on write) {% cite lkd -l 262-3 %}.
+`write()` writes len bytes pointed to by `buf` to the current position in the file represented by the file descriptor `fd`. The implementation of `write()` is implemented in the `sys_write()` system call. This then calls the filesystems' write method, which will write the data to the media (or do whatever the filesystem does on write) {% cite lkd -l 262-3 %}.
 
 <figure>
   <img src="{{site.baseurl}}/assets/img/operating-systems/linux/filesystem/data-flow.svg" alt="">
@@ -53,15 +53,15 @@ Unix historically provided four filesystem abstractions:
 - inodes
 - Mount points
 
-A filesystem is a store of data that follows a specified structure. "Filesystems contain files, directories, and asssociated control information". Typical operations are insertion, deletion, and mounting. "In Unix, filesystems are mounted at a specific mount point in a global hierarchy known as a namespace". This enables mounted filesystems to appear as a single tree. This is different from the behavior in Windows, which breaks the filesystem into drive letters such as `C:` {% cite lkd -l 263 %}.
+A **filesystem** is a store of data that follows a specified structure. "Filesystems contain files, directories, and asssociated control information". Typical operations are insertion, deletion, and mounting. "In Unix, filesystems are mounted at a specific mount point in a global hierarchy known as a namespace". This enables mounted filesystems to appear as a single tree. This is different from the behavior in Windows, which breaks the filesystem into drive letters such as `C:` {% cite lkd -l 263 %}.
 
-A file is an ordered string of bytes. The first byte is the beginning of the file, the last byte is the end of the file. Files are assigned human-readable names for identification. Typical file operations are read, write, create, and delete {% cite lkd -l 263-4 %}.
+A **file** is an ordered string of bytes. The first byte is the beginning of the file, the last byte is the end of the file. Files are assigned human-readable names for identification. Typical file operations are read, write, create, and delete {% cite lkd -l 263-4 %}.
 
-Files are organized into directories. "A directory is analogous to a folder and usually contains related files". Directories can contain subdirectories, which can form a path, e.g. /home/edd/workspace. The root (/) directory, the edd directory, and the workspace directory are all directory entries, called _dentries_. In Unix, directories are files that list metadata about the files contained in the directory {% cite lkd -l 264 %}.
+Files are organized into **directories**. "A directory is analogous to a folder and usually contains related files". Directories can contain subdirectories, which can form a path, e.g., /home/edd/workspace. The root ("/") directory, the edd directory, and the workspace directory are all directory entries, called _dentries_. In Unix, directories are files that list metadata about the files contained in the directory {% cite lkd -l 264 %}.
 
 Unix systems separate the concept of a file from its metadata, which is stored in a separate data structure: an inode (short for index node).
 
-These parts combine with the file system's control information, which is stored in a superblock. The superblock data structure contains information about the entire filesystem, sometimes known as the filesystem metadata {% cite lkd -l 264 %}.
+These parts combine with the file system's control information, which is stored in a superblock. The **superblock** data structure contains information about the entire filesystem, sometimes known as the filesystem metadata {% cite lkd -l 264 %}.
 
 VFS works based on these concepts, but it doesn't require the filesystem to implement them on-disk. VFS works with non-Unix filesystems like FAT by having the FAT filesystem code generate the data structures for inodes and files in-memory from the data that's stored physically {% cite lkd -l 264 %}.
 
@@ -69,18 +69,18 @@ VFS works based on these concepts, but it doesn't require the filesystem to impl
 
 The primary object types of VFS are:
 
-- The `superblock` object
-- The `inode` object
-- The `dentry` object
-- The `file` object
+- `superblock`
+- `inode`
+- `dentry`
+- `file`
 
 "A dentry represents a component in a path, which might include a regular file. In other words, a dentry is not the same as a directory, but a directory is just another kind of file" {% cite lkd -l 265 %}.
 
 Each of these primary objects contains an operations object, which describe the methods the kernel can operate against the primary objects:
 
-- `super_operations` contains methods that the kernel can execute, like `write_inode` and `sync_fs`.
+- `super_operations` contains methods that the kernel can execute on a filesystem, like `write_inode` and `sync_fs`.
 - `inode_operations` contains methods the kernel can operate on a file, like `create` and `link`.
-- `dentry_operations` contains methods the kernel can invoke on a file, like `d_compare` and `d_delete`.
+- `dentry_operations` contains methods the kernel can invoke on a directory entry, like `d_compare` and `d_delete`.
 - `file_operations` contains methods the kernel can invoke on an open file, like `read` and `write`.
 
 The operations objects are implemented as a struct that contains pointers to the functions that can operate on the parent object {% cite lkd -l 265 %}.
@@ -177,15 +177,15 @@ Each field in the structure is a pointer to a function that operates on a superb
 
 Some common methods:
 
-- `alloc_inode` creates and initializes a new inode object.
-- `destroy_inode` deallocates an inode.
-- `write_inode` writes the inode to disk.
-- `put_super` releases the given superblock object.
-- `write_super` updates the on-disk superblock with the specified superblock.
-- `sync_fs` synchronizes the filesystem metadata with the on-disk filesystem.
-- `statfs` returns filesystem statistics.
-- `clear_inode` clears the specified inode and any pages containing related data.
-- `umount_begin` called by VFS to interrupt a mount operation.
+- `alloc_inode()` creates and initializes a new inode object.
+- `destroy_inode()` deallocates an inode.
+- `write_inode()` writes the inode to disk.
+- `put_super()` releases the given superblock object.
+- `write_super()` updates the on-disk superblock with the specified superblock.
+- `sync_fs()` synchronizes the filesystem metadata with the on-disk filesystem.
+- `statfs()` returns filesystem statistics.
+- `clear_inode()` clears the specified inode and any pages containing related data.
+- `umount_begin()` called by VFS to interrupt a mount operation.
 
 {% cite lkd -l 268-9 %}
 
@@ -246,7 +246,7 @@ struct inode {
 }
 ```
 
-The inode `inode_operations` points to an object containing the operations that can be performed on an inode:
+The inode `inode_operations` member points to an object containing the operations that can be performed on an inode:
 
 ```c
 struct inode_operations {
@@ -281,23 +281,23 @@ struct inode_operations {
 
 Some of the functions contained by the object are:
 
-- `create` creates a new inode from a given dentry object.
-- `find` searches a directory for an inode corresponding to the filename specified by the dentry.
-- `link` creates a hardlink between an old dentry with a new dentry.
-- `unlink` removes the inode specified by dentry from the directory `dir`.
-- `symlink` creates a symbolic link to the file represented by dentry.
-- `mkdir` called from the `mkdir` syscall, creates a new directory.
-- `rmdir` called from the `rmdir` syscall, removes a new directory.
-- `mknod` called by the `mknod` syscall, creates a special file (like a socket or a pipe).
-- `follow_link` translates a symbolic link to the inode it points to.
-- `truncate` modifies the size of a given field.
-- `permission` checks whether specified access is allowed for the given inode.
+- `create()` creates a new inode from a given dentry object.
+- `find()` searches a directory for an inode corresponding to the filename specified by the dentry.
+- `link()` creates a hardlink between an old dentry with a new dentry.
+- `unlink()` removes the inode specified by dentry from the directory `dir`.
+- `symlink()` creates a symbolic link to the file represented by dentry.
+- `mkdir()` called from the `mkdir` syscall, creates a new directory.
+- `rmdir()` called from the `rmdir` syscall, removes a new directory.
+- `mknod()` called by the `mknod` syscall, creates a special file (like a socket or a pipe).
+- `follow_link()` translates a symbolic link to the inode it points to.
+- `truncate()` modifies the size of a given field.
+- `permission()` checks whether specified access is allowed for the given inode.
 
 {% cite lkd -l 272-4 %}
 
 ## The dentry object
 
-A dentry is a specific component in a path. In the path /bin/vi, bin and vi are both files, where bin is a directory file and vi is a regular file. Both these components are represented with inodes. bin, and vi are also both dentry objects.
+A dentry is a specific component in a path. In the path /bin/vi, bin and vi are both , where bin is a directory file and vi is a regular file. Both these components are represented with inodes. bin, and vi are also both dentry objects.
 
 The dentry object makes it easier to traverse file paths. Dentries can also include mount points.
 
@@ -375,10 +375,10 @@ struct dentry {
 };
 ```
 
-- `d_revalidate` determines whether an entry is still valid.
-- `d_hash` creates a hash value from a dentry.
-- `d_compare` compares filenames.
-- `d_iput` is called when a dentry loses its inode.
+- `d_revalidate()` determines whether an entry is still valid.
+- `d_hash()` creates a hash value from a dentry.
+- `d_compare()` compares filenames.
+- `d_iput()` is called when a dentry loses its inode.
 
 ## The file object
 
@@ -463,18 +463,18 @@ struct file_operations {
 };
 ```
 
-- `llseek` updates the file pointer for a given offset.
-- `read` counts bytes from a given file position into a given buffer.
-- `aio_read` asynchronously reads bytes into a buffer.
-- `write` writes from the given buffer into the file, starting at a given offset.
-- `poll` sleeps, waiting for activity on the given file.
-- `ioctl` sends a command and argument to a device. It's used if the file is an open device node.
-- `mmap` memory maps the given file onto the given address space.
-- `open` creates a new file object and links it to the corresponding inode object.
-- `flush` called by the VFS when the reference count of an open file decreases.
-- `release` called by the VFS when the last reference to the file is destroyed.
-- `fsync` writes cached file data to disk.
-- `get_unmapped_area` gets unused address space to map a file.
+- `llseek()` updates the file pointer for a given offset.
+- `read()` counts bytes from a given file position into a given buffer.
+- `aio_read()` asynchronously reads bytes into a buffer.
+- `write()` writes from the given buffer into the file, starting at a given offset.
+- `poll()` sleeps, waiting for activity on the given file.
+- `ioctl()` sends a command and argument to a device. It's used if the file is an open device node.
+- `mmap()` memory maps the given file onto the given address space.
+- `open()` creates a new file object and links it to the corresponding inode object.
+- `flush()` called by the VFS when the reference count of an open file decreases.
+- `release()` called by the VFS when the last reference to the file is destroyed.
+- `fsync()` writes cached file data to disk.
+- `get_unmapped_area()` gets unused address space to map a file.
 
 {% cite lkd -l 281-4 %}
 
@@ -549,7 +549,7 @@ struct files_struct {
 };
 ```
 
-The `fd_array` is a list of the open file descriptors. `NR_OPEN_DEFAULT` is equal to `BITS_PER_LONG`, which is 64 on a 64-bit architecture. If a file opens more than 64 objects then the kernel will allocate a new arrary and point `fdt` to it {% cite lkd -l 287 %}.
+The `fd_array` is a list of the open file descriptors. `NR_OPEN_DEFAULT` is equal to `BITS_PER_LONG`, which is `64` on a 64-bit architecture. If a file opens more than 64 objects then the kernel will allocate a new arrary and point `fdt` to it {% cite lkd -l 287 %}.
 
 The `fs_struct` struct contains filesystem information that's related to a process:
 
@@ -584,11 +584,9 @@ By default, all processes share the same `namespace`. Only when the `CLONE_NEWNS
 
 Block devices are devices that offer random access to fixed size chunks (blocks) of memory. There are many types of block devices, like hard disks, floppy drives, and flash memory. These are all devices on which you mount a filesystem {% cite lkd -l 289 %}.
 
-The other common type of device is a character device. A character device is accessed by a stream of sequential data. Serial ports and keyboards are examples of character devices {% cite lkd -l 289 %}.
-
 The kernel subsytem that manages block devices is called the block I/O layer {% cite lkd -l 290 %}.
 
-"The smallest addressable unit on a block device is a _sector_". Most devices have 512-byte sectors {% cite lkd -l 290 %}.
+The smallest addressable unit on a block device is a **sector**. Most devices have 512-byte sectors {% cite lkd -l 290 %}.
 
 The smallest logically addressable unit is the block. A block is a filesystem abstraction, and the kernel performs all disk operations using blocks. The block size can't be any smaller than a sector, and must be a multiple of a sector {% cite lkd -l 290 %}.
 
@@ -641,7 +639,7 @@ The `b_state` field contains the buffer state. The buffer can be in one of the f
 
 {% cite lkd -l 292 %}
 
-The `b_count` field is the buffers usage count. This must be incremented each time the buffer head is manipulated, to ensure the buffer head is not deallocated while it's being manipulated {% cite lkd -l 292 %}.
+The `b_count` field is the buffer's usage count. This must be incremented each time the buffer head is manipulated, to ensure the buffer head is not deallocated while it's being manipulated {% cite lkd -l 292 %}.
 
 "The physical block on disk to which a given buffer corresponds is the `b_blocknr`-the logical block on the block device described by `b_bdev`" {% cite lkd -l 293 %}.
 
@@ -727,13 +725,13 @@ I/O schedulers merge and sort I/O requests to ensure that disk operations are pe
 
 An I/O scheduler decides the order and the time that requests should be sent to block devices. The primary actions are sorting and merging. Merging combines two or more requests into one. Sorting is where requests are sorted according to the sectors they are operating on {% cite lkd -l 298-9 %}.
 
-I/O schedulers are often called elevators, because they minimize disk seeks in the same way that an elevator visits floors in one direction, before reversing and visiting floors in the opposite direction {% cite lkd -l 299 %}.
+I/O schedulers are often called elevators, because they minimize disk seeks in the same way that an elevator visits floors—fist in one direction, before reversing and visiting floors in the opposite direction {% cite lkd -l 299 %}.
 
 ### The Deadline I/O Scheduler
 
-The Deadline I/O scheduler was introduced to solve problems with an earlier scheduler, the Linus elevator. The Linus elevator could lead to starvation of requests to one part of the disk in the case of many requests to a different part of the disk.
+The Deadline I/O scheduler was introduced to solve problems with the Linus elevator sceduler. The Linus elevator could lead to starvation of requests to one part of the disk in the case of many requests to a different part of the disk.
 
-The Dealine I/O scheduler works on the premise that write operations can happen asynchronously in the background without affecting the user, whereas read operations must be fast. Read requests tend to be dependant on each other, so read latency can have a knock-on affect {% cite lkd -l 300 %}.
+The Deadline I/O scheduler works on the premise that write operations can happen asynchronously in the background without affecting the user, whereas read operations must be fast. Read requests tend to be dependant on each other, so read latency can have a knock-on affect {% cite lkd -l 300 %}.
 
 Each read request in the Deadline scheduler has a 500ms expiration time by default, and each write request has a 5000ms expiration {% cite lkd -l 301 %}.
 
@@ -775,7 +773,7 @@ The CFQ is now the default I/O queue in Linux {% cite lkd -l 303 %}.
 
 The Noop I/O scheduler is intended for devices with truly random memory access, like flash memory, that doesn't have a seek time.
 
-The benefit of the Noop I/O scheduler is that it doesn't need to implemented complex algoritms to sort requests, because there's either little or no seek penalty for some storage devices. Although it doesn't sort, the Noop I/O scheduler still merges requests {% cite lkd -l 303 %}.
+The benefit of the Noop I/O scheduler is that it doesn't need to implemented complex algoritms to sort requests, because there's either little or no seek penalty for some storage devices. The Noop I/O scheduler doesn't sort, but it still merges requests {% cite lkd -l 303 %}.
 
 ## References
 
