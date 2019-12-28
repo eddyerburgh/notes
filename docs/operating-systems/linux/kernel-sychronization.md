@@ -71,19 +71,17 @@ This would result in `i` being set to 9. However, it's possible that the instruc
 
 This would result in `i` being set to 8, rather than 7.
 
-The solution is for the set of increment instructions to be performed atomically as a single instruction. Most processors provide an instruction to atomically read, increment, and write-back {% cite lkd -l 164 %}. But sometimes the critical region contains many instructions that don't have an atomic equivalent. One solution is locks.
+The solution is for the set of increment instructions to be performed atomically as a single instruction. Most processors provide an instruction to atomically read, increment, and write-back {% cite lkd -l 164 %}. But sometimes the critical region contains many instructions that don't have an atomic equivalent. One solution to this is locks.
 
 ## Locking
 
 A **lock** is a way to prevent multiple threads of execution from entering a critical region at the same time. Linux includes several different locking mechanisms {% cite lkd -l 166 %}.
 
-A lock works like a lock on a door. Imagine the critical region is a room. When a process enters a critical region, it locks the door behind it. The process is then free to execute instructions without being interrupted. When it leaves the room, it unlocks the door, and other processes can enter the critical region {% cite lkd -l 165 %}.
-
-For example, you might have a linked list of requests that need to be processed. Two functions manipulate the list. One function adds a new request to the list tail, another function removes a request from the head of the list. If one function attempts to read the queue while another function is manipulating the list, the list will be in an inconsistent state. You can solve this problem by ensuring only one function can access the list at a time with locks. Before a process manipulates or reads from the list it must obtain a lock. When a process has a lock, no other process can access the queue. When the process has finished manipulating the list, it can release the lock and another process can obtain the locks and access the list {% cite lkd -l 165 %}.
+A lock works like a lock on a door. Imagine the critical region as a room. When a process enters a critical region, it locks the door behind it. The process is then free to execute instructions without being interrupted. When it leaves the room, it unlocks the door so that other processes can enter the critical region {% cite lkd -l 165 %}.
 
 Locks are advisory and voluntary. They are a programming construct that must be followed by every other program in order for them to provide atomic access to critical regions {% cite lkd -l 166 %}.
 
-Some lock variants work by _busy waiting_: looping continuously until a lock becomes available. Other locks work by putting the process to sleep until the lock becomes available {% cite lkd -l 166 %}.
+Some lock variants work by **busy waiting**: looping continuously until a lock becomes available. Other locks work by putting the process to sleep until the lock becomes available {% cite lkd -l 166 %}.
 
 Locks can be implemented with atomic instructions that can test the value of an integer and set it to a new value only if it's zero. For example, locks are implemented on x86 with an instruction called copy and exchange {% cite lkd -l 166 %}.
 
@@ -94,7 +92,7 @@ The kernel has several sources of concurrency:
 - Interrupts. An interrupt can occur at almost any time.
 - Softirqs and tasklets. The kernel can raise or schedule a softirq or tasklet at almost any time.
 - Kernel preemption. One task can preempt another.
-- Sleeping and synchronization with user-space. When a task sleeps it will invoke the scheduler, resulting in running a new process.
+- Sleeping and synchronization with user space. When a task sleeps it will invoke the scheduler, resulting in running a new process.
 - Symmetrical multiprocessing. Two or more processors can execute code at the same time.
 
 {% cite lkd -l 167 %}
@@ -109,7 +107,7 @@ A deadlock is a condition where dependant threads are waiting for each other, pu
 
 There are different types of deadlock. For example, a self-deadlock is where a thread attempts to acquire a lock that it already holds. It will wait for the lock to be released, but it will never be released, because the thread is waiting and unable to release it {% cite lkd -l 169 %}.
 
-Another example is a case with multiple locks. Consider n threads and n locks. If each thread is waiting for a lock held by another thread, none of the threads will be able to progress. A common case is where n is 2, known as the deadly embrace or ABBA deadlock {% cite lkd -l 170 %}.
+Another example is a case with multiple locks. Consider $$n$$ threads and $$n$$ locks. If each thread is waiting for a lock held by another thread, none of the threads will be able to progress. A common case is where $$n$$ is 2, known as the deadly embrace or ABBA deadlock {% cite lkd -l 170 %}.
 
 You can prevent deadlocks by following simple rules:
 
@@ -121,11 +119,11 @@ You can prevent deadlocks by following simple rules:
 
 ## Contention and scalability
 
-A contended lock is a lock that's in use by one thread with other threads waiting to acquire it. A lock can become highly contended if many threads attempt to acquire the lock, if threads hold the lock for a long time, or both. Highly contended locks can be a bottleneck in a system {% cite lkd -l 170 %}.
+A contended lock is a lock that is in use by one thread with other threads waiting to acquire it. A lock can become highly contended if many threads attempt to acquire the lock, if threads hold the lock for a long time, or both. Highly contended locks can be a bottleneck in a system {% cite lkd -l 170 %}.
 
 Scalability in an operating system is a measurement of how well the system can be expanded. "Ideally, doubling the number of processors should result in a doubling of the system's processor performance". This is never the case, but it should be something system designers strive for {% cite lkd -l 171 %}.
 
-The granularity of locking is a description of how large an amount of data is protected by a lock. Low granularity locking protects large subsystems of data, high granularity locking protects a very small amount of data. High-granularity locks helps reduce lock contention {% cite lkd -l 171 %}
+The granularity of locking is a description of how large an amount of data is protected by a lock. Low-granularity locking protects large subsystems of data, high-granularity locking protects a very small amount of data. High-granularity locks helps reduce lock contention {% cite lkd -l 171 %}
 
 ## Atomic operations
 
@@ -134,7 +132,7 @@ Atomic operations provide instructions that execute atomically. Atomic operation
 The kernel provides two sets of interfaces for atomic operations:
 
 - Atomic integer operations
-- atomic bitwise operations
+- Atomic bitwise operations
 
 Atomic integer operations operate on a special data type: `atomic_t`. There are three reasons this type is used rather than having operations work directly on the C `int` type:
 
@@ -154,7 +152,7 @@ typedef struct {
 
 The declarations needed to use the atomic integer operations are in \<asm/atomic.h\>. All architectures provide a minimum set of operations that are used throughout the kernel {% cite lkd -l 177 %}.
 
-You can use the `ATOMIC_INIT()` macro to initialize an `atomic_int()` value to 0:
+You can use the `ATOMIC_INIT` macro to initialize an `atomic_t` value to 0:
 
 ```c
 atomic_t u = ATOMIC_INIT(0);
@@ -176,7 +174,7 @@ Another use is atomically performing an operation and testing the result, for ex
 int atomic_dec_and_test(atomic_t *v)
 ```
 
-Generally atomic operations are implemented as inline functions with inline assembly. If the operations are inherently atomic, like a read operation, they will just be a plain C code macro. For example, `atomic_read()` is a macro that returns the integer value of the `atomic_t`:
+Generally atomic operations are implemented as inline functions with inline assembly. If the operations are inherently atomic, like a read operation, they will just be a plain C code macro. For example, `atomic_read` is a macro that returns the integer value of the `atomic_t`:
 
 ```c
 /**
