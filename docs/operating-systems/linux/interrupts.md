@@ -13,7 +13,7 @@ permalink: /operating-systems/linux/interrupts
 # Interrupts
 {:.no_toc}
 
-Most hardware communicates with the processor by using interrupts. This section is about interrupts: what they are, and how they are handled.
+Most hardware communicates with the processor by using interrupts, therefore you should learn about them in detail.
 
 ## Table of contents
 {: .no_toc  }
@@ -27,7 +27,7 @@ Most hardware communicates with the processor by using interrupts. This section 
 
 **Interrupts** are a mechanism for hardware, like a mouse or a keyboard, to signal to the kernel that attention is needed. **Interrupt handlers** are the functions that respond to interrupts {% cite lkd -l 113 %}.
 
-An interrupt is produced by the hardware devices sending an electronic signal to a pin on an interrupt controller. An **interrupt controller** is a chip that multiplexes multiple interrupt lines into a single line. When the interrupt controller receives an interrupt it sends a signal to the processor, which notifies the operating system that an interrupt has occurred. The operating system then handles the interrupt {% cite lkd -l 114 %}.
+An interrupt is produced by the hardware devices sending an electronic signal to a pin on an interrupt controller. An **interrupt controller** is a chip that multiplexes multiple interrupt lines into a single line. When the interrupt controller receives an interrupt, it sends a signal to the processor, which notifies the operating system that an interrupt has occurred. The operating system then handles the interrupt {% cite lkd -l 114 %}.
 
 Devices are differentiated by a unique interrupt value. The interrupt values are often known as interrupt request (**IRQ**) lines. Each IRQ line is assigned a number. For example, on the classic PC, IRQ 0 is the timer interrupt. Some devices have dynamic interrupt numbers, like devices on the PCI {% cite lkd -l 114 %}.
 
@@ -80,17 +80,17 @@ The return type `irqreturn_t` can be either `IRQ_HANDLED` or `IRQ_NONE`. `IRQ_HA
 
 A shared handler is registered and executed similarly to a nonshared handler. The main differences are:
 
-1. The `IRQF_SHARED` flag must be set in the `request_irq()` `flags` argument
-2. The `dev` argument must be unique to each registered handler
-3. The interrupt handler must be able to detect whether its device generated the interrupt. This requires hardware support and logic in the interrupt handler
+1. The `IRQF_SHARED` flag must be set in the `request_irq()` `flags` argument.
+2. The `dev` argument must be unique to each registered handler.
+3. The interrupt handler must be able to detect whether its device generated the interrupt. This requires hardware support and logic in the interrupt handler.
 
 {% cite lkd -l 119 %}
 
-When the kernel receives an interrupt it invokes each registered interrupt handler for the line.
+When the kernel receives an interrupt, it invokes each registered interrupt handler for the line.
 
 ### RTC interrupt handler
 
-A Real-time clock (RTC) is a device that sets the system clock, provides an alarm, or provides a periodic timer. On most architectures, the system clock is set by writing the desired time to a specific register. An alarm or periodic timer is normally implemented with an interrupt {% cite lkd -l 120 %}.
+An RTC (Real-Time Clock) is a device that sets the system clock, provides an alarm, or provides a periodic timer. On most architectures, the system clock is set by writing the desired time to a specific register. An alarm or periodic timer is normally implemented with an interrupt {% cite lkd -l 120 %}.
 
 When the RTC driver loads, the `rtc_init()` function is invoked to initialize the driver. `rtc_init()` registers the interrupt handler:
 
@@ -172,7 +172,7 @@ The implementation of interrupt handlers is architecture specific. "A device iss
 
 "For each interrupt line, the processor jumps to a unique location in memory and executes the code located there". This is how the kernel knows the IRQ number of the interrupt. The entry point saves the IRQ number value, and stores the current registers on the stack. Then the kernel calls `do_IRQ()`. Most of the code after `do_IRQ()` is C code, but it's still architecture specific {% cite lkd -l 123 %}.
 
-`do_irq()` is declared as:
+`do_IRQ()` is declared as:
 
 ```c
 unsigned int do_IRQ(struct pt_regs regs)
@@ -259,38 +259,40 @@ First, interrupts are turned back on (unless they were disabled during the handl
 
 "Back in `do_IRQ()`, the function cleans up and returns to the initial entry point, which then jumps to `ret_from_intr()`" {% cite lkd -l 125 %}.
 
-`ret_from_intr()` is written in assembly. `ret_from_intr()` checks whether there is a reschedule pending. If a reschedule is pending and the kernel is returning to user-space, `schedule()` is called. If the kernel is returning to kernel-space, `schedule()` is only called if the `preempt_count` is 0. After `schedule()` returns, the initial registers are restored and the kernel resumes where it was interrupted {% cite lkd -l 125 %}.
+`ret_from_intr()` is written in assembly. `ret_from_intr()` checks whether there is a reschedule pending. If a reschedule is pending and the kernel is returning to user space, `schedule()` is called. If the kernel is returning to kernel space, `schedule()` is only called if the `preempt_count` is 0. After `schedule()` returns, the initial registers are restored and the kernel resumes where it was interrupted {% cite lkd -l 125 %}.
 
 ## Top halves and Bottom halves
 
 Interrupt handlers are constrained:
 
-- They must run quickly to avoid stalling interrupted code
-- They must run quickly to stop disabling other interrupts while they run
-- They are unable to make blocking calls
-- They are often time critical
+- They must run quickly to avoid stalling interrupted code.
+- They must run quickly to stop disabling other interrupts while they run.
+- They are unable to make blocking calls.
+- They are often time critical.
 
 {% cite lkd -l 133 %}
 
-To ensure interrupt handlers run quickly they should be split into a **top half** and a **bottom half**. The top half should run immediately and return quickly, the bottom half can perform non-critical processing at a later time.
+To ensure interrupt handlers run quickly, they should be split into a **top half** and a **bottom half**. The top half should run immediately and return quickly, the bottom half can perform non-critical processing at a later time.
 
 ## Bottom halves
 
 As much work as possible should be done in the bottom half. There are multiple ways to write the bottom half:
 
-1. Softirqs are a set of statically defined bottom halves that can run simultaneously on any processor {% cite lkd -l 136 %}
-2. Tasklets are dynamically created bottom halves built on top of softirqs {% cite lkd -l 136 %}
+1. Softirqs are a set of statically defined bottom halves that can run simultaneously on any processor.
+2. Tasklets are dynamically created bottom halves built on top of softirqs
 3. Work queues are functions that are run in a kernel worker thread
+
+{% cite lkd -l 136 %}
 
 Tasklets are suitable for most bottom halves. Softirqs are more performant but more difficult to use because they can run on multiple processors and are statically defined. {% cite lkd -l 136 %}
 
 ## Softirqs
 
-Softirqs are rarely used directly: there are only 9 softirqs in the 2.6 kernel. But tasklets are built on softirqs, so it's important to understand softirqs before discussing tasklets {% cite lkd -l 137 %}.
+Softirqs are rarely used directly: there are only 9 softirqs in the 2.6 kernel. However, tasklets are built on softirqs, so it's important to understand softirqs before discussing tasklets {% cite lkd -l 137 %}.
 
 Softirqs are statically allocated at compile time. You can't dynamically allocate softirqs {% cite lkd -l 137 %}.
 
-Softirqs are represented with the `softirq_action` structure:
+Softirqs are represented with the `softirq_action` struct:
 
 ```c
 struct softirq_action
@@ -313,7 +315,7 @@ void softirq_handler(struct softirq_action *);
 
 When the kernel executes a softirq handler, it executes the `action` function with a pointer to the `softirq_action` action as its argument. The benefit of passing the entire structure is that it makes it easy to extend the data passed to the action by updating the `softirq_action` structure {% cite lkd -l 138 %}.
 
-A softirq never preempts another softirq: only an interrupts handler can preempt a softirq {% cite lkd -l 138 %}.
+A softirq never preempts another softirq: only an interrupt handler can preempt a softirq {% cite lkd -l 138 %}.
 
 A softirq needs to be marked before it will execute, known as _raising the softirq_. "Usually, an interrupt handler marks its softirq for execution before returning". Pending softirqs are checked for, and executed in the following places:
 
@@ -347,13 +349,13 @@ if (pending) {
 
 The above code performs the following steps:
 
-1. Sets the `pending` local variable to a 32-bit mask of pending softirqs. If bit n is set then the nth softirq is pending
-2. Clears the actual bitmask. This occurs with interrupts disabled, although it is not included in the simplified example
-3. `h` is set to the first entry in `softirq_vec`
-4. If first bit is set (first softirq is pending) then `h->action(h)` is called
-5. `h` is incremented by 1 so that it points to the the next entry in the `softirq_vec` array
-6. The `pending` bitmask is right-shifted by one, so the second bit is now the first
-7. Repeat previous steps until pending is 0 (meaning there are no more pending softirqs)
+1. Sets the `pending` local variable to a 32-bit mask of pending softirqs. If bit $$n$$ is set then the $$nth$$ softirq is pending.
+2. Clears the actual bitmask. This occurs with interrupts disabled, although it is not included in the simplified example.
+3. `h` is set to the first entry in `softirq_vec`.
+4. If first bit is set (first softirq is pending) then `h->action(h)` is called.
+5. `h` is incremented by 1 so that it points to the the next entry in the `softirq_vec` array.
+6. The `pending` bitmask is right-shifted by one, so the second bit is now the first.
+7. Repeat previous steps until pending is 0 (meaning there are no more pending softirqs).
 
 {% cite lkd -l 139 %}
 
@@ -394,7 +396,7 @@ Once a softirq is added to the enum list and registered, it's ready to run. To m
 
 Tasklets are softirqs. They are represented by two softirqs: `HI_SOFTIRQ` and `TASKLET_SOFTIRQ`, where `HI_SOFTIRQ`-based tasklets run before `TASKLET_SOFTIRQ`-based tasklets.
 
-Tasklets are represented with the `tasklet_struct`. The structure is declared in \<linux/interrupt.h>\:
+Tasklets are represented with the `tasklet_struct` struct. The struct is declared in \<linux/interrupt.h>\:
 
 ```c
 struct tasklet_struct {
@@ -406,7 +408,7 @@ struct tasklet_struct {
 };
 ```
 
-`func` is the tasklet handler, and it receives `data` as its argument. The `state` member is either 0, `TASKLET_STATE_SCHED`, or `TASKLET_STATE_RUN`. `TASKLET_STATE_SCHED` marks a tasklet that's scheduled to run, and `TASKLET_STATE_RUN` marks a tasklet that's running. `count` is used as a reference count for the tasklet.
+`func()` is the tasklet handler, and it receives `data` as its argument. The `state` member is either 0, `TASKLET_STATE_SCHED`, or `TASKLET_STATE_RUN`. `TASKLET_STATE_SCHED` marks a tasklet that's scheduled to run, and `TASKLET_STATE_RUN` marks a tasklet that's running. `count` is used as a reference count for the tasklet.
 
 Scheduled tasklets are stored in two per-processor structures: `tasklet_vec` and `tasklet_hi_vec`. They are both linked lists of `tasklet_struct` structures {% cite lkd -l 143 %}.
 
@@ -428,7 +430,7 @@ The steps that `tasklet_schedule()` takes are:
 1. Disable local interrupt delivery and retrieve the `tasklet_vec` or `tasklet_hi_vec` list for the process.
 2. Clear the list for the processor by setting it to `NULL`.
 3. Enable local interrupt delivery.
-4. Loop over each pending tasklet inn the retrieved list.
+4. Loop over each pending tasklet in the retrieved list.
 5. Check whether tasklet is running on another process, and skip if so.
 6. Set the `TASKLET_STATE_RUN` flag.
 7. Check that count is 0 to ensure tasklet isn't disabled.
@@ -449,7 +451,7 @@ DECLARE_TASKLET(name, func, data)
 DECLARE_TASKLET_DISABLED(name, func, data);
 ```
 
-Both these macros statically create a `tasklet_struct` with a given name. When a tasklet is scheduled, `func` is executed with `data` as an argument {% cite lkd -l 144 %}.
+Both these macros statically create a `tasklet_struct` with a given name. When a tasklet is scheduled, `func()` is executed with `data` as an argument {% cite lkd -l 144 %}.
 
 You can create a tasklet with a pointer to a dynamically created `tasklet_struct` with `tasklet_init()`:
 
@@ -475,11 +477,11 @@ When a tasklet has been scheduled it will run once at some time in the future. A
 
 ### ksoftirqd
 
-Softirq processing is helped by a set of per-processor kernel threads. Since tasklets are softirqs, the kernel thread's also impact tasklets {% cite lkd -l 146 %}.
+Softirq processing is helped by a set of per-processor kernel threads. Since tasklets are softirqs, the kernel threads also impact tasklets {% cite lkd -l 146 %}.
 
 The reason for the processes is to solve a problem that occurs with softirq scheduling. The problem is that softirq functions can reschedule themselves, which means situations can occur where a high frequency of softirqs rescheduling themselves would starve user processes of processor time if they were processed immediately. However, not processing reactivated softirqs is also unacceptable {% cite lkd -l 146 %}.
 
-The solution is to not immediately process reactivated softirqs. "Instead, if the number of softirqs grows excessive, the kernel wakes up a family of kernel threads to handle the load". The kernel threads run with the lowest priority to ensure they don't run in place of any important process. This solution means that heavy softirq activity will not starve user-space processes, but at the same time it ensures that excess softirqs will run eventually. An added benefit is that softirqs will be handled quickly on an idle system {% cite lkd -l 147 %}.
+The solution is to not immediately process reactivated softirqs. "Instead, if the number of softirqs grows excessive, the kernel wakes up a family of kernel threads to handle the load". The kernel threads run with the lowest priority to ensure they don't run in place of any important process. This solution means that heavy softirq activity will not starve user space processes, but at the same time it ensures that excess softirqs will run eventually. An added benefit is that softirqs will be handled quickly on an idle system {% cite lkd -l 147 %}.
 
 Each thread is named ksoftirqd/n, where n is the processor number. The benefit of a thread on each processor means that an idle processor can always execute softirqs {% cite lkd -l 147 %}.
 
@@ -514,7 +516,7 @@ If your process doesn’t need to sleep you should use a tasklet/softirq. If it 
 
 The default worker threads are named events/n, where n is the processor number. There is one per processor.
 
-Worker threads are represented by the `workqueue_struct` structure:
+Worker threads are represented by the `workqueue_struct` struct:
 
 ```c
 /*
@@ -533,7 +535,7 @@ struct workqueue_struct {
 
 The `cpu_wq` member is a list of `cpu_workqueue_struct` with one per processor on the system {% cite lkd -l 151 %}.
 
-The `cpu_workqueue_struct` is defined in [kernel/workqueue.c](https://elixir.bootlin.com/linux/v2.6.39.4/source/kernel/workqueue.c):
+The `cpu_workqueue_struct` struct is defined in [kernel/workqueue.c](https://elixir.bootlin.com/linux/v2.6.39.4/source/kernel/workqueue.c):
 
 ```c
 struct cpu_workqueue_struct {
@@ -546,7 +548,7 @@ struct cpu_workqueue_struct {
 };
 ```
 
-The actual work that needs to be done is represented as a linked list of `work_struct` structures:
+The actual work that needs to be done is represented as a linked list of `work_struct` structs:
 
 ```c
 struct work_struct {
@@ -585,13 +587,13 @@ while (!list_empty(&cwq->worklist)) {
 }
 ```
 
-To use a work queue you can either create it statically at runtime with the `DECLARE_WORK()` macro:
+To use a work queue you can either create it statically at runtime with the `DECLARE_WORK` macro:
 
 ```c
 DECLARE_WORK(name, void (*func)(void *), void *data);
 ```
 
-Or create work dynamically at runtime with the `INIT_WORK()` macro:
+Or create work dynamically at runtime with the `INIT_WORK` macro:
 
 ```c
 INIT_WORK(struct work_struct *work, void (*func)(void *), void *data);
@@ -603,7 +605,7 @@ The work queue handler prototype is:
 void work_handler(void *data)
 ```
 
-A worker thread executes the handler function. Although the handler runs in process context, it cannot access user-space memory because there is no associated user-space memory for kernel threads {% cite lkd -l 153 %}.
+A worker thread executes the handler function. Although the handler runs in process context, it cannot access user space memory because there is no associated user space memory for kernel threads {% cite lkd -l 153 %}.
 
 Work can be scheduled with `schedule_work()`:
 
