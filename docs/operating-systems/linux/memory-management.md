@@ -13,7 +13,7 @@ permalink: /operating-systems/linux/memory-management
 # Memory Management
 {:.no_toc}
 
-Memory management in the kernel is more constrained than memory management in user-space. For example, the kernel can't deal well with memory allocation errors, and often the kernel must allocate memory without sleeping.
+Memory management in the kernel is more constrained than memory management in user space. The kernel can't deal well with memory allocation errors, and often the kernel must allocate memory without sleeping.
 
 This section is about memory management in the kernel: how the kernel manages memory, and how to manage memory as a kernel developer.
 
@@ -27,8 +27,7 @@ This section is about memory management in the kernel: how the kernel manages me
 
 ## Pages
 
-"The kernel treats physical pages as the basic unit of memory management." The hardware memory management unit (MMU)
-that manages translation between virtual and physical memory, typically deals in pages. The MMU maintains the system's page tables with page-size granularity, and so in terms of virtual memory, pages are the smallest size that matters {% cite lkd -l 231 %}.
+"The kernel treats physical pages as the basic unit of memory management." The hardware memory management unit (MMU) that manages the translation between virtual and physical memory, typically deals in pages. The MMU maintains the system's page tables with page-size granularity, and so in terms of virtual memory, pages are the smallest size that matters {% cite lkd -l 231 %}.
 
 Each architecture determines its page size, and many architectures can support multiple page sizes. "Most 32-bit architectures have 4KB pages, whereas most 64-bit architectures have 8KB pages". So a machine with 8KB pages and 1GB memory is split into 131,072 pages {% cite lkd -l 231 %}.
 
@@ -53,8 +52,6 @@ The `_count` field stores the usage count of the page: how many references there
 
 The `virtual` field is the page's virtual address. Although this is normally the page's virtual memory address, some memory (called **high memory**) isn't permanently mapped in the kernel's address space. For high memory the value will be `NULL` {% cite lkd -l 232 %}.
 
-The `page` structure represents physical pages, rather than virtual pages.
-
 ## Zones
 
 Because of limits in the hardware, the kernel can't treat all pages as equal. Some pages cannot be used for certain tasks because of their physical address. Because of this, the kernel divides pages with similar properties into **zones** {% cite lkd -l 232 %}.
@@ -69,7 +66,7 @@ There are four primary address zones:
 1. `ZONE_DMA` contains pages that can undergo DMA.
 2. `ZONE_DMA32` contains pages that can undergo DMA and are only accessible by 32-bit devices.
 3. `ZONE_NORMAL` contains normal pages.
-4. `ZONE_HIGHMEM` contains high memory (pages not permanently mapped into the kernel address space.
+4. `ZONE_HIGHMEM` contains high memory.
 
 {% cite lkd -l 233 %}
 
@@ -77,13 +74,13 @@ The use and layout of memory is architecure-specific. Some architectures have no
 
 `ZONE_HIGHMEM` is similar. "On 32-bit x86 systems, `ZONE_HIGHMEM` is all memory above the physical 896MB mark. On other architectures, `ZONE_HIGHMEM` is empty because all memory is directly mapped" {% cite lkd -l 233 %}.
 
-`ZONE_NORMAL` tends to be what is remaining after `ZONE_DMA` and `ZONE_HIGHMEM`. The following table shows the zones on x86 architecture:
+`ZONE_NORMAL` tends to be what is remaining after `ZONE_DMA` and `ZONE_HIGHMEM`. The following table shows the zones on an x86 architecture:
 
-| Zone           | Description                | Physical Memory |
-| -------------- | -------------------------- | --------------- |
-| `ZONE_DMA`     | DMA-able pages             | < 16MB          |
-| `ZONE_NORMAL`  | Normally addressable pages | 16–896MB        |
-| `ZONE_HIGHMEM` | "Dynamically mapped pages  | > 896MB         |
+| Zone           | Description                 | Physical Memory |
+| -------------- | --------------------------- | --------------- |
+| `ZONE_DMA`     | DMA-able pages.             | < 16MB          |
+| `ZONE_NORMAL`  | Normally addressable pages. | 16–896MB        |
+| `ZONE_HIGHMEM` | Dynamically mapped pages.   | > 896MB         |
 
 {% cite lkd -l 234 %}
 
@@ -132,7 +129,7 @@ The main function to allocate memory from the kernel is `alloc_pages()`:
 struct page * alloc_pages(gfp_t gfp_mask, unsigned int order)
 ```
 
-This allocates 2^`order` contiguous pages, and returns a pointer to the first pages `page` struct. On error, `alloc_pages()` returns `NULL`.
+This allocates $$2^\text{order}$$ contiguous pages, and returns a pointer to the first page's `page` struct. On error, `alloc_pages()` returns `NULL`.
 
 You can convert a given page to its logical address with `page_address()`:
 
@@ -161,7 +158,7 @@ unsigned long __get_free_page(gfp_t gfp_mask)
 unsigned long get_zeroed_page(unsigned int gfp_mask)
 ```
 
-This should be used when pages are given to user-space, because the previous memory might have contained sensitive information.
+`get_zeroed_page()`should be used when pages are given to user space, because the previous memory might have contained sensitive information.
 
 You free pages with the `free()` family of functions:
 
@@ -171,17 +168,17 @@ void free_pages(unsigned long addr, unsigned int order)
 void free_page(unsigned long addr)
 ```
 
-`kmalloc()` can be used to allocate byte sized chunks. `kmalloc()` works similarly to `malloc()`, except it also takes a `flags` parameter. `kmalloc()` returns a pointer to a byte size chunk that is at least `bytes` size in length. On error it returns `NULL` {% cite lkd -l 238 %}.
+`kmalloc()` can be used to allocate byte-size chunks. `kmalloc()` works similarly to `malloc()`, except it also takes a `flags` parameter. `kmalloc()` returns a pointer to a byte-size chunk that is at least `bytes` size in length. On error it returns `NULL` {% cite lkd -l 238 %}.
 
 ### GFP mask flags
 
-gfp mask flags are flags that are passed to kernel allocator functions. GFP stands for `__get_free_pages` {% cite lkd -l 238 %}
+GFP (Get Free Page) mask flags are flags that are passed to kernel allocator functions {% cite lkd -l 238 %}
 
-gfp flags are represented with the `gfp_t` type. There are three types of flags:
+GFP flags are represented with the `gfp_t` type. There are three types of flags:
 
-- Action modifiers. specify how the kernel should allocate memory.
-- Zone modifiers specify what zone to allocate from.
-- Type flags specify a combination of a zone and an action type.
+- Action modifiers—specify how the kernel should allocate memory.
+- Zone modifiers—specify what zone to allocate from.
+- Type flags—specify a combination of a zone and an action type.
 
 {% cite lkd -l 238-9 %}
 
@@ -201,7 +198,7 @@ You can see the action modifiers in the following table:
 | `__GFP_NOFAIL`      | The allocator indefinitely repeats the allocation. The allocation cannot fail.             |
 | `__GFP_NORETRY`     | The allocator never retries if the allocation fails.                                       |
 | `__GFP_NOMEMALLOC`  | The allocator does not fall back on reserves.                                              |
-| `__GFP_HARDWALL`    | The allocator enforces “hardwall” cpuset boundaries.                                       |
+| `__GFP_HARDWALL`    | The allocator enforces "hardwall" cpuset boundaries.                                       |
 | `__GFP_RECLAIMABLE` | The allocator marks the pages reclaimable.                                                 |
 | `__GFP_COMP`        | The allocator adds compound page metadata (used internally by the hugetlb code).           |
 
@@ -236,13 +233,13 @@ You can see the type flags in the following table:
 | Flag           | Description                                                                                                                                                                                                                                            |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `GFP_ATOMIC`   | The allocation is high priority and must not sleep. This is the flag to use in interrupt handlers, in bottom halves, while holding a spinlock, and in other situations where you cannot sleep.                                                         |
-| `GFP_NOWAIT`   | Like GFP_ATOMIC, except that the call will not fallback on emergency memory pools. This increases the liklihood of the memory allocation failing.                                                                                                      |
+| `GFP_NOWAIT`   | Like `GFP_ATOMIC`, except that the call will not fallback on emergency memory pools. This increases the liklihood of the memory allocation failing.                                                                                                    |
 | `GFP_NOIO`     | This allocation can block, but must not initiate disk I/O. This is the flag to use in block I/O code when you cannot cause more disk I/O, which might lead to some unpleasant recursion.                                                               |
 | `GFP_NOFS`     | This allocation can block and can initiate disk I/O, if it must, but it will not initiate a filesystem operation. This is the flag to use in filesystem code when you cannot start another filesystem operation.                                       |
 | `GFP_KERNEL`   | This is a normal allocation and might block. This is the flag to use in process context code when it is safe to sleep. The kernel will do whatever it has to do to obtain the memory requested by the caller. This flag should be your default choice. |
-| `GFP_USER`     | This is a normal allocation and might block. This flag is used to allocate memory for user-space processes.                                                                                                                                            |
-| `GFP_HIGHUSER` | This is an allocation from `ZONE_HIGHMEM` and might block. This flag is used to allocate memory for user-space processes.                                                                                                                              |
-| `GFP_DMA`      | This is an allocation from ZONE_DMA. Device drivers that need DMA-able memory use this flag, usually in combination with one of the preceding flags.                                                                                                   |
+| `GFP_USER`     | This is a normal allocation and might block. This flag is used to allocate memory for user space processes.                                                                                                                                            |
+| `GFP_HIGHUSER` | This is an allocation from `ZONE_HIGHMEM` and might block. This flag is used to allocate memory for user space processes.                                                                                                                              |
+| `GFP_DMA`      | This is an allocation from `ZONE_DMA`. Device drivers that need DMA-able memory use this flag, usually in combination with one of the preceding flags.                                                                                                 |
 
 {% cite lkd -l 241-2 %}
 
@@ -353,11 +350,11 @@ struct kmem_cache * kmem_cache_create(const char *name,
 
 `flags` is a flags parameter used to control the behavior of the cache. It takes the following options:
 
-- `SLAB_HWCACHE_ALIGN` instructs the slab layer to align each object within a slab to a cache line.
-- `SLAB_POISON` causes the slab layer to fill the slab with a known value. This is called poisoning, and can be useful to catch access to uninitialized memory.
-- `SLAB_RED_ZONE` causes the slab layer to insert red zones around the cache to detect buffer overflows.
-- `SLAB_PANIC` causes the kernel to panic if the slab allocation fails.
-- `SLAB_CACHE_DMA` instructs slab layer to allocate each slab in DMA-able memory.
+- `SLAB_HWCACHE_ALIGN`—instructs the slab layer to align each object within a slab to a cache line.
+- `SLAB_POISON`—causes the slab layer to fill the slab with a known value. This is called poisoning, and can be useful to catch access to uninitialized memory.
+- `SLAB_RED_ZONE`—causes the slab layer to insert red zones around the cache to detect buffer overflows.
+- `SLAB_PANIC`—causes the kernel to panic if the slab allocation fails.
+- `SLAB_CACHE_DMA`—instructs slab layer to allocate each slab in DMA-able memory.
 
 {% cite lkd -l 249-50 %}
 
