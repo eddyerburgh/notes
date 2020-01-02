@@ -135,7 +135,7 @@ struct kobject {
 
 `parent` points to the kobject's parent. This is used to build a hierarchy that can be used to power down leaf devices before their parents.
 
-sysfs, the pseudo file system, is simply "a user-space filesystem representation of the kobject object hierarchy inside the kernel" {% cite lkd -l 350 %}. `sd` points to a `sysfs_dirent` structure that represents the kobject in sysfs.
+sysfs, the pseudo file system, is simply "a user space filesystem representation of the kobject object hierarchy inside the kernel" {% cite lkd -l 350 %}. `sd` points to a `sysfs_dirent` structure that represents the kobject in sysfs.
 
 Kobjects are normally embedded in other structures, like the `cdev` struct:
 
@@ -319,7 +319,7 @@ struct sysfs_ops {
 
 {% cite lkd -l 359 %}
 
-`show()` is invoked when the sysfs entry is read from user-space. "It must copy the value of the attribute given by attr into the buffer provided by buffer. The buffer is `PAGE_SIZE` bytes in length; on x86, `PAGE_SIZE` is 4096 bytes. The function should return the size in bytes of data actually written into buffer on success or a negative error code on failure" {% cite lkd -l 359 %}.
+`show()` is invoked when the sysfs entry is read from user space. "It must copy the value of the attribute given by attr into the buffer provided by buffer. The buffer is `PAGE_SIZE` bytes in length; on x86, `PAGE_SIZE` is 4096 bytes. The function should return the size in bytes of data actually written into buffer on success or a negative error code on failure" {% cite lkd -l 359 %}.
 
 `store()` is "invoked on write. It must read the size `bytes` from buffer into the variable represented by the attribute `attr`. The size of the buffer is always `PAGE_SIZE` or smaller. The function should return the size in bytes of data read from buffer on success or a negative error code on failure." {% cite lkd -l 359 %}.
 

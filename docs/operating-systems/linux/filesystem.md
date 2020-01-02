@@ -37,7 +37,7 @@ Consider:
 ret = write(fd, buf, len);
 ```
 
-`write()` writes len bytes pointed to by `buf` to the current position in the file represented by the file descriptor `fd`. The implementation of `write()` is implemented in the `sys_write()` system call. This then calls the filesystems' write method, which will write the data to the media (or do whatever the filesystem does on write) {% cite lkd -l 262-3 %}.
+`write()` writes `len` bytes pointed to by `buf` to the current position in the file represented by the file descriptor `fd`. The implementation of `write()` is implemented in the `sys_write()` system call. This then calls the filesystems' write method, which will write the data to the media (or do whatever the filesystem does on write) {% cite lkd -l 262-3 %}.
 
 <figure>
   <img src="{{site.baseurl}}/assets/img/operating-systems/linux/filesystem/data-flow.svg" alt="">
