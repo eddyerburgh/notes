@@ -57,8 +57,6 @@ A client that attempts to upgrade to HTTP/2 must include an _HTTP2-Settings_ hea
 
 To start an HTTP/2 connection with a server that is known to support HTTP/2, a client must first send a **client connection preface** to the server. After the connection preface has been sent, the client can send HTTP/2 frames to the server {% cite rfc7540 -l 10-1 %}.
 
-_Note: This only affects requests over plaintext TCP. TLS must use TLS protocol negotiation._
-
 ### HTTP/2 Connection Preface
 
 Each endpoint must send a connection preface to confirm that the HTTP/2 protocol is being used and to set initial settings for the connection {% cite rfc7540 -l 11 %}.
