@@ -51,7 +51,7 @@ HTTP URLs (Universal Resource Locators) include the information required to reac
 
 ## Connections
 
-HTTP usually runs over TCP. HTTP/1.0 would close the TCP connection after receiving a HTTP response from a server. This meant each connection had to perform a TCP handshake, even if multiple HTTP requests were made to the same domain while loading a webpage (a common scenario) {% cite computer-networks -l 684 %}.
+HTTP usually runs over TCP. HTTP/1.0 would close the TCP connection after receiving an HTTP response from a server. This meant each connection had to perform a TCP handshake, even if multiple HTTP requests were made to the same domain while loading a webpage (a common scenario) {% cite computer-networks -l 684 %}.
 
 To solve this, HTTP/1.1 supports **persistent connections**. The TCP connection can be kept alive, and additional requests can be sent over the same connection (also known as **connection reuse**). This improves performance {% cite computer-networks -l 684 %}.
 
@@ -63,7 +63,7 @@ Connections are typically closed after a short time (e.g., 60 seconds) to avoid 
 
 An HTTP request has an associated method.
 
-The first word on the first line of a HTTP request (the **Request-Line**) is its method name:
+The first word on the first line of an HTTP request (the **Request-Line**) is its method name:
 
 ```
 Request-Line = Method Request-URI HTTP-Version CRLF
@@ -88,7 +88,7 @@ Method names indicate the intent of the request:
 
 ## HTTP Headers
 
-The first line of a HTTP request/response can be followed by additional lines, called **request headers**. Responses can have **response headers** {% cite computer-networks -l 688 %}.
+The first line of an HTTP request/response can be followed by additional lines, called **request headers**. Responses can have **response headers** {% cite computer-networks -l 688 %}.
 
 Each header field is made of a name and a field value, separated by a colon (:):
 

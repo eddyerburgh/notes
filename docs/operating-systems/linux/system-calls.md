@@ -165,7 +165,7 @@ Next, the system call is added to `<asm/unistd.h>`, which looks like this:
 #define __NR_recvmmsg 337
 ```
 
-You would add a new macro for the `foo` syscall number:
+You would add a new macro for the `foo()` syscall number:
 
 ```c
 #define __NR_foo 338
