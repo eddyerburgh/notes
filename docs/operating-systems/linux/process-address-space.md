@@ -13,7 +13,7 @@ permalink: /operating-systems/linux/process-address-space
 # The process address space
 {:.no_toc}
 
-This section is about the process address space, and how it's implemented in Linux.
+This section is about the process address space and how it's implemented in Linux.
 
 ## Table of contents
 {: .no_toc  }
@@ -27,7 +27,7 @@ This section is about the process address space, and how it's implemented in Lin
 
 The process address space is the virtual memory addressable by a process {% cite lkd -l 305 %}.
 
-Each process is given a flat 32 or 64-bit address space. Normally the address space is unique to each process, although it can be shared between processes (e.g. with threads).
+Each process is given a flat 32 or 64-bit address space. Normally the address space is unique to each process, although it can be shared between processes (e.g., with threads).
 
 A process doesn't have permission to access all memory. The area of legal addresses are called memory areas. A process can dynamically add and remove memory areas via the kernel {% cite lkd -l 306 %}.
 
@@ -35,14 +35,14 @@ Memory areas have permissions associated with them, such as readable, writeable,
 
 Memory areas can contain:
 
-- A memory map of the executable files code (the text section)
-- A memory map of the executable file's initial global variables (the data section)
-- A memory map of the zero page, containing uninitialized variables (the bss section)
-- A memory map of the zero page used for the process's user space stack
-- A text, data, and bss section for each shared library
-- Any memory mapped files
-- Any shared memory segments
-- Any anonymous memory mappings, like this associated with `malloc`
+- A memory map of the executable file's code (the text section).
+- A memory map of the executable file's initial global variables (the data section).
+- A memory map of the zero page, containing uninitialized variables (the bss section).
+- A memory map of the zero page used for the process's user space stack.
+- A text, data, and bss section for each shared library.
+- Any memory mapped files.
+- Any shared memory segments.
+- Any anonymous memory mappings, like this associated with `malloc()`.
 
 {% cite lkd -l 306-7 %}
 
@@ -50,7 +50,7 @@ Memory areas don't overlap.
 
 ## The memory descriptor
 
-A process's address space is represented with a memory descriptor {% cite lkd -l 307 %}.
+A process's address space is represented by a memory descriptor {% cite lkd -l 307 %}.
 
 The memory descriptor is represented with the `mm_struct` struct:
 
@@ -122,11 +122,11 @@ When a process associated with an address space exits, `exit_mm()` is called. `e
 
 Kernel threads don't have a process address space, so their `mm` value is NULL.
 
-Kernel threads never access user-space memory, and so they don't have a memory descriptor or page tables. However, kernel threads _do_ need access to some data, such as page tables. To provide kernel threads with page tables to access kernel memory, kernel threads use the memory descriptor of whatever task ran previously (`active_mm`) {% cite lkd -l 309 %}.
+Kernel threads never access user space memory, and so they don't have a memory descriptor or page tables. However, kernel threads _do_ need access to some data, such as page tables. To provide kernel threads with page tables to access kernel memory, kernel threads use the memory descriptor of whatever task ran previously (`active_mm`) {% cite lkd -l 309 %}.
 
 ## Virtual Memory Areas
 
-Virtual memory areas (VMAs) are represented with the `vm_area_struct` struct. The struct describes a single memory area that covers a contiguous interval in a given address space. Each memory area has certain properties, like permissions, and a set of associated operations {% cite lkd -l 310 %}.
+VMAs (Virtual Memory Areas) are represented with the `vm_area_struct` struct. The struct describes a single memory area that covers a contiguous interval in a given address space. Each memory area has certain properties, like permissions, and a set of associated operations {% cite lkd -l 310 %}.
 
 You can see the struct:
 
@@ -156,7 +156,7 @@ struct vm_area_struct {
 };
 ```
 
-`vm_start` is the lowest memory address of the area, `vm_end` is the first byte after the highest memory address of the area. `vm_end` – `vm_start` is the total bytes of the memory area {% cite lkd -l 310 %}.
+`vm_start` is the lowest memory address of the area, `vm_end` is the first byte after the highest memory address of the area. $$vm_end - vm_start$$ is the total bytes of the memory area {% cite lkd -l 310 %}.
 
 The `vm_flags` field contains bit flags. Unlike the permissions associated with an physical page which the hardware is responsible for, the VMA flags specify behavior that the kernel is responsible for maintaining. You can see a full list of the flags in the following table:
 
@@ -210,7 +210,7 @@ struct vm_operations_struct {
 
 {% cite lkd -l 313 %}
 
-`mmap` links together all memory area objects is a singly linked list. each `vm_area_struct` is linked in via its `vm_next_field`. the areas are sorted by ascending address {% cite lkd -l 313 %}.
+`mmap` links together all memory area objects is a singly linked list. each `vm_area_struct` is linked in via its `vm_next_field`. The areas are sorted by ascending address {% cite lkd -l 313 %}.
 
 The `find_vma()` function finds a VMA in which an address resides:
 
@@ -282,10 +282,10 @@ unsigned long do_mmap(struct file *file, unsigned long addr,
 
 | Flag         | Effect on the Pages in the New Interval |
 | ------------ | --------------------------------------- |
-| `PROT_READ`  | Corresponds to VM_READ                  |
-| `PROT_WRITE` | Corresponds to VM_WRITE                 |
-| `PROT_EXEC`  | Corresponds to VM_EXEC                  |
-| `PROT_NONE`  | Cannot access page                      |
+| `PROT_READ`  | Corresponds to `VM_READ`.               |
+| `PROT_WRITE` | Corresponds to `VM_WRITE`.              |
+| `PROT_EXEC`  | Corresponds to `VM_EXEC`.               |
+| `PROT_NONE`  | Cannot access page.                     |
 
 `flags` specifies flags corresponding to VMA flags. These include the following flags:
 
@@ -337,7 +337,7 @@ int munmap(void *start, size_t length)
 
 In Linux, page tables consist of three levels. The multiple levels enable a sparsely populated address space. If page tables were implemented as a static array, their size would be enormous.
 
-The top-level page table is the page global directory (PGD), which consists of an array of `pgd_t` types. `pgd_t` is normally an `unsigned long`. The PGD entries point to entries in the second-level, the page middle directory (PMD), which is an array of `pmd_t` types. These entries point to entries in the PTE {% cite lkd -l 321 %}.
+The top-level page table is PGD (the Page Global Directory), which consists of an array of `pgd_t` types. `pgd_t` is normally an `unsigned long`. The PGD entries point to entries in the second-level, the page middle directory (PMD), which is an array of `pmd_t` types. These entries point to entries in the page table entries structure {% cite lkd -l 321 %}.
 
 "The final level is called simply the page table and consists of page table entries of type `pte_t`. Page table entries point to physical pages" {% cite lkd -l 321 %}.
 
