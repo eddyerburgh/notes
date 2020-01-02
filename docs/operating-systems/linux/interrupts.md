@@ -444,7 +444,7 @@ The steps that `tasklet_schedule()` takes are:
 
 You can create tasklets either statically or dynamically.
 
-To statically create a tasklet you can use the macros `DECLARE_TASKLET` and `DECLARE_TASKLET_DISABLED`:
+To statically create a tasklet you can use the macros `DECLARE_TASKLET()` and `DECLARE_TASKLET_DISABLED()`:
 
 ```c
 DECLARE_TASKLET(name, func, data)
@@ -587,13 +587,13 @@ while (!list_empty(&cwq->worklist)) {
 }
 ```
 
-To use a work queue you can either create it statically at runtime with the `DECLARE_WORK` macro:
+To use a work queue you can either create it statically at runtime with the `DECLARE_WORK()` macro:
 
 ```c
 DECLARE_WORK(name, void (*func)(void *), void *data);
 ```
 
-Or create work dynamically at runtime with the `INIT_WORK` macro:
+Or create work dynamically at runtime with the `INIT_WORK()` macro:
 
 ```c
 INIT_WORK(struct work_struct *work, void (*func)(void *), void *data);

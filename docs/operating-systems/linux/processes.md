@@ -53,9 +53,9 @@ Until the 2.6 kernel the `task_struct` was stored at the end of the kernel stack
 
 Each process is given a unique process identifier, or **PID**. A PID is a numerical value of type `pid_t` (usually an `int`). The default maximum value is 32,768 for backwards compatibility with older Linux versions, but it can be set up to 4,194,304 by editing the value in /proc/sys/kernel/pid_max. The maximum value is important because it limits the number of processes that can exist at once {% cite lkd -l 26 %}.
 
-Most kernel code deals with the `task_struct` directly, so it’s important to be able quickly access a process. The currently executing process can be accessed using the `current` macro. The `current` macro is architecture specific, because different architectures store the `thread_info` structure at different locations {% cite lkd -l 27 %}.
+Most kernel code deals with the `task_struct` directly, so it’s important to be able quickly access a process. The currently executing process can be accessed using the `current()` macro. The `current()` macro is architecture specific, because different architectures store the `thread_info` structure at different locations {% cite lkd -l 27 %}.
 
-Some architectures store a pointer to the current `thread_info` structure in a register, so the `current` macro on those architectures just returns the value from the register. Register-constrained architectures like x86 store the process on the stack. Accessing it on an x86 is done by masking out the 13 least significant bits of the stack pointer, assuming the stack size is 8KB:
+Some architectures store a pointer to the current `thread_info` structure in a register, so the `current()` macro on those architectures just returns the value from the register. Register-constrained architectures like x86 store the process on the stack. Accessing it on an x86 is done by masking out the 13 least significant bits of the stack pointer, assuming the stack size is 8KB:
 
 ```
 
@@ -108,7 +108,7 @@ set_current_state(state)
 
 ### Process context
 
-Normally a process runs in user space, but when the process executes a system call the processor enters kernel space, where the kernel executes on behalf of the process. At this point the kernel is running in process context (as opposed to interrupt context). In process context, the `current` macro is valid {% cite lkd -l 29 %}.
+Normally a process runs in user space, but when the process executes a system call the processor enters kernel space, where the kernel executes on behalf of the process. At this point the kernel is running in process context (as opposed to interrupt context). In process context, the `current()` macro is valid {% cite lkd -l 29 %}.
 
 "System calls and exception handlers are well-defined interfaces into the kernel. A process can begin executing in kernel space only through one of these interfaces—all access to the kernel is through these interfaces" {% cite lkd -l 29 %}.
 

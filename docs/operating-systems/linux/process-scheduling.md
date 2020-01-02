@@ -401,7 +401,7 @@ A wait queue is a linked list of processes waiting for an event to occur. When a
 
 The recommended way to add an event to a wait queue is to:
 
-1. Create a wait queue with the `DEFINE_WAIT` macro.
+1. Create a wait queue with the `DEFINE_WAIT()` macro.
 2. Add a process to wait queue using `add_wait_queue()`.
 3. Call `prepare_to_wait()` to change process state to `TASK_INTERRUPTIBLE` or `TASK_UNINTERRUPTABLE`.
 4. Handle signals if the task is interruptible.

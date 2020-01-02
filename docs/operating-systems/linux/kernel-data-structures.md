@@ -107,7 +107,7 @@ struct fox {
 };
 ```
 
-`list.next` points to the next list node, and `list.prev` points the previous. You can then use the `container_of` macro to access the containing structure of the list node.
+`list.next` points to the next list node, and `list.prev` points the previous. You can then use the `container_of()` macro to access the containing structure of the list node.
 
 ```c
 #define container_of(ptr, type, member) ({ \
@@ -145,7 +145,7 @@ List heads act as a canonical pointer to the entire list.
 
 Since each struct contains a `list_head`, we need a special pointer that refers to your linked list, without being a list node itself. This special node is in fact a normal `list_head` {% cite lkd -l 90 %}.
 
-You can create a special head node from a list node with the `LIST_HEAD` macro:
+You can create a special head node from a list node with the `LIST_HEAD()` macro:
 
 ```c
 static LIST_HEAD(fox_list);
@@ -279,7 +279,7 @@ You can also allocate your own buffer and create a queue using `kfifo_init()`:
 void kfifo_init(struct kfifo *fifo, void *buffer, unsigned int size);
 ```
 
-You can statically declare a kfifo with `DECLARE_KFIFO` macro:
+You can statically declare a kfifo with `DECLARE_KFIFO()` macro:
 
 ```c
 DECLARE_KFIFO(name, size);

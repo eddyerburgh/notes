@@ -152,7 +152,7 @@ typedef struct {
 
 The declarations needed to use the atomic integer operations are in \<asm/atomic.h\>. All architectures provide a minimum set of operations that are used throughout the kernel {% cite lkd -l 177 %}.
 
-You can use the `ATOMIC_INIT` macro to initialize an `atomic_t` value to 0:
+You can use the `ATOMIC_INIT()` macro to initialize an `atomic_t` value to 0:
 
 ```c
 atomic_t u = ATOMIC_INIT(0);
@@ -174,7 +174,7 @@ Another use is atomically performing an operation and testing the result, for ex
 int atomic_dec_and_test(atomic_t *v)
 ```
 
-Generally atomic operations are implemented as inline functions with inline assembly. If the operations are inherently atomic, like a read operation, they will just be a plain C code macro. For example, `atomic_read` is a macro that returns the integer value of the `atomic_t`:
+Generally atomic operations are implemented as inline functions with inline assembly. If the operations are inherently atomic, like a read operation, they will just be a plain C code macro. For example, `atomic_read()` is a macro that returns the integer value of the `atomic_t`:
 
 ```c
 /**
@@ -328,7 +328,7 @@ There are also reader-writer semaphores, which can be used to split code that ha
 
 A mutex is a sleeping lock that enforces mutual exclusion, for example a semaphore with a count of one {% cite lkd -l 196 %}.
 
-The kernel contains a mutex data structure, represented by the `mutex` struct. To statically define a mutex you can use the `DEFINE_MUTEX` macro:
+The kernel contains a mutex data structure, represented by the `mutex` struct. To statically define a mutex you can use the `DEFINE_MUTEX()` macro:
 
 ```c
 DEFINE_MUTEX(name);
