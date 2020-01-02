@@ -13,7 +13,7 @@ permalink: /operating-systems/linux/process-scheduling
 # Process scheduling
 {:.no_toc}
 
-Scheduling processes is one of the core roles of the kernel. This section is about how Linux schedules process.
+Scheduling processes is one of the core roles of the kernel. To understand Linux, you must understand process scheduling.
 
 ## Table of contents
 {: .no_toc  }
@@ -27,39 +27,39 @@ Scheduling processes is one of the core roles of the kernel. This section is abo
 
 The **process scheduler** is responsible for choosing which processes run and for how long. A scheduler is the basic part of a multitasking operating system like Linux.
 
-A multitasking operating system gives the illusion that multiple tasks are running at once when in fact there is only a limited set of processors. There are two kinds of multitasking operating systems: **preemptive** and **cooperative**.
+A multitasking operating system gives the illusion that multiple tasks are running at once when in fact there is only a limited set of processors. There are two kinds of multitasking operating systems: preemptive and cooperative.
 
-Linux is a preemptive operating system. Preemptive operating systems decide when to stop executing a process, and which new process should begin running. The amount of time a process runs is usually determined before it's scheduled, this is called the timeslice and it is effectively a slice of the processors time {% cite lkd -l 41 %}.
+Linux is a preemptive operating system. **Preemptive operating systems** decide when to stop executing a process, and which new process should begin running. The amount of time a process runs is usually determined before it's scheduled, this is called the timeslice and it is effectively a slice of the processors time {% cite lkd -l 41 %}.
 
-In cooperative operating systems the scheduler relies on the process to explicitly tell the scheduler that its ready to stop, this is often called yielding. Cooperative operating systems have a problem where tasks that don't yield can bring down the entire operating system. The last mainstream cooperative OSes were Mac OS 9 and Windows 3.1 {% cite lkd -l 42 %}.
+In **cooperative operating systems** the scheduler relies on the process to explicitly tell the scheduler that it's ready to stop (this is often called yielding). Cooperative operating systems have a problem where tasks that don't yield can bring down the entire operating system. The last mainstream cooperative OSes were Mac OS 9 and Windows 3.1 {% cite lkd -l 42 %}.
 
-The Linux scheduler has gone through several iterations. The latest scheduler—the completely fair scheduler (CFS)—uses the concept of fair scheduling from queue theory {% cite lkd -l 42 %}.
+The Linux scheduler has gone through several iterations. The latest scheduler—CFS (the Completely Fair Scheduler)—uses the concept of fair scheduling from queue theory {% cite lkd -l 42 %}.
 
-## Policy
+## Scheduling policies
 
-Policy is the rules the scheduler follows to determine what should run and when. An effective scheduling policy needs to consider both kinds of processes: **I/O-bound processes** and **CPU-bound processes**.
+Scheduling policies are the rules the scheduler follows to determine what should run and when. An effective scheduling policy needs to consider both kinds of processes: I/O-bound processes and CPU-bound processes.
 
-I/O-bound processes spend most of their time waiting for I/O operations, like a network request or keyboard operation, to complete. GUI applications are usually I/O-bound because they spend most of their time waiting on user input. I/O-bound processes often run for a short time because they block while waiting for I/O operations to complete {% cite lkd -l 43 %}.
+**I/O-bound processes** spend most of their time waiting for I/O operations, like a network request or keyboard operation, to complete. GUI applications are usually I/O-bound because they spend most of their time waiting on user input. I/O-bound processes often run for a short time because they block while waiting for I/O operations to complete {% cite lkd -l 43 %}.
 
-CPU-bound processes spend most of their time executing code. CPU-bound processes are often preempted because they don't block on I/O requests very often. An example of a CPU-bound task would be one that performs a lot of Math calculation, like MATLAB {% cite lkd -l 43 %}.
+**CPU-bound processes** spend most of their time executing code. CPU-bound processes are often preempted because they don't block on I/O requests very often. An example of a CPU-bound task would be one that performs a lot of Math calculation, like MATLAB {% cite lkd -l 43 %}.
 
-Some processes are I/O-bound and CPU-bound at different times during their lifetime. For example, a word processor is normally waiting for user input, but there might be regular CPU-intensive operations like spellchecking {% cite lkd -l 43 %}.
+Some processes are I/O-bound and CPU-bound at different times. For example, a word processor is normally waiting for user input, but there might be regular CPU-intensive operations like spellchecking {% cite lkd -l 43 %}.
 
 ### Process priority
 
-One type of scheduling algorithm is **priority based scheduling**, which gives different tasks a priority based on their need to be processed. Higher priority tasks are run before lower priority tasks, and processes with the same priority are scheduled round-robin style {% cite lkd -l 44 %}.
+One type of scheduling algorithm is **priority scheduling**, which gives different tasks a priority based on their need to be processed. Higher priority tasks are run before lower priority tasks, and processes with the same priority are scheduled round-robin style {% cite lkd -l 44 %}.
 
-The kernel uses two separate priority values. A **nice value**, and a **real-time priority value**.
+The kernel uses two separate priority values. A nice value, and a real-time priority value.
 
-The nice value is a number from -20 to +19 with a default of 0. The larger the nice value, the lower the priority (processes are being nice by letting other processes run in their place). Processes with a lower nice value receive a larger portion of a systems processor time, processes with a higher nice value receive a smaller portion. Nice values are the standard priority range for Unix systems, although the value is used differently in different OSes. In OS X the nice value controls the absolute timeslice allotted to a process. In Linux the nice value controls the proportion of timeslice {% cite lkd -l 44 %}.
+The **nice value** is a number from -20 to +19 with a default of 0. The larger the nice value, the lower the priority (processes are being nice by letting other processes run in their place). Processes with a lower nice value receive a larger portion of a systems processor time, processes with a higher nice value receive a smaller portion. Nice values are the standard priority range for Unix systems, although the value is used differently across OSes. In OS X, the nice value controls the absolute timeslice allotted to a process. In Linux, the nice value controls the proportion of timeslice {% cite lkd -l 44 %}.
 
-The real-time priority value can range from 0 to 99, although the value is configurable. The real-time value behaves the opposite of the nice value: a higher value means higher priority. "All real-time processes are at a higher priority than normal processes; that is the real-time values and nice values are in disjoint value spaces" {% cite lkd -l 44 %}.
+The **real-time priority value** can range from 0 to 99, although the value is configurable. The real-time value behaves the opposite of the nice value: a higher value means higher priority. "All real-time processes are at a higher priority than normal processes; that is the real-time values and nice values are in disjoint value spaces" {% cite lkd -l 44 %}.
 
 ### Timeslice
 
-The timeslice value represents how long a process can run before it’s preempted. The scheduler policy must decide on a default timeslice. The default timeslice is important: too long and the system will seem unresponsive, too short and the system becomes less efficient as the processor spends more time performing context switches between processes {% cite lkd -l 44 %}.
+The timeslice value represents how long a process can run before it is preempted. The scheduler policy must decide on a default timeslice. The default timeslice is important: too long and the system will seem unresponsive, too short and the system becomes less efficient as the processor spends more time performing context switches between processes {% cite lkd -l 44 %}.
 
-A common default timeslice is 10ms, but Linux works differently. Instead of an absolute time, the CFS algorithm assigns a _proportion_ of the processor, so the amount of processor time depends on the current load. The assigned proportion is affected by the nice value, which acts a weight. A process with a lower nice value gets a higher weighting, and a higher nice value gets a lower weighting {% cite lkd -l 45 %}.
+A common default timeslice value is 10ms, but Linux works differently. Instead of an absolute time, the CFS algorithm assigns a _proportion_ of the processor, so the amount of processor time depends on the current load. The assigned proportion is affected by the nice value, which acts a weight. A process with a lower nice value gets a higher weighting, and a higher nice value gets a lower weighting {% cite lkd -l 45 %}.
 
 When a process becomes eligible to run, the decision of whether to run the process or not depends on how much of a proportion of the processor the newly runnable process has consumed. If it has run a smaller proportion than the currently executing process then it will be run, otherwise it will be scheduled to run later {% cite lkd -l 45 %}.
 
@@ -81,10 +81,10 @@ The CFS scheduler class is the registered class for normal processes (`SCHED_NOR
 
 There are a few problems with traditional Unix scheduling where each process is given a timeslice in absolute time, and the nice value affects the absolute timeslice:
 
-1. Mapping nice values to absolute timeslices requires a decision on default timeslice value which can cause suboptimal behavior
-2. _Nicing_ a process up or down has different effects depending on the starting nice value
-3. The absolute timeslice must be multiples of the timer tick, which can cause problems
-4. Prioritizing newly woken tasks can lead to situations where one process gets unfair amount of time scheduled
+1. Mapping nice values to absolute timeslices requires a decision on default timeslice value which can cause suboptimal behavior.
+2. _Nicing_ a process up or down has different effects depending on the starting nice value.
+3. The absolute timeslice must be multiples of the timer tick, which can cause problems.
+4. Prioritizing newly woken tasks can lead to situations where one process gets unfair amount of time scheduled.
 
 {% cite lkd -l 47-8 %}
 
@@ -92,11 +92,13 @@ These problems have been solved by the CFS approach, which is to do away with ti
 
 ### Fair scheduling
 
-"CFS is based on a simple concept: Model process scheduling as if the system had an ideal, perfectly multitasking processor. In such a system, each process would receive 1/n of the processor's time, where n is the number of runnable processes, and we'd schedule them for infinitely small durations, so that in any measurable period we'd have run all n processes for the same amount of time" {% cite lkd -l 48 %}.
+"CFS is based on a simple concept: Model process scheduling as if the system had an ideal, perfectly multitasking processor. In such a system, each process would receive $$1/n$$ of the processor's time, where $$n$$ is the number of runnable processes, and we'd schedule them for infinitely small durations, so that in any measurable period we'd have run all $$n$$ processes for the same amount of time" {% cite lkd -l 48 %}.
 
-CFS runs each process for a period of time then selects the next process that has run the least. CFS calculates how long a process should run for as a function of the total number of runnable processes {% cite lkd -l 49 %}.
+CFS runs each process for a period of time, then selects the next process that has run the least. CFS calculates how long a process should run for as a function of the total number of runnable processes {% cite lkd -l 49 %}.
 
-The nice value is used to weight the proportion of processor time a process receives. This makes the nice value yield geometric differences rather than additive differences, solving the problem where the effect of nicing a value up or down depends on the starting nice value {% cite lkd -l 49 %}. Each process runs for a timeslice proportional to its weight divided by the total weight of all runnable processes {% cite lkd -l 49 %}.
+The nice value is used to weight the proportion of processor time a process receives. This makes the nice value yield geometric differences rather than additive differences, solving the problem where the effect of nicing a value up or down depends on the starting nice value {% cite lkd -l 49 %}.
+
+Each process runs for a timeslice proportional to its weight divided by the total weight of all runnable processes {% cite lkd -l 49 %}.
 
 CFS sets a targeted latency, which is the total time that all processes should run in. For example, if the targeted latency is 10ms, then 2 equally weighted task run for 5ms each, and 5 tasks would run for 2ms each. There is a minimum time that a process can run for (known as the **minimum granularity**) to avoid too much cost from context switching, set to 1ms by default {% cite lkd -l 49 %}.
 
@@ -132,7 +134,7 @@ struct sched_entity {
 
 The `sched_entity` is embedded in the process's `task_struct`.
 
-The `vruntime` field on `sched_entity` stores the virtual runtime of a process, which is the actual runtime (the amount of time spent running) weighted by the number of runnable processes. The `vruntime`s units are nanoseconds {% cite lkd -l 51 %}.
+The `vruntime` field on `sched_entity` stores the virtual runtime of a process, which is the actual runtime (the amount of time spent running) weighted by the number of runnable processes. The `vruntime`'s units are nanoseconds {% cite lkd -l 51 %}.
 
 `update_curr()` manages the updating of `vruntime`. `update_curr()` is run by the system timer and also whenever a process runs or blocks:
 
@@ -196,7 +198,7 @@ __update_curr(struct cfs_rq *cfs_rq, struct sched_entity *curr,
 
 CFS decides which task to run next by running the task with the smallest `vruntime` {% cite lkd -l 52 %}.
 
-CFS uses a red black tree (rbtree in Linux) to manage the list of runnable processes, where the tree key is the `vruntime` value. Because an rbtree is self balancing, the shortest `vruntime` will be the leftmost node. The function to find this node is `__pick_next_entity()` {% cite lkd -l 52-3 %}:
+CFS uses a red-black tree to manage the list of runnable processes, where the tree key is the `vruntime` value. Because a red-black tree is self-balancing, the shortest `vruntime` will be the leftmost node. The function to find this node is `__pick_next_entity()` {% cite lkd -l 52-3 %}:
 
 ```c
 static struct sched_entity *__pick_next_entity(struct cfs_rq *cfs_rq)
@@ -212,7 +214,7 @@ static struct sched_entity *__pick_next_entity(struct cfs_rq *cfs_rq)
 
 If there are no runnable processes then `__pick_next_entity()` returns `NULL` and the idle task is scheduled {% cite lkd -l 53 %}.
 
-`vruntime` objects are added to the rbtree in `enqueue_entity()`:
+`vruntime` objects are added to the red-black tree in `enqueue_entity()`:
 
 ```c
 static void
@@ -289,7 +291,7 @@ static void __enqueue_entity(struct cfs_rq *cfs_rq, struct sched_entity *se)
 
 The `rb_link_node()` function adds the new node to the tree. The `rb_insert_color()` function updates the tree to ensure it's balanced {% cite lkd -l 55 %}.
 
-A process is removed from the rbtree whenever the process blocks or terminates {% cite lkd -l 55 %}. This is done with`dequeue_entity()`:
+A process is removed from the tree whenever the process blocks or terminates {% cite lkd -l 55 %}. This is done with`dequeue_entity()`:
 
 ```c
 static void
@@ -347,7 +349,9 @@ static void __dequeue_entity(struct cfs_rq *cfs_rq, struct sched_entity *se)
 }
 ```
 
-The main entry to the scheduler is the `schedule()` function. `schedule()` is used by the rest of the kernel to invoke the process scheduler {% cite lkd -l 56 %}. `schedule()` calls the `pick_next_task()` function to select a task:
+The main entry to the scheduler is the `schedule()` function. `schedule()` is used by the rest of the kernel to invoke the process scheduler {% cite lkd -l 56 %}.
+
+`schedule()` calls the `pick_next_task()` function to select a task:
 
 ```c
 /*
@@ -387,7 +391,7 @@ pick_next_task(struct rq *rq)
 
 Sleeping tasks are in a non-runnable state. There are many reasons that a task might sleep, like waiting for file I/O to complete, but a sleeping task is always waiting for an event to wake it up.
 
-When a task needs to sleep it marks itself as sleeping, puts itself on a wait queue, removes itself from the rbtree of processes to run, and calls `schedule()` to pick a new process to run {% cite lkd -l 60 %}.
+When a task needs to sleep it marks itself as sleeping, puts itself on a wait queue, removes itself from the tree of processes to run, and calls `schedule()` to pick a new process to run {% cite lkd -l 60 %}.
 
 There are two sleeping states: `TASK_INTERRUPTIBLE` and `TASK_UNINTERRUPTABLE`. The difference between them is that `TASK_UNINTERRUPTABLE` ignores signals {% cite lkd -l 60 %}.
 
@@ -397,12 +401,12 @@ A wait queue is a linked list of processes waiting for an event to occur. When a
 
 The recommended way to add an event to a wait queue is to:
 
-1. Create a wait queue with the `DEFINE_WAIT` macro
-2. Add a process to wait queue using `add_wait_queue()`
-3. Call `prepare_to_wait()` to change process state to `TASK_INTERRUPTIBLE` or `TASK_UNINTERRUPTABLE`
-4. Handle signals if the task is interruptible
-5. Check that the wait condition is true in a loop when the task awakens. Exit the loop if true
-6. When condition is true set process to `TASK_RUNNING`
+1. Create a wait queue with the `DEFINE_WAIT` macro.
+2. Add a process to wait queue using `add_wait_queue()`.
+3. Call `prepare_to_wait()` to change process state to `TASK_INTERRUPTIBLE` or `TASK_UNINTERRUPTABLE`.
+4. Handle signals if the task is interruptible.
+5. Check that the wait condition is true in a loop when the task awakens. Exit the loop if true.
+6. When condition is true set process to `TASK_RUNNING`.
 
 {% cite lkd -l 60 %}
 
@@ -463,35 +467,35 @@ static ssize_t inotify_read(struct file *file, char __user *buf,
 
 #### Waking up
 
-Waking up is handled by the `wake_up()` function which wakes all tasks on the given wait queue. It calls `try_to_wake_up()` on each task which sets the task `state` to `TASK_RUNNING`, adds the task the rbtree with `enqueue_task()`, and sets `need_resched` if the awakened task priority is higher than the current task. Generally the code that causes the event calls `wake_up()` {% cite lkd -l 61 %}.
+Waking up is handled by the `wake_up()` function which wakes all tasks on the given wait queue. It calls `try_to_wake_up()` on each task which sets the task `state` to `TASK_RUNNING`, adds the task to the red-black tree with `enqueue_task()`, and sets `need_resched` if the awakened task priority is higher than the current task. Generally the code that causes the event calls `wake_up()` {% cite lkd -l 61 %}.
 
 There can be spurious wake ups where a task is woken up without the event occurring. To avoid this, sleeping should be handled in a loop that checks the condition has occurred before exiting {% cite lkd -l 61 %}.
 
 ## Preemption and context switching
 
-**Context switching** is the switching from one runnable task to another. This is handled by the `context_switch()` function, and its called by `schedule()` when a process has been selected to run {% cite lkd -l 62 %}.
+**Context switching** is the switching from one runnable task to another. This is handled by the `context_switch()` function, which is called by `schedule()` when a process has been selected to run {% cite lkd -l 62 %}.
 
 Context switching:
 
-1. Switches the virtual memory mapping using `switch_mm()`
-2. Switches processor state (including saving and restoring stack and register values) using `switch_to()`
+1. Switches the virtual memory mapping using `switch_mm()`.
+2. Switches processor state (including saving and restoring stack and register values) using `switch_to()`.
 
-“The kernel provides a `need_resched` flag to signify whether a reschedule should be performed". The flag is set by `scheduler_tick()` when a process should be preempted, and by `try_to_wake_up()` when a process with higher priority than the currently running process is woken up {% cite lkd -l 62 %}.
+"The kernel provides a `need_resched` flag to signify whether a reschedule should be performed". The flag is set by `scheduler_tick()` when a process should be preempted, and by `try_to_wake_up()` when a process with higher priority than the currently running process is woken up {% cite lkd -l 62 %}.
 
-Each time the kernel returns to user-space from a system call or returns to user-space from an interrupt handler, the `need_resched` flag is checked. If `need_resched` is set, the kernel calls `schedule` to invoke the scheduler. The flag is per-process instead of global {% cite lkd -l 62 %}.
+Each time the kernel returns to user space from a system call or returns to user space from an interrupt handler, the `need_resched` flag is checked. If `need_resched` is set, the kernel calls `schedule()` to invoke the scheduler. The flag is per-process instead of global {% cite lkd -l 62 %}.
 
 ### Kernel preemption
 
-Since Linux 2.6 the kernel code has been preemptive. Any task can be rescheduled as long as the kernel is in a state where it’s safe to reschedule: in other words as long as the kernel process doesn’t hold a lock.
+Since Linux 2.6, the kernel code has been preemptive. Any task can be rescheduled as long as the kernel is in a state where it’s safe to reschedule (as long as the kernel process doesn’t hold a lock).
 
 This is implemented with a `preempt_count` value added to each process's `thread_info`. The value begins at 0. Each time a lock is acquired the value is incremented by 1, each time a lock is released the value is decremented by 1. If the value is 0 then it’s safe to preempt {% cite lkd -l 63 %}.
 
 Kernel preemption can occur:
 
-- When an interrupt handler exits, before returning to kernel-space
-- When kernel code becomes preemptible again
-- When a task in the kernel calls `schedule()`
-- When a task in the kernel blocks
+- When an interrupt handler exits, before returning to kernel space.
+- When kernel code becomes preemptible again.
+- When a task in the kernel calls `schedule()`.
+- When a task in the kernel blocks.
 
 {% cite lkd -l 63 %}
 
@@ -499,13 +503,13 @@ Kernel preemption can occur:
 
 Linux includes two real-time scheduling policies: `SCHED_FIFO`, and `SCHED_RE`. These policies are managed by a real-time scheduler (defined in [kernel/sched_rt.c](https://elixir.bootlin.com/linux/v2.6.39.4/source/kernel/sched_rt.c)), rather than by the CFS {% cite lkd -l 64 %}.
 
-`SCHED_FIFO` is a first-in-first-out scheduler that doesn’t use timeslices. A `SCHED_FIFO` task is scheduled before any `SCHED_NORMAL` tasks. "Only a higher priority `SCHED_FIFO` or `SCHED_RR` can preempt a `SCHED_FIFO` task". A `SCHED_FIFO` task runs until it blocks or yields the processor. Multiple `SCHED_FIFO` at the same priority run round-robin style {% cite lkd -l 64 %}.
+`SCHED_FIFO` is a first-in-first-out scheduler that doesn’t use timeslices. A `SCHED_FIFO` task is scheduled before any `SCHED_NORMAL` tasks. "Only a higher priority `SCHED_FIFO` or `SCHED_RR` can preempt a `SCHED_FIFO` task". A `SCHED_FIFO` task runs until it blocks or yields the processor. `SCHED_FIFO` with the same priority run round-robin style {% cite lkd -l 64 %}.
 
 `SCHED_RR` is identical to `SCHED_FIFO` except each task runs for a specific timeslice.
 
 The real-time policies use static priorities. "This ensures that a real-time process at a given priority always preempts a process at a lower priority" {% cite lkd -l 64 %}.
 
-Linux’s real-time scheduling provides soft real-time behavior. That means Linux attempts to schedule real-time processes within a deadline, but it’s not always able to.
+Linux's real-time scheduling provides soft real-time behavior. That means Linux attempts to schedule real-time processes within a deadline, but it's not always able to.
 
 Real-time priorities range from 0 to `MAX_RT_PRIO` - 1. The default value of `MAX_RT_PRIO` is 100. The priority space is shared by nice values, which range from `MAX_RT_PRIO` to `MAX_RT_PRIO` + 40. By default the -20 to 19 of nice values map to priority space 100 to 139 {% cite lkd -l 64 %}.
 
@@ -533,13 +537,13 @@ Linux has system calls for managing scheduler parameters. You can use them to se
 
 A hard process affinity tells the scheduler that the process must be kept running on this subset of processors no matter what.
 
-The hard affinity is stored in a bitmask in the task's `task_struct` as `cpus_allowed`. The bitmask contains one bit for each possible processor. Initially they are all set, so a process can run on any machine. The user can set a different bitmask with `sched_setaffinity` to change which processors the process can run on {% cite lkd -l 65 %}.
+The hard affinity is stored in a bitmask in the task's `task_struct` as `cpus_allowed`. The bitmask contains one bit for each possible processor. Initially they are all set, so a process can run on any machine. The user can set a different bitmask with `sched_setaffinity()` to change which processors the process can run on {% cite lkd -l 65 %}.
 
 ### Yielding processor time
 
-The `sched_yield` system call explicitly yields the processor to other waiting tasks.
+The `sched_yield()` system call explicitly yields the processor to other waiting tasks.
 
-`sched_yield` works by removing the process from the active array and inserting it to the expired array {% cite lkd -l 66 %}.
+`sched_yield()` works by removing the process from the active array and inserting it to the expired array {% cite lkd -l 66 %}.
 
 ## Conclusion
 
