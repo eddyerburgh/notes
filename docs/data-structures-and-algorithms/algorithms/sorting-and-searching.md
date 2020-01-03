@@ -36,7 +36,7 @@ A sorted list reduces the amount of work required to solve common problems like:
 
 ## Merge sort
 
-Merge sort is a recursive divide-and-conquer sorting algorithm. It involves splitting an array into two groups, sorting the groups, and then _merging_ them back {% cite algorithm-design-manual -l 120 %}.
+Merge sort is a recursive divide-and-conquer sorting algorithm. It involves splitting an array into two groups, sorting the groups, and then merging them back {% cite algorithm-design-manual -l 120 %}.
 
 It's made up of two parts: `Mergesort`, and `Merge`:
 
@@ -47,15 +47,15 @@ Mergesort(A[1,n])
 
 {% cite algorithm-design-manual -l 120 %}
 
-The base case for merge sort is when the array element is one (hence sorted) {% cite algorithm-design-manual -l 120 %}.
+The base case for `Mergesort` is when the array length is 1 (hence sorted) {% cite algorithm-design-manual -l 120 %}.
 
-`Merge` works by comparing the first element of each sorted list. The smallest of the two is selected, and added to a target array. This process continues until one array is empty, and all items from the other array can be added to the target array {% cite algorithm-design-manual -l 120 %}.
-
-The number of elements in each subproblem are halved on each level, and the number of halves until reaching 1 element is $$\lg_2 n$$. Because recursion goes $$\lg n$$ levels deep, and linear work is done per level, the total running time is $$O(n\log n)$$ {% cite algorithm-design-manual -l 122 %}.
+`Merge` works by comparing the first element of each sorted list. The smallest of the two is selected and added to a target array. This process continues until one array is empty, meaning all items from the other array can be added to the target array {% cite algorithm-design-manual -l 120 %}.
 
 Merging two arrays like this uses a third array to store the results, which must be the size of both arrays. Thus, the space complexity of merge sort is $$O(n)$$ {% cite algorithm-design-manual -l 122 %}.
 
 _Note: It's possible to implement merge sort in an array without using much extra storage (see Kronrod's algorithm) {% cite algorithm-design-manual -l 138 %}._
+
+Merge sort runs in $$O(n\log n)$$ {% cite algorithm-design-manual -l 122 %} in the worst-case.
 
 The following code implements merge sort:
 
@@ -109,7 +109,7 @@ Merge sort works well for sorting linked lists because it doesn't rely on random
 
 Quicksort is a recursive sorting algorithm.
 
-Quicksort works by first selecting an item ($$p$$), known as the pivot, at position $$n$$. It separates the $$n-1$$ other items into piles: a low pile containing all elements that appear before $$p$$ at the beginning of the array, and a high pile containing all elements that appear after $$p$$ at the end of the array. This leaves a slot for $$p$$, which is $$p$$'s final position in the array {% cite algorithm-design-manual -l 123 %}.
+Quicksort works by first selecting an element $$p$$, known as the pivot, at position $$n$$. It separates the $$n-1$$ other elements into piles: a low pile containing all elements that appear before $$p$$ at the beginning of the array, and a high pile containing all elements that appear after $$p$$ at the end of the array. This leaves a slot for $$p$$, which is $$p$$'s final position in the array {% cite algorithm-design-manual -l 123 %}.
 
 The partitioning step can be completed in one linear scan of the array. After partitioning, the two halves can be partitioned independently because elements on either side of the pivot won’t change sides {% cite algorithm-design-manual -l 123 %}.
 
@@ -235,7 +235,7 @@ int binary_search(int arr[], int n, int val) {
 }
 ```
 
-_Note: Use `min + (max - min) / 2` to calculate the middle value. This avoids overflow which could occur from using `max + min / 2`_
+_Note: Use `min + (max - min) / 2` to calculate the middle value. This avoids overflow which could occur from using `max + min / 2`._
 
 ### Counting occurrences
 
@@ -243,7 +243,7 @@ You can count the number of occurrences of a value using a variation of binary s
 
 This works by running two binary searches: one to find the position of the first occurrence of a value, and one to find the position of the last occurrence. The difference between the last position and the first position (plus 1) will be the total occurrence {% cite algorithm-design-manual -l 133 %}.
 
-The binary search for finding a minimum or maximum value saves the position of an element when it finds an element that matches the value. Instead of returning, it keeps running to failure, and then returns the position:
+The binary search for finding a minimum or maximum value saves the position of an element when it finds an element that matches the value. Instead of returning, it keeps running to failure, and then returns the last seen position:
 
 ```c
 int binary_search_max_position(int arr[], int n, int val) {
