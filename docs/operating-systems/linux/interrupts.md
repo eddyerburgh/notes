@@ -13,7 +13,7 @@ permalink: /operating-systems/linux/interrupts
 # Interrupts
 {:.no_toc}
 
-Most hardware communicates with the processor by using interrupts, therefore you should learn about them in detail.
+Most hardware communicates with the processor via interrupts, which makes interrupts an important topic to understand.
 
 ## Table of contents
 {: .no_toc  }
