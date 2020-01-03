@@ -25,7 +25,7 @@ Ethernet is a standard for sending data from one computer to another. It's used 
 
 ## Introduction
 
-The Ethernet standard describes both the physical medium that data is sent over, and the format of the data. The standard is created by the IEEEs 802.3 committee.
+The Ethernet standard describes both the physical medium that data is sent over, and the format of the data. The standard is created by the 802.3 IEEE committee.
 
 Ethernet can run over:
 
@@ -78,7 +78,7 @@ The _Length/Type_ field either provides the length of the data field (if the val
 
 The _Data_ field contains the payload that is being sent.
 
-The _Frame Check Sequence_ field contains a cyclic redundancy check (CRC) that is used by the receiving station to verify that the data in the incoming frame isn't corrupted. The receiving station generates another CRC and compares it to the incoming CRC. If the generated value doesn’t match the received frame value, the frame will be dropped {% cite ethernet-definitive-guide -l 29 %}.
+The _Frame Check Sequence_ field contains a CRC (Cyclic Redundancy Check) that is used by the receiving station to verify that the data in the incoming frame isn't corrupted. The receiving station generates another CRC and compares it to the incoming CRC. If the generated value doesn’t match the received frame value, the frame will be dropped {% cite ethernet-definitive-guide -l 29 %}.
 
 The _Envelope Prefix_ and _Envelope Suffix_ are intended as 482 bytes that can be used by other higher layer protocols to tag Ethernet frames. The contents aren't defined in 802.3 {% cite ethernet-definitive-guide -l 50 %}.
 
