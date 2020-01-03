@@ -141,7 +141,7 @@ A naive approach to `fork()` would be to copy all resources for a new process. T
 
 1. Calls `dup_task_struct()` to create a new stack, `thread_info` structure, and `task_struct` for the new process.
 2. Ensures child process doesn't exceed the limit on the number of processes for the current user.
-3. `task_struct` fields that are unique to process are either cleared or reset. Most values in `task_struct` are unchanged.
+3. Clears or resets `task_struct` fields that are unique to a process. Most values in `task_struct` are unchanged.
 4. Sets the new process's `task_struct` `state` field to `TASK_UNINTERRUPTABLE` to ensure it doesn’t run yet.
 5. Calls `copy_flags()` to update the `flags` member of the new `task_struct`.
 6. Assigns a new pid with `alloc_pid()`.

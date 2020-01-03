@@ -212,7 +212,7 @@ qsort(a, n, sizeof(int), int_compare);
 
 Binary search is an algorithm for searching a sorted array in $$O(\log n)$$ time {% cite algorithm-design-manual -l 132 %}.
 
-Binary search works by checking the middle of an array for a value. If the middle item is larger than the value, binary search stops searching in the upper half of the array. This halves the array that’s being searched each iteration, meaning binary search runs in worst-case $$O(\log n)$$ {% cite algorithm-design-manual -l 132 %}.
+Binary search works by checking the middle of an array for a value. If the item exists in the middle of the array, then binary search can return early. If the middle item is larger than the value, binary search stops searching in the upper half of the array. If the middle item is lower than the value, binary search stops searching in the lower half of the array. This approach halves the array that’s being searched each iteration, meaning binary search runs in worst-case $$O(\log n)$$ {% cite algorithm-design-manual -l 132 %}.
 
 ```c
 int binary_search(int arr[], int n, int val) {
