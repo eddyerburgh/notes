@@ -46,7 +46,7 @@ TCP connections are full duplex and point-to-point. TCP doesn’t support multic
   <figcaption><h4>Figure: Data delivered to application {% cite computer-networks -l 555 %} </h4></figcaption>
 </figure>
 
-TCP can choose to buffer the data it receives from a user process before sending it. This is to send a larger amount of data at once. Sometimes this behavior is undesirable. To force data out as soon as its received, TCP has a push flag that's carried on packets, this can be set from user space by providing an OS flag check (like the `TCP_NODELAY` in Linux) {% cite computer-networks -l 555 %}.
+TCP can choose to buffer the data it receives from a user process before sending it. This is to send a larger amount of data at once. Sometimes this behavior is undesirable. To force data out as soon as its received, TCP has a push flag that's carried on packets, this can be set from user space by providing an OS flag check (like `TCP_NODELAY` in Linux) {% cite computer-networks -l 555 %}.
 
 ## The TCP Protocol
 

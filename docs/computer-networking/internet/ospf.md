@@ -27,7 +27,7 @@ OSPF is a protocol for sharing IP route information within an autonomous system 
 
 OSPF converts networks, routers, and links into a directed graph. Each edge is assigned a weight by a network administrator. A point-to-point connection between two routers is represented by a pair of edges, one in each direction {% cite computer-networking-top-down -l 388 %}.
 
-If multiple paths are equally short, OSPF splits traffic across the set. This is called **ECMP** (Equal Cost Multipath).
+If multiple paths are equally short, OSPF splits traffic across the set. This is called **ECMP** (Equal Cost MultiPath).
 
 ## Areas
 

@@ -135,7 +135,7 @@ struct kobject {
 
 `parent` points to the kobject's parent. This is used to build a hierarchy that can be used to power down leaf devices before their parents.
 
-sysfs, the pseudo file system, is simply "a user space filesystem representation of the kobject object hierarchy inside the kernel" {% cite lkd -l 350 %}. `sd` points to a `sysfs_dirent` structure that represents the kobject in sysfs.
+sysfs, the pseudo file system, is simply "a user space filesystem representation of the kobject object hierarchy inside the kernel". `sd` points to a `sysfs_dirent` structure that represents the kobject in sysfs {% cite lkd -l 350 %}.
 
 Kobjects are normally embedded in other structures, like the `cdev` struct:
 
