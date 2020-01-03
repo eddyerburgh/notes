@@ -37,21 +37,22 @@ This page details the arbitrary conventions I've chosen to follow in these notes
 
    > Streams go through multiple states: idle, open, half-closed, and closed.
 
-6. End notes with a period:
+6. End side notes with a period:
 
    > _Note: this approach can be improved further by storing results in two single variables._
 
 7. Use em dashes without a space on either side:
 
-   > Linux is a **monolithic kernel**—it runs as a single process in a single address space.
+   > Linux is a monolithic kernel—it runs as a single process in a single address space.
 
 8. Capitalize figures and tables when referencing them in the text:
 
    > For more information, see Figure 1.
 
-9. Append _es_ to the plural form of an initialism that end in s:
+9. Append _es_ to the plural form of an initialism that ends in s:
 
    > The last mainstream cooperative OSes were Mac OS 9 and Windows 3.1.
+
    > Single-homed ASes connect to another AS via a single exit.
 
 10. Use ID, IDs, UID, and UIDs:
@@ -82,13 +83,13 @@ This page details the arbitrary conventions I've chosen to follow in these notes
 
    > To statically create a tasklet you can use the macros `DECLARE_TASKLET()` and `DECLARE_TASKLET_DISABLED()`.
 
-3. Reference C structs by their name:
-
-   > The superblock is represented by the `super_block` struct.
-
-4. Write system calls with parentheses:
+3. Use parentheses for system calls:
 
    > It's created in response to the `open()` system call, and is destroyed in response to the `close()` system call.
+
+4. Reference C structs by their name:
+
+   > The superblock is represented by the `super_block` struct.
 
 5. Format flags as code:
 
@@ -108,7 +109,7 @@ This page details the arbitrary conventions I've chosen to follow in these notes
 
    > _Type_ is the type of frame (e.g. `DATA`, `HEADERS`).
 
-4. Use _an HTTP_ request instead of _a HTTP_ request:
+4. Use _an HTTP request_ instead of _a HTTP request_:
 
    > An HTTP/2 header field (a header) is a name with an associated value.
 
