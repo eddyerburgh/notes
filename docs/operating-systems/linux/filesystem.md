@@ -297,7 +297,7 @@ Some of the functions contained by the object are:
 
 ## The dentry object
 
-A dentry is a specific component in a path. In the path /bin/vi, bin and vi are both , where bin is a directory file and vi is a regular file. Both these components are represented with inodes. bin, and vi are also both dentry objects.
+A dentry is a specific component in a path. In the path /bin/vi, bin and vi are both files, where bin is a directory file and vi is a regular file. Both these components are represented with inodes. bin, and vi are also both dentry objects.
 
 The dentry object makes it easier to traverse file paths. Dentries can also include mount points.
 
@@ -729,7 +729,7 @@ I/O schedulers are often called elevators, because they minimize disk seeks in t
 
 ### The Deadline I/O Scheduler
 
-The Deadline I/O scheduler was introduced to solve problems with the Linus elevator sceduler. The Linus elevator could lead to starvation of requests to one part of the disk in the case of many requests to a different part of the disk.
+The Deadline I/O scheduler was introduced to solve problems with the Linus elevator scheduler. The Linus elevator could lead to starvation of requests to one part of the disk in the case of many requests to a different part of the disk.
 
 The Deadline I/O scheduler works on the premise that write operations can happen asynchronously in the background without affecting the user, whereas read operations must be fast. Read requests tend to be dependant on each other, so read latency can have a knock-on affect {% cite lkd -l 300 %}.
 
