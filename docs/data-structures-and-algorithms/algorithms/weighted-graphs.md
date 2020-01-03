@@ -127,7 +127,7 @@ Kruskal-MST(G)
       merge component(v) and component(w)
 ```
 
-Checking that vertices are in the same components can be done in $$O(\log n)$$ by using a [union-find]({{ '/data-structures-and-algorithms/data-structures/union-find' | relative_url }}) data structure. This means the running time depends on the sort. If the sort is $$O(n\log n)$$ then the algorithm is $$O(m\lg m)$$ (where $$m$$ is the number of edges) {% cite algorithm-design-manual -l 197 %}.
+Checking that vertices are in the same components can be done in $$O(\log n)$$ by using a [union-find]({{ '/data-structures-and-algorithms/data-structures/union-find' | relative_url }}) data structure. This means the running time depends on the sort. If the sort is $$O(n\log n)$$ then the algorithm is $$O(m\log m)$$ (where $$m$$ is the number of edges) {% cite algorithm-design-manual -l 197 %}.
 
 The following implementation uses a union-find:
 
