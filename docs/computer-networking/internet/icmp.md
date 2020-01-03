@@ -122,11 +122,11 @@ _Sequence Number_ is an identifier to help match Timestamp messages with Timesta
 
 All time values are the time in milliseconds since midnight UTC.
 
-The _Originate Timestamp_ is the time the sender touched the message before sending it.
+The _Originate Timestamp_ field is the time the sender touched the message before sending it.
 
-The _Receive Timestamp_ is the time the recipient first touched the message on receipt.
+The _Receive Timestamp_ field is the time the recipient first touched the message on receipt.
 
-The _Transmit Timestamp_ is the time the recipient last touched the message before sending it.
+The _Transmit Timestamp_ field is the time the recipient last touched the message before sending it.
 
 {% cite rfc792 -l 16 %}
 

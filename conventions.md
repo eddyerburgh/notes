@@ -29,7 +29,7 @@ This page details the arbitrary conventions I've chosen to follow in these notes
 
    > BGP4 supports CIDR and subnetting {% cite internet-routing-architecture --locator 101 %}.
 
-4. Place a comma after i.e. and e.g. when they are used as part of a sentence:
+4. Place a comma after i.e. and e.g.:
 
    > Each component is separated by a dot (e.g., _eng.cisco.com._).
 
@@ -57,17 +57,17 @@ This page details the arbitrary conventions I've chosen to follow in these notes
 
 10. Use ID, IDs, UID, and UIDs:
 
-> The next step is to allocate a new UID.
+    > The next step is to allocate a new UID.
 
 11. Define the full form of initialisms in parentheses when used for the first time:
 
-> UDP (User Datagram Protocol) is a connectionless transport protocol.
+    > UDP (User Datagram Protocol) is a connectionless transport protocol.
 
 ## Math
 
 1. Use MathJax for formulas, variables, and functions:
 
-> BFS runs in $$O(n + m)$$ time on a graph of $$n$$ vertices and $$m$$ edges
+   > BFS runs in $$O(n + m)$$ time on a graph of $$n$$ vertices and $$m$$ edges.
 
 2. Use angle brackets (\"<\>\") for tuples written in text:
 
@@ -75,23 +75,19 @@ This page details the arbitrary conventions I've chosen to follow in these notes
 
 ## Code
 
-1. Use parentheses for functions and methods:
+1. Use parentheses for functions, methods, function-like macros, and system calls:
 
    > Blink is initialized with `BlinkInitializer::Initialize()`.
 
-2. Use parentheses for function-like macros:
-
    > To statically create a tasklet you can use the macros `DECLARE_TASKLET()` and `DECLARE_TASKLET_DISABLED()`.
-
-3. Use parentheses for system calls:
 
    > It's created in response to the `open()` system call, and is destroyed in response to the `close()` system call.
 
-4. Reference C structs by their name:
+2. Reference C structs by their name:
 
    > The superblock is represented by the `super_block` struct.
 
-5. Format flags as code:
+3. Format flags as code:
 
    > Corresponds to `VM_READ`.
 
@@ -99,11 +95,11 @@ This page details the arbitrary conventions I've chosen to follow in these notes
 
 1. Italicize header field names:
 
-   > _Type_ is the type of frame.
+   > The _Data_ field contains the payload that is being sent.
 
 2. Write header field names in title case:
 
-   > `| Total Length |`
+   > The _Originate Timestamp_ field is the time the sender touched the message before sending it.
 
 3. Format field values as code:
 

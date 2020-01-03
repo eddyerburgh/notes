@@ -134,7 +134,7 @@ Each _Withdrawn Route_ entry is a variable length field which includes the lengt
 
 _Total Path Attribute Length_ tells the receiving BGP speaker the total length of the _Path Attributes_ field (in octets).
 
-_Path Attributes_ contains BGP attributes like the ORIGIN attribute that defines the origin of the route information.
+_Path Attributes_ contains BGP attributes, like the ORIGIN attribute that defines the origin of the route information.
 
 The final part is the _Network Layer Reachability Information_. The total length of the field isn't included explicitly in the message, but it can be calculated using the UPDATE message length and the other length fields.
 
