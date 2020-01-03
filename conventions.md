@@ -15,11 +15,7 @@ This page details the arbitrary conventions I've chosen to follow in these notes
 
 1. Use American English.
 
-2. Define the full form of initialisms in parentheses when used for the first time:
-
-   > UDP (User Datagram Protocol) is a connectionless transport protocol.
-
-3. Use sentence case for bullet points and end them with a period:
+2. Use sentence case for bullet points and end them with a period:
 
    > - Handles multiplexing and demultiplexing of multiple packet sources.
    > - Handles error control and retransmission.
@@ -29,38 +25,42 @@ This page details the arbitrary conventions I've chosen to follow in these notes
    > - Coaxial cable
    > - Twisted pair cable
 
-4. Place references at the end of a paragraph, before the terminating punctuation mark:
+3. Place references at the end of a paragraph, before the terminating punctuation mark:
 
    > BGP4 supports CIDR and subnetting {% cite internet-routing-architecture --locator 101 %}.
 
-5. Place a comma after Latin abbreviations (like _e.g._ and _i.e._):
+4. Place a comma after Latin abbreviations (like _e.g._ and _i.e._):
 
    > Each component is separated by a dot (e.g., _eng.cisco.com._).
 
-6. Always use an Oxford comma:
+5. Always use an Oxford comma:
 
    > Streams go through multiple states: idle, open, half-closed, and closed.
 
-7. End notes with a period:
+6. End notes with a period:
 
    > _Note: this approach can be improved further by storing results in two single variables._
 
-8. Use em dashes without a space on either side:
+7. Use em dashes without a space on either side:
 
    > Linux is a **monolithic kernel**—it runs as a single process in a single address space.
 
-9. Capitalize figures and tables when referencing them in the text:
+8. Capitalize figures and tables when referencing them in the text:
 
    > For more information, see Figure 1.
 
-10. Append _es_ to the plural form of an initialism that end in s:
+9. Append _es_ to the plural form of an initialism that end in s:
 
-    > The last mainstream cooperative OSes were Mac OS 9 and Windows 3.1.
-    > Single-homed ASes connect to another AS via a single exit.
+   > The last mainstream cooperative OSes were Mac OS 9 and Windows 3.1.
+   > Single-homed ASes connect to another AS via a single exit.
 
-11. Use ID, IDs, UID, and UIDs:
+10. Use ID, IDs, UID, and UIDs:
 
 > The next step is to allocate a new UID.
+
+11. Define the full form of initialisms in parentheses when used for the first time:
+
+> UDP (User Datagram Protocol) is a connectionless transport protocol.
 
 ## Math
 
