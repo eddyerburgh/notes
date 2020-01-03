@@ -13,7 +13,7 @@ permalink: /operating-systems/linux/system-calls
 # System calls
 {:.no_toc}
 
-System calls are an interface for user processes to call into kernel code. x
+System calls are an interface for user processes to call into kernel code.
 
 ## Table of contents
 {: .no_toc  }
