@@ -184,7 +184,7 @@ A binary search tree is a rooted binary tree where all nodes in the left subtree
   <figcaption><h4>Figure: Binary search tree {% cite lkd -l 86 %}</h4></figcaption>
 </figure>
 
-Binary search trees offer $$O(h)$$ search, insertion, and deletion, where $$h$$ is the height of the tree. If the search tree is _balanced_ (the difference between the depth of the bottom subtrees is at most 1), then this is $$\log n$$, where $$n$$ is the number of items. The problem is that binary search trees will not always be naturally balanced {% cite algorithm-design-manual -l 81-2 %}.
+Binary search trees offer $$O(h)$$ search, insertion, and deletion, where $$h$$ is the height of the tree. If the search tree is _balanced_ (the difference between the depth of the bottom subtrees is at most 1), then this is $$\lg n$$, where $$n$$ is the number of items. The problem is that binary search trees will not always be naturally balanced {% cite algorithm-design-manual -l 81-2 %}.
 
 <!-- TODO: link to red-black trees and splay trees section-->
 
