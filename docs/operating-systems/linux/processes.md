@@ -178,13 +178,13 @@ When a process terminates, most of the work is done by `do_exit()`. `do_exit()`:
 
 1. Sets the `PF_EXITING` flag in the `flags` member of the exiting task struct.
 2. Calls `del_timer_sync()` to remove kernel timers.
-3. If BSD process accounting is enabled, `do_exit()` calls `acct_update_integrals()` to write out accounting information.
+3. Calls `acct_update_integrals()` to write out accounting information if BSD process accounting is enabled.
 4. Calls `exit_mm()` to release `mm_struct` held by the process. `mm_struct` is destroyed if no other process is using it.
 5. Calls `exit_sem()`. If process is queued waiting for an IPC semaphore, it’s dequeued.
 6. Calls `exit_files()` and `exit_fs()` to decrement the usage count of objects related to file descriptors and filesystem data. If either usage reaches zero the object is no longer in use and is destroyed.
 7. Sets the tasks exit code, stored in the `task_struct` `exit_code` field.
-8. Calls `exit_notify()` to send signals to parent process. Reparents any of the tasks children, and sets the tasks exit state to `EXIT_ZOMBIE`.
-9. `do_exit()` calls `schedule()` to switch to a new process. Since the process is now unschedulable, it never runs again.
+8. Calls `exit_notify()` to send signals to the parent process. Reparents any of the task's children, and sets the task's exit state to `EXIT_ZOMBIE`.
+9. Calls `schedule()` to switch to a new process. Since the process is now unschedulable, it never runs again.
 10. After `do_exit()` completes, the `task_struct` exists in a zombie state. When the parent has obtained information about the child, the `task_struct` is freed.
 
 {% cite lkd -l 36-7 %}
