@@ -27,7 +27,7 @@ This section is about common data structures that are used across the kernel.
 
 A linked list is a data structure that stores a variable number of elements, called the nodes of the list. Unlike a static array, the elements in a linked list are added dynamically. This means the size of a linked list doesn't need to be known at compile time.
 
-Because the elements are created dynamically at run time, there's no guarantee that they will be in contiguous memory. Therefore the elements need to be linked together using pointers. Each element in a linked list contains a pointer to the next element. The pointers are updated as elements are added and removed from the list {% cite lkd -l 85 %}.
+Because the elements are created dynamically at run time, there's no guarantee that they will be in contiguous memory. Therefore, the elements need to be linked together using pointers. Each element in a linked list contains a pointer to the next element. The pointers are updated as elements are added and removed from the list {% cite lkd -l 85 %}.
 
 ### Singly and doubly linked lists
 
@@ -145,7 +145,7 @@ List heads act as a canonical pointer to the entire list.
 
 Since each struct contains a `list_head`, we need a special pointer that refers to your linked list, without being a list node itself. This special node is in fact a normal `list_head` {% cite lkd -l 90 %}.
 
-You can create a special head node from a list node with the `LIST_HEAD` macro:
+You can create a special head node from a list node with the `LIST_HEAD()` macro:
 
 ```c
 static LIST_HEAD(fox_list);
@@ -200,7 +200,7 @@ static inline void list_del(struct list_head *entry)
 }
 ```
 
-You can iterate over each item in a linked list using the `list_for_each_entry()` macro. Note that iterating over the list is an O(n) operation.
+You can iterate over each item in a linked list using the `list_for_each_entry()` macro. Note that iterating over the list is an $$O(n)$$ operation.
 
 The `list_for_each_entry()` macro takes three parameters: `pos`, `head`, and `member`. On each iteration `pos` is a pointer to the next list entry.
 
@@ -235,7 +235,7 @@ static struct inotify_watch *inode_find_handle(struct inode *inode,
 
 Queues are a first-in-first-out data structure. Data is removed from the queue in the order it's added, with the oldest data removed first.
 
-Queues are useful for implementing the producer consumer pattern. A producer pushes data to a queue and a consumer removes data from the queue in order to do something with it {% cite lkd -l 96 %}.
+Queues are useful for implementing the producer-consumer pattern. A producer can push data to a queue and a consumer can then remove data from the queue in order to do something with it {% cite lkd -l 96 %}.
 
 <figure>
   <img src="{{site.baseurl}}/assets/img/operating-systems/linux/kernel-data-structures/queue.svg" alt="">
@@ -279,7 +279,7 @@ You can also allocate your own buffer and create a queue using `kfifo_init()`:
 void kfifo_init(struct kfifo *fifo, void *buffer, unsigned int size);
 ```
 
-You can statically declare a kfifo with `DECLARE_KFIFO` macro:
+You can statically declare a kfifo with `DECLARE_KFIFO()` macro:
 
 ```c
 DECLARE_KFIFO(name, size);
@@ -320,9 +320,7 @@ Maps support at least three operations:
 2. Remove
 3. Value
 
-A hash table is one type of map, but not all maps are implemented as hash tables. The Linux hash table is implemented as a self-balancing binary search tree.
-
-The kernel provides a map data structure called idr. idr is used for mapping user-space UIDs, like POSIX timer IDs, to their associated data structures {% cite lkd -l 100 %}.
+The kernel provides a map data structure called idr. idr is used for mapping user space UIDs, like POSIX timer IDs, to their associated data structures {% cite lkd -l 100 %}.
 
 You can define an idr by either statically or dynamically allocating an `idr` struct, then cal `idr_init()`:
 
@@ -375,20 +373,20 @@ Red-black trees are a type of self-balancing binary search tree. The red-black t
 
 Red-black trees have a color attribute which is either red or black. They remain semi-balanced by enforcing the following rules:
 
-1. All nodes are either red or black
-2. Leaf nodes are black
-3. Leaf nodes don't contain data
-4. All non-leaf nodes have two children
-5. If a node is red, both of its children are black
-6. The path from a node to one of its leaves contains the same number of black nodes as the shortest path to any of its other leaves
+1. All nodes are either red or black.
+2. Leaf nodes are black.
+3. Leaf nodes don't contain data.
+4. All non-leaf nodes have two children.
+5. If a node is red, both of its children are black.
+6. The path from a node to one of its leaves contains the same number of black nodes as the shortest path to any of its other leaves.
 
 {% cite lkd -l 105 %}
 
 These properties ensure that the deepest leaf has a depth no more than double the depth of the shallowest leaf. Maintaining the properties during insertion and deletion will keep the tree semi-balanced {% cite lkd -l 105 %}.
 
-The Linux implementation of red-black trees is rbtree, defined in lib/rbtree.h.
+The Linux implementation of red-black trees is rbtree, defined in \<lib/rbtree.h\>.
 
-The root of an rbtree is represented by the `rb_root` structure. To create an rbtree you allocate a new `rb_root` and initialize it to `RB_ROOT`:
+The root of an rbtree is represented by the `rb_root` struct. To create an rbtree you allocate a new `rb_root` and initialize it to `RB_ROOT`:
 
 ```c
 struct rb_root root = RB_ROOT;

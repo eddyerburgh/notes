@@ -16,7 +16,6 @@ permalink: /computer-networking/bluetooth
 
 Bluetooth is a wireless standard for connecting computing devices using short-range, low-power, wireless radios. This section focusses on the architecture of the Bluetooth protocol.
 
-
 ## Table of contents
 {: .no_toc }
 
@@ -89,7 +88,7 @@ The top layer is the **application layer**. In the figure, profiles are represen
 
 Bluetooth adapts its hop sequence to exclude channels on which there are other RF signals. This is called **adaptive frequency hopping**.
 
-There are "three forms of modulation are used to send bits on a channel. The basic scheme is to use frequency shift keying to send a 1-bit symbol every microsecond, giving a gross data rate of 1 Mbps. Enhanced rates were introduced with the 2.0 version of Bluetooth. These rates use phase shift keying to send either 2 or 3 bits per symbol, for gross data rates of 2 or 3 Mbps. The enhanced rates are only used in the data portion of frames" {% cite computer-networks -l 324 %}.
+There are "three forms of modulation are used to send bits on a channel. The basic scheme is to use frequency shift keying to send a 1-bit symbol every microsecond, giving a gross data rate of 1 Mb/s. Enhanced rates were introduced with the 2.0 version of Bluetooth. These rates use phase shift keying to send either 2 or 3 bits per symbol, for gross data rates of 2 or 3 Mb/s. The enhanced rates are only used in the data portion of frames" {% cite computer-networks -l 324 %}.
 
 ## The Bluetooth link layers
 
@@ -112,15 +111,15 @@ When pairing is complete, the link manager sets up the links. There are two main
 1. SCO (Synchronous Connection Oriented)
 2. ACL (Asynchronous ConnectionLess)
 
-**SCO** is used for real-time data, like telephone connection. An SCO link is allocated a fixed slot in each direction. Each SCO link can transmit one 64,000-bps pcm audio channel, and a slave can have up to three SCO links with its master. Frames sent over SCO are never retransmitted {% cite computer-networks -l 325 %}.
+**SCO** is used for real-time data, like telephone connection. An SCO link is allocated a fixed slot in each direction. Each SCO link can transmit one 64,000-b/s PCM audio channel, and a slave can have up to three SCO links with its master. Frames sent over SCO are never retransmitted {% cite computer-networks -l 325 %}.
 
 An **ACL** link is used for packet-switched data available at irregular intervals. ACL frames can be lost, and may need to be retransmitted. A slave can only have one SCO link to its master {% cite computer-networks -l 325 %}.
 
 "The data sent over ACL links come from the L2CAP layer". The L2CAP has three main functions:
 
-- Accepts packets (up to 64KB) from higher layers and breaks them into frames for transmission, the frames are reassembled at the receiving end
-- Handles multiplexing and demultiplexing of multiple packet sources
-- Handles error control and retransmission
+- Accepts packets (up to 64KB) from higher layers and breaks them into frames for transmission, the frames are reassembled at the receiving end.
+- Handles multiplexing and demultiplexing of multiple packet sources.
+- Handles error control and retransmission.
 
 {% cite computer-networks -l 325 %}
 
@@ -137,7 +136,7 @@ The first field is an access code that usually identifies the master.
 
 Next is a 54-bit header that contains several fields. The Address field identifies which of the active devices the frame is intended for. The Type field identifies the frame type (ACL, SCO, poll, or null), the type of error correction used in the data field, and how many slots long the frame is {% cite computer-networks -l 325-6 %}.
 
-The Flow bit (F) is set by a slave when its buffer is full and it can't receive any more data. The Acknowledgement bit (A) adds an ACK to the frame, The Sequence bit (S) is used to number frames, to enable retransmission. Since the protocol is is stop-and-wait, 1 bit is enough {% cite computer-networks -l 326 %}.
+The Flow bit (_F_) is set by a slave when its buffer is full and it can't receive any more data. The Acknowledgement bit (_A_) adds an ACK to the frame, The Sequence bit (_S_) is used to number frames, to enable retransmission. Since the protocol is stop-and-wait, 1 bit is enough to number frames adequately {% cite computer-networks -l 326 %}.
 
 The header is repeated three times. This is to add redundancy. Redundancy is important in Bluetooth, which runs in a noisy environment over low-powered devices {% cite computer-networks -l 326 %}.
 

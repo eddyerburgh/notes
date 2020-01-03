@@ -27,14 +27,14 @@ IPv6 is the next version of IP after IPv4. It solves the problem of address scar
 
 There were several design goals for IPv6:
 
-- Support billions of hosts
-- Reduce the size of routing tables
-- Speed up packet processing
-- Improve security
-- Support different types of service, e.g. VoIP
-- Enable host roaming without changing IP address
-- Enable protocol to evolve in future
-- Permit both protocols to coexist for long period of time
+- Support billions of hosts.
+- Reduce the size of routing tables.
+- Speed up packet processing.
+- Improve security.
+- Support different types of service, e.g., VoIP.
+- Enable host roaming without changing IP address.
+- Enable protocol to evolve in future.
+- Permit both protocols to coexist for long period of time.
 
 {% cite computer-networks -l 456 %}
 
@@ -48,22 +48,22 @@ The main header:
 
 ```
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |Version| Traffic class |           Flow label                  |
+   |Version| Traffic Class |           Flow Label                  |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |         Payload length        |  Next header  |   Hop limit   |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                                                               |
-   +                                                               +
-   |                                                               |
-   +                         Source address                        +
-   |                                                               |
-   +                                                               +
-   |                                                               |
+   |         Payload Length        |  Next Header  |   Hop Limit   |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                                                               |
    +                                                               +
    |                                                               |
-   +                      Destination address                      +
+   +                         Source Address                        +
+   |                                                               |
+   +                                                               +
+   |                                                               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                                                               |
+   +                                                               +
+   |                                                               |
+   +                      Destination Address                      +
    |                                                               |
    +                                                               +
    |                                                               |
@@ -72,25 +72,25 @@ The main header:
 
 {% cite rfc2460 -l 4 %}
 
-The _Version_ field is always 6. Routers use this field to determine whether to process packets as IPv4 packets or IPv6 packets.
+The _Version_ field is always `6`. Routers use this field to determine whether to process packets as IPv4 packets or IPv6 packets.
 
-The _Traffic class_ field describes the class of service, e.g. VoIP.
+The _Traffic Class_ field describes the class of service, e.g., VoIP.
 
-The _Flow label_ field is used to mark groups of packets as having the same requirements.
+The _Flow Label_ field is used to mark groups of packets as having the same requirements.
 
-The _Payload length_ field specifies the number of bytes that follow the 40 byte header.
+The _Payload Length_ field specifies the number of bytes that follow the 40 byte header.
 
-The _Next header_ field can specify whether another header follows the current one. If this header is the last IP header, _Next header_ defines which transport protocol is contained in the IP payload.
+The _Next Header_ field can specify whether another header follows the current one. If this header is the last IP header, _Next Header_ defines which transport protocol is contained in the IP payload.
 
-The _Hop limit_ field is the TTL field renamed. It limits the number of hops a packet can take before it's dropped.
+The _Hop Limit_ field is the TTL field renamed. It limits the number of hops a packet can take before it's dropped.
 
-The _Source address_ and _Destination address_ fields specify the IPv6 address of the source and destination respectively.
+The _Source Address_ and _Destination Address_ fields specify the IPv6 address of the source and destination respectively.
 
 {% cite computer-networks -l 458-9 %}
 
 Some fields included in the IPv4 header were removed from the IPv6 header:
 
-- _Protocol_ (_Next header_ is used instead).
+- _Protocol_ (_Next Header_ is used instead).
 - Fragmentation fields (IPv6 takes different approach to fragmentation).
 - The _Checksum_ field (calculating it reduces performance, and other protocols perform their own checksums anyway).
 
@@ -102,14 +102,14 @@ Extension headers are an approach for adding extra options to an IPv6 header.
 
 There are six kinds of extension headers:
 
-| Extension header           | Description                                |
-| -------------------------- | ------------------------------------------ |
-| Hop-by-hop options         | Miscellaneous information for routers      |
-| Destination options        | Additional information for the destination |
-| Routing                    | Loose list of routers to visit             |
-| Fragmentation              | Management of datagram fragments           |
-| Authentication             | Verification of the sender’s identity      |
-| Encrypted security payload | Information about the encrypted contents   |
+| Extension header           | Description                                 |
+| -------------------------- | ------------------------------------------- |
+| Hop-by-hop options         | Miscellaneous information for routers.      |
+| Destination options        | Additional information for the destination. |
+| Routing                    | Loose list of routers to visit.             |
+| Fragmentation              | Management of datagram fragments.           |
+| Authentication             | Verification of the sender’s identity.      |
+| Encrypted security payload | Information about the encrypted contents.   |
 
 {% cite computer-networks -l 461 %}
 
@@ -119,11 +119,11 @@ Some headers are a fixed length, others contain a variable number of variable-le
 
 For fields that contain variable number of items, each item is encoded as a \<Type, Length, Value\> tuple. _Type_ is a 1-byte field that specifies the type of option, _Length_ is a 1-byte field that tells how long the value is (up to 255 bytes). _Value_ can be any information required {% cite computer-networks -l 461 %}.
 
-Each extension header includes a _Next header_ field which works the same way as the Next header field in the IP main header, and is used to specify which extension header (if any) comes next.
+Each extension header includes a _Next Header_ field which works the same way as the Next header field in the IP main header, and is used to specify which extension header (if any) comes next.
 
 ## IPv6 addresses
 
-IPv6 addresses are 128-bits, which gives 3x10^38 possible addresses.
+IPv6 addresses are 128-bits, which gives $$3 \times 10^{38}$$ possible addresses.
 
 The notation for IPv6 address is eight groups of four hexadecimal digits separated by colons:
 

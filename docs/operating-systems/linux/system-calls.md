@@ -13,7 +13,7 @@ permalink: /operating-systems/linux/system-calls
 # System calls
 {:.no_toc}
 
-System calls are an interface for user processes to call into kernel code. This section is about what system calls are, and how they're implemented in the kernel.
+System calls are an interface for user processes to call into kernel code.
 
 ## Table of contents
 {: .no_toc  }
@@ -30,7 +30,7 @@ System calls are a layer between user space and hardware that allow user space p
 There are three benefits to the system call layer:
 
 1. It provides an abstracted hardware interface.
-2. It ensures security and stability, the kernel can arbitrate access based on permissions.
+2. It ensures security and stability—the kernel can arbitrate access based on permissions.
 3. It enables the virtualized system that is provided to processes. Without system calls it would be impossible to provide virtualized memory.
 
 {% cite lkd -l 69 %}
@@ -39,7 +39,7 @@ There are three benefits to the system call layer:
 
 Most user space programs call a user space API rather than invoking system calls directly. This decouples the API and the system call interface provided by the kernel. When different systems implement a common user space API, user programs can use the API while remaining portable {% cite lkd -l 70 %}.
 
-A common Unix interface is POSIX. POSIX is a series of standards from IEEE that defines an API for Unix systems. Linux aims to be POSIX compliant, as do other non-Unix based systems like Windows {% cite lkd -l 70 %}.
+A common Unix interface is POSIX. POSIX is a series of standards from IEEE that defines an API for Unix systems. Linux aims to be POSIX-compliant, as do other non-Unix based systems like Windows {% cite lkd -l 70 %}.
 
 The C library implements the main API on Linux, including the standard C library and the system call interface. The majority of the POSIX API is also implemented in the C API {% cite lkd -l 71 %}.
 
@@ -86,12 +86,10 @@ The system call handler is named `system_call()`, and it’s architecture-depend
 
 The system call number must be passed to the kernel. On x86 this is done by setting the `eax` register to the sys call number. The system call handler will then read the syscall number from the `eax` register {% cite lkd -l 73-4 %}.
 
-`system_call()` validates the system call number by comparing it to `NR_syscalls`. If it is larger than or equal to `NR_syscalls`, the function returns `-ENOSYS`. Otherwise, the specified system call is invoked:
+`system_call()` validates the system call number by comparing it to `NR_syscalls`. If it is larger than or equal to `NR_syscalls`, the function returns `ENOSYS`. Otherwise, the specified system call is invoked:
 
-```
-
+```text
 call *sys_call_table(,%rax,8)
-
 ```
 
 On x86-64, each element in the system call table is 64 bits (8 bytes). The kernel multiplies the syscall number by 8 to arrive at its location in the system call table.
@@ -167,7 +165,7 @@ Next, the system call is added to `<asm/unistd.h>`, which looks like this:
 #define __NR_recvmmsg 337
 ```
 
-You would add a new macro for the `foo` syscall number:
+You would add a new macro for the `foo()` syscall number:
 
 ```c
 #define __NR_foo 338
@@ -189,7 +187,7 @@ asmlinkage long sys_foo(void)
 }
 ```
 
-## Accessing the System Call from User Space¶
+## Accessing the System Call from User Space
 
 Linux provides a set of macros for wrapping access to system calls. The macros set up the register contents and issue the trap instructions {% cite lkd -l 81 %}.
 
@@ -210,7 +208,7 @@ _syscall3(long, open, const char *, filename, int, flags, int, mode)
 
 Then, the application can simply call `open()`.
 
-Each macro has 2 + 2n parameters. The first parameter is the return type, and the second parameter is the name of the system call. The remaining parameters are pairs of the type and name for each parameter {% cite lkd -l 81 %}.
+Each macro has $$2 + 2n$$ parameters. The first parameter is the return type, and the second parameter is the name of the system call. The remaining parameters are pairs of the type and name for each parameter {% cite lkd -l 81 %}.
 
 The `_syscall3()` macro expands into a C function with inline assembly. The assembly pushes the system call number and parameters to the correct registers and issues the software interrupt to trap into the kernel. Placing the macro into an application is all that's required to use the `open()` system call {% cite lkd -l 81 %}.
 

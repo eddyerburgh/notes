@@ -30,7 +30,7 @@ Distributed systems consist of autonomous computing elements, defined as either 
 
 A fundamental principle of distributed systems is that nodes can act independently of each other. They communicate by sending and receiving messages and then use these messages to determine how they should behave {% cite distributed-systems -l 2-3 %}.
 
-In practice, distributed systems are often organized as an **overlay network** — a network built on top of another network. There are two common overlay networks:
+In practice, distributed systems are often organized as an **overlay network**—a network built on top of another network. There are two common overlay networks:
 
 1. Structured overlay, where each node has a well-defined set of neighbors it can communicate with.
 2. Unstructured overlay, where nodes communicate with a randomly selected set of nodes.

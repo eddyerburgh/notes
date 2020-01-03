@@ -32,7 +32,7 @@ Originally HTTP was intended to transfer HTML documents from servers to browsers
 HTTP/1.1 requests are made up of multiple lines. The first line is the most important, it contains the request method and the HTTP version number:
 
 ```
-GET /glossary/big-o-notation HTTP/1.1
+GET /glossary/internet HTTP/1.1
 ```
 
 ## URIs
@@ -57,7 +57,7 @@ To solve this, HTTP/1.1 supports **persistent connections**. The TCP connection 
 
 It's also possible to pipeline requests (send 2 requests at the same time) {% cite computer-networks -l 684 %}.
 
-Connections are typically closed after a short time (e.g. 60 seconds) to avoid servers holding too many connections open {% cite computer-networks -l 685 %}.
+Connections are typically closed after a short time (e.g., 60 seconds) to avoid servers holding too many connections open {% cite computer-networks -l 685 %}.
 
 ## HTTP Methods
 
@@ -73,16 +73,16 @@ Request-Line = Method Request-URI HTTP-Version CRLF
 
 Method names indicate the intent of the request:
 
-| Method  | Description               |
-| ------- | ------------------------- |
-| GET     | Read a Web page           |
-| HEAD    | Read a Web page’s header  |
-| POST    | Append to a Web page      |
-| PUT     | Store a Web page          |
-| DELETE  | Remove the Web page       |
-| TRACE   | Echo the incoming request |
-| CONNECT | Connect through a proxy   |
-| OPTIONS | Query options for a page  |
+| Method  | Description                |
+| ------- | -------------------------- |
+| GET     | Read a Web page.           |
+| HEAD    | Read a Web page’s header.  |
+| POST    | Append to a Web page.      |
+| PUT     | Store a Web page.          |
+| DELETE  | Remove the Web page.       |
+| TRACE   | Echo the incoming request. |
+| CONNECT | Connect through a proxy.   |
+| OPTIONS | Query options for a page.  |
 
 {% cite computer-networks -l 686 %}
 
@@ -110,17 +110,17 @@ Status-Line = HTTP-Version Status-Code Reason-Phrase CRLF
 
 {% cite rfc2616 -l 39 %}
 
-The status code is a 3-digit integer code that describes the status of the HTTP response {% cite rfc2616 -l 39 %}.
+The status code is a 3-digit integer that describes the status of the HTTP response {% cite rfc2616 -l 39 %}.
 
 The status codes are classed based on the first integer:
 
-| Code | Meaning      | Examples                                           |
-| ---- | ------------ | -------------------------------------------------- |
-| 1xx  | Information  | 100 = server agrees to handle client’s request     |
-| 2xx  | Success      | 200 = request succeeded; 204 = no content present  |
-| 3xx  | Redirection  | 301 = page moved; 304 = cached page still valid    |
-| 4xx  | Client error | 403 = forbidden page; 404 = page not found         |
-| 5xx  | Server error | 500 = internal server error; 503 = try again later |
+| Code | Meaning      | Examples                                            |
+| ---- | ------------ | --------------------------------------------------- |
+| 1xx  | Information  | 100 = server agrees to handle client’s request.     |
+| 2xx  | Success      | 200 = request succeeded. 204 = no content present.  |
+| 3xx  | Redirection  | 301 = page moved. 304 = cached page still valid.    |
+| 4xx  | Client error | 403 = forbidden page. 404 = page not found.         |
+| 5xx  | Server error | 500 = internal server error. 503 = try again later. |
 
 {% cite computer-networks -l 688 %}
 

@@ -123,7 +123,7 @@ $$M[x, y] = 1$$ if $$(x, y)$$ is an edge of $$G$$, and $$0$$ if it isn't {% cite
   <figcaption><h4>Figure: A graph and its adjacency matrix</h4></figcaption>
 </figure>
 
-Common operations like `add_edge`, `remove_edge`, and `has_edge` are $$O(1)$$ operations:
+Common operations like `add_edge()`, `remove_edge()`, and `has_edge()` are $$O(1)$$ operations:
 
 ```c
 void add_edge(int x, int y) {
@@ -141,7 +141,7 @@ bool has_edge(int ix, int y) {
 
 {% cite open-data-structures -l 249 %}
 
-`out_edges` and `in_edges` are $$O(n)$$ operations. An entire row/column must be checked to find the edges.
+`out_edges()` and `in_edges()` are $$O(n)$$ operations. An entire row/column must be checked to find the edges.
 
 Another problem with adjacency matrices is that they quickly grow large. For this reason they are often impractical.
 

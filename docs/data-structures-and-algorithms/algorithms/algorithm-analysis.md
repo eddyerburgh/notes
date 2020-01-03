@@ -23,9 +23,9 @@ permalink: /data-structures-and-algorithms/algorithms/algorithm-analysis
 
 ## Introduction
 
-Algorithm analysis involves calculating the complexity of algorithms, normally either the time-complexity or the space-complexity.
+Algorithm analysis involves calculating the complexity of algorithms, usually either the time-complexity or the space-complexity.
 
-Two common tools used for algorithm analysis are the RAM model of computation, and the asymptotic analysis of worst-case complexity {% cite algorithm-design-manual -l 31 %}.
+Two common tools used for algorithm analysis are the RAM model of computation and the asymptotic analysis of worst-case complexity {% cite algorithm-design-manual -l 31 %}.
 
 ## The RAM model of computation
 
@@ -132,12 +132,6 @@ You can see the growth rate of the common classes in the following table:
 | 1,000,000,000 | 0.030 μs | 1 sec    | 29.90 sec | 31.7 years          |          |                |
 
 {% cite algorithm-design-manual -l 38 %}
-
-## Conclusion
-
-Most commonly, algorithms are analyzed by counting the number of steps an algorithm takes to complete in the worst-case, which creates a time-complexity function. The time-complexity function is then expressed using Big O notation.
-
-Big O creates common classes of algorithms, like linear algorithms, and exponential algorithms. It's useful to learn the names of these classes, because they come up often when discussing algorithms.
 
 ## References
 

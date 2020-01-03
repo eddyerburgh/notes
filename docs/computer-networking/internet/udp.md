@@ -47,11 +47,11 @@ UDP sends segments containing an 8-byte header, followed by the payload data.
 
 {% cite rfc768 -l 1 %}
 
-The **Source Port** and **Destination Port** fields specify the port of the sending and receiving processes respectively.
+The _Source Port_ and _Destination Port_ fields specify the port of the sending and receiving processes respectively.
 
-The **Length** field is the total length of the datagram (in octets), including both the 8-byte header and the data.
+The _Length_ field is the total length of the datagram (in octets), including both the 8-byte header and the data.
 
-The **Checksum** field "is the 16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end (if necessary) to make a multiple of two octets" {% cite rfc768 -l 2 %}.
+The _Checksum_ field "is the 16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end (if necessary) to make a multiple of two octets" {% cite rfc768 -l 2 %}.
 
 ## Uses of UDP
 

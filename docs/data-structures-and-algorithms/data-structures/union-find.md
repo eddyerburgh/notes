@@ -42,7 +42,7 @@ A root node has its parent set to itself, to identify that it's the root in a se
 
 Merging sets can be done by setting the parent of one set to the parent of another. In the case of a merge, the smallest subtree becomes the parent of the other {% cite algorithm-design-manual -l 199 %}.
 
-At most $$lg_2 n$$ doublings can occur before all sets have been merged. That means `find` and `union` are both $$O(log n)$$ operations {% cite algorithm-design-manual -l 201 %}.
+At most $$\lg_2 n$$ doublings can occur before all sets have been merged. That means `find()` and `union()` are both $$O(\log n)$$ operations {% cite algorithm-design-manual -l 201 %}.
 
 ## Representing a union-find
 

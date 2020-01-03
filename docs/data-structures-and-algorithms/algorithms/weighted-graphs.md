@@ -108,7 +108,7 @@ void prim(graph *g, int start) {
 }
 ```
 
-An improved implementation of Prim's algorithm uses a priority queue to achieve $$O(m+nlg_n)$$.
+An improved implementation of Prim's algorithm uses a priority queue.
 
 ### Kruskal’s Algorithm
 
@@ -127,7 +127,7 @@ Kruskal-MST(G)
       merge component(v) and component(w)
 ```
 
-Checking that vertices are in the same components can be done in $$O(lg_n)$$ by using a [union-find]({{ '/data-structures-and-algorithms/data-structures/union-find' | relative_url }}) data structure. This means the running time depends on the sort. If the sort is $$O(nlg_n)$$ then algorithm is $$O(mlg_m)$$ (where $$m$$ is the number of edges) {% cite algorithm-design-manual -l 197 %}.
+Checking that vertices are in the same components can be done in $$O(\log n)$$ by using a [union-find]({{ '/data-structures-and-algorithms/data-structures/union-find' | relative_url }}) data structure. This means the running time depends on the sort. If the sort is $$O(n\log n)$$ then the algorithm is $$O(m\log m)$$ (where $$m$$ is the number of edges) {% cite algorithm-design-manual -l 197 %}.
 
 The following implementation uses a union-find:
 
@@ -168,7 +168,7 @@ There are many variations of minimum spanning tree:
 
 - **Maximum spanning tree**: creates the maximum value path {% cite algorithm-design-manual -l 201 %}.
 
-- **Minimum product spanning tree**: the minimum spanning tree when multiplying edge weights. This can be determined by running minimum weight spanning tree algorithms on the log of each path (since $$lg(a\cdot b)=lg(a)+lg(b)$$) {% cite algorithm-design-manual -l 201 %}.
+- **Minimum product spanning tree**: the minimum spanning tree when multiplying edge weights. This can be determined by running minimum weight spanning tree algorithms on the log of each path (since $$\lg(a\cdot b)=\lg(a)+\lg(b)$$) {% cite algorithm-design-manual -l 201 %}.
 
 - **Minimum bottleneck spanning tree**: a tree that minimizes the maximum edge weight. Every minimum spanning tree has this property. {% cite algorithm-design-manual -l 201 %}
 
@@ -248,7 +248,7 @@ dijkstra(graph *g, int start) {
 
 The time complexity of Dijkstra's algorithm is $$O(n^2)$$.
 
-_Note: Dijkstra's algorithm is only correct when run on graphs with non-negative edges_ {% cite algorithm-design-manual -l 210 %}.
+_Note: Dijkstra's algorithm is only correct when run on graphs with non-negative edges {% cite algorithm-design-manual -l 210 %}._
 
 You could run Dijkstra's algorithm on a graph with weighted vertices by converting the vertex costs to edge costs, before running an unmodified Dijkstra's over the new graph {% cite algorithm-design-manual -l 210 %}.
 
@@ -303,7 +303,7 @@ void floyd(adjacency_matrix *g) {
 
 The Floyd–Warshall algorithm runs in $$O(n^3)$$, the same as running Dijkstra's algorithm on each node. But Floyd's often has better performance than Dijkstra's in practice because the loops are so tight {% cite algorithm-design-manual -l 211 %}.
 
-(see a [video demonstration of the Floyd–Warshall algorithm](https://www.youtube.com/watch?v=4OQeCuLYj-4)).
+See a [video demonstration of the Floyd–Warshall algorithm](https://www.youtube.com/watch?v=4OQeCuLYj-4).
 
 ## References
 

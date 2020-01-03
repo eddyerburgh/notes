@@ -25,7 +25,7 @@ TCP (Transmission Control Protocol) provides a reliable end-to-end byte stream o
 
 ## Introduction
 
-A machine that supports TCP has a TCP transport entity, which is normally part of the kernel. The entity accepts data streams from local processes. It breaks the streams into chunks no larger than 64kb (usually 1460 bytes to fit in an Ethernet frame), and sends each chunk as an IP datagram. When datagrams containing TCP data arrive at a machine, they are given to a TCP entity that reconstructs the byte stream {% cite computer-networks -l 553 %}.
+A machine that supports TCP has a TCP transport entity, which is normally part of the kernel. The entity accepts data streams from local processes. It breaks the streams into chunks no larger than 64KB (usually 1460 bytes to fit in an Ethernet frame), and sends each chunk as an IP datagram. When datagrams containing TCP data arrive at a machine, they are given to a TCP entity that reconstructs the byte stream {% cite computer-networks -l 553 %}.
 
 IP doesn’t guarantee that datagrams will arrive, or how fast they are sent. So TCP is responsible for sending datagrams fast enough to maximize capacity, but not too fast to cause congestion. TCP must also reassemble messages in the correct order, in case they arrive out of order {% cite computer-networks -l 553 %}.
 
@@ -46,13 +46,13 @@ TCP connections are full duplex and point-to-point. TCP doesn’t support multic
   <figcaption><h4>Figure: Data delivered to application {% cite computer-networks -l 555 %} </h4></figcaption>
 </figure>
 
-TCP can choose to buffer the data it receives from a user process, before sending it. This is to send a larger amount of data at once. Sometimes this behavior is undesirable. To force data out as soon as its received, TCP has a push flag that's carried on packets, this can be set from user-space by providing an OS flag check (like the `TCP_NODELAY` in Linux) {% cite computer-networks -l 555 %}.
+TCP can choose to buffer the data it receives from a user process before sending it. This is to send a larger amount of data at once. Sometimes this behavior is undesirable. To force data out as soon as its received, TCP has a push flag that's carried on packets, this can be set from user space by providing an OS flag check (like `TCP_NODELAY` in Linux) {% cite computer-networks -l 555 %}.
 
 ## The TCP Protocol
 
 Every byte on a TCP connection has its own 32-bit sequence number. The sequence numbers are carried for sliding window in one direction and for acknowledgements in the other {% cite computer-networks -l 556 %}.
 
-TCP sends information in TCP **segments**. A segment contains a fixed 20-byte header (with an optional extra part) followed by 0 or more bytes of data. TCP software decides how big segments should be. The maximum segment size is 65,515 bytes (the max IP payload). Each link in a network has an MTU (Maximum Transfer Unit). Generally the MTU is 1500 bytes (the Ethernet payload size), so 1500 bytes is often the upper bound on the segment size.
+TCP sends information in TCP segments. A **segment** contains a fixed 20-byte header (with an optional extra part) followed by 0 or more bytes of data. TCP software decides how big segments should be. The maximum segment size is 65,515 bytes (the max IP payload). Each link in a network has an MTU (Maximum Transfer Unit). Generally the MTU is 1,500 bytes (the Ethernet payload size), so 1,500 bytes is often the upper bound on the segment size.
 
 It's still possible for an IP packet to be fragmented when passing over a network where a link has a small MTU. To avoid this, modern TCP implementations implement **path MTU discovery**. This uses ICMP error messages to find the smallest segment sizes over the network {% cite computer-networks -l 556 %}.
 
@@ -84,32 +84,32 @@ It's still possible for an IP packet to be fragmented when passing over a networ
 
 {% cite rfc793 -l 14 computer-networks -l 557 %}
 
-The **Source Port** and **Destination Port** fields specify the TCP ports of the connection endpoints. A TCP port and an IP address identify a connection.
+The _Source Port_ and _Destination Port_ fields specify the TCP ports of the connection endpoints. A TCP port and an IP address identify a connection.
 
-The **Sequence Number** field is the sequence number of the first data octet in the segment, except when SYN is present. "If SYN is present the sequence number is the initial sequence number (ISN) and the first data octet is ISN+1" {% cite rfc793 -l 16 %}.
+The _Sequence Number_ field is the sequence number of the first data octet in the segment, except when SYN is present. "If SYN is present the sequence number is the initial sequence number (ISN) and the first data octet is ISN+1" {% cite rfc793 -l 16 %}.
 
-If the ACK bit is set, the **Acknowledgement Number** field contains "the value of the next sequence number the sender of the segment is expecting to receive" {% cite rfc793 -l 16 %}.
+If the ACK bit is set, the _Acknowledgement Number_ field contains "the value of the next sequence number the sender of the segment is expecting to receive" {% cite rfc793 -l 16 %}.
 
-The **Data Offset** field is the number of 32-bit words in the header, used to calculate where the data begins.
+The _Data Offset_ field is the number of 32-bit words in the header, used to calculate where the data begins.
 
 The control bits:
 
-- CWR:
-- ECE:
-- URG: Urgent Pointer field
-- ACK: Acknowledgment field
-- PSH: Push Function
-- RST: Reset the connection
-- SYN: Synchronize sequence numbers
-- FIN: No more data from sender
+- CWR: Congestion Window Reduced field.
+- ECE: Used to echo back the congestion indication.
+- URG: Urgent Pointer field.
+- ACK: Acknowledgment field.
+- PSH: Push Function.
+- RST: Reset the connection.
+- SYN: Synchronize sequence numbers.
+- FIN: No more data from sender.
 
 {% cite rfc793 -l 16 %}
 
-The **Window** field is "the number of octets beginning with the one indicated in the acknowledgment field which the sender of this segment is willing to accept". The windowing mechanism will be explained in the [TCP Sliding Window section](#tcp-sliding-window).
+The _Window_ field is "the number of octets beginning with the one indicated in the acknowledgment field which the sender of this segment is willing to accept". The windowing mechanism is explained in the [TCP Sliding Window section](#tcp-sliding-window).
 
-**Checksum** contains a checksum that's used to improve reliability. The checksum algorithm adds the header, data, and a conceptual pseudoheader in one's complement (inverted bits), and take the one's complement of the sum (VERIFY).
+_Checksum_ contains a checksum that's used to improve reliability.
 
-The **Options** field can contain extra options that aren't covered by the header, for example the MSS (Maximum Segment Size) option. Another option is SACK (Selective ACKnowledgement), which is covered later in the notes {% cite computer-networks -l 559-60 %}.
+The _Options_ field can contain extra options that aren't covered by the header, for example the MSS (Maximum Segment Size) option. Another option is SACK (Selective ACKnowledgement), which is covered later in the notes {% cite computer-networks -l 559-60 %}.
 
 ## TCP Connection Establishment
 
@@ -130,7 +130,7 @@ If a process is listening on the port, the process is given the incoming TCP seg
 
 ## TCP connection release
 
-Each tcp connection is released independently. To release a connection, either side of the connection can send a TCP segment with the FIN bit set. When the FIN bit is acknowledged, the direction is closed down for new data. "When both directions Have been shut down, the connection is released" {% cite computer-networks -l 562 %}.
+Each TCP connection is released independently. To release a connection, either side of the connection can send a TCP segment with the FIN bit set. When the FIN bit is acknowledged, the direction is closed down for new data. "When both directions Have been shut down, the connection is released" {% cite computer-networks -l 562 %}.
 
 If there is no response to a FIN within two maximum packet lifetimes, the FIN sender releases the connection. The other side will eventually notice that nobody is listening, and will time out {% cite computer-networks -l 562 %}.
 
@@ -138,32 +138,32 @@ If there is no response to a FIN within two maximum packet lifetimes, the FIN se
 
 The steps of a establishing and releasing a TCP connection can be represented as a finite state machine with 11 states.
 
-| State       | Description                                      |
-| ----------- | ------------------------------------------------ |
-| CLOSED      | No connection is active or pending               |
-| LISTEN      | The server is waiting for an incoming call       |
-| SYN RCVD    | A connection request has arrived; wait for ACK   |
-| SYN SENT    | The application has started to open a connection |
-| ESTABLISHED | The normal data transfer state                   |
-| FIN WAIT 1  | The application has said it is finished          |
-| FIN WAIT 2  | The other side has agreed to release             |
-| TIME WAIT   | Wait for all packets to die off                  |
-| CLOSING     | Both sides have tried to close simultaneously    |
-| CLOSE WAIT  | The other side has initiated a release           |
-| LAST ACK    | Wait for all packets to die off                  |
+| State       | Description                                       |
+| ----------- | ------------------------------------------------- |
+| CLOSED      | No connection is active or pending.               |
+| LISTEN      | The server is waiting for an incoming call.       |
+| SYN RCVD    | A connection request has arrived; wait for ACK.   |
+| SYN SENT    | The application has started to open a connection. |
+| ESTABLISHED | The normal data transfer state.                   |
+| FIN WAIT 1  | The application has said it is finished.          |
+| FIN WAIT 2  | The other side has agreed to release.             |
+| TIME WAIT   | Wait for all packets to die off.                  |
+| CLOSING     | Both sides have tried to close simultaneously.    |
+| CLOSE WAIT  | The other side has initiated a release.           |
+| LAST ACK    | Wait for all packets to die off.                  |
 
 {% cite computer-networks -l 563 %}
 
 ## TCP sliding window
 
-TCP sliding window is a way to control how much data is sent by a sender to a receiver. It's used to avoid situations where data is sent too quickly to be processed by the receiver {% cite rfc793 -l 4 %}.
+TCP sliding window is a method to control how much data is sent by a sender to a receiver. It's used to avoid situations where data is sent too quickly to be processed by the receiver {% cite rfc793 -l 4 %}.
 
-The Window value is the number of octets that can be sent since the last acknowledged segment.
+The _Window_ value is the number of octets that can be sent since the last acknowledged segment.
 
-When the Window value is 0, the sender can't send any data. There are two exceptions:
+When the _Window_ value is `0`, the sender can't send any data. There are two exceptions:
 
 1. Data can be sent if it's urgent.
-2. A 1-byte segment can be sent to "force the receiver to reannounce the next byte expected and the window size" (a technique known as **window probe**) {% cite computer-networks -l 566 %}.
+2. A 1-byte segment can be sent to "force the receiver to reannounce the next byte expected and the window size" (a technique known as **TCP window probe**) {% cite computer-networks -l 566 %}.
 
 ## TCP timer management
 
@@ -174,7 +174,7 @@ TCP uses timers to do part of its work. These include:
 
 The RTO (Retransmission TimeOut) timer is used for retransmission. Each time a segment is sent, a retransmission timer is started. If the timer completes before the segment has been acknowledged, the segment is retransmitted. The timer value is calculated dynamically, and adjusted according to current network conditions {% cite computer-networks -l 568-9 %}.
 
-The persistence timer is used to avoid deadlock when a receiver sends an acknowledgement with a window of 0, but when the receiver updates the window, the message is lost. When the persistance timer runs, the sender transmits a window probe to ensure it has up-to-date window information {% cite computer-networks -l 571 %}.
+The persistence timer is used to avoid deadlock when a receiver sends an acknowledgement with a window of `0`, but when the receiver updates the window, the message is lost. When the persistance timer runs, the sender transmits a window probe to ensure it has up-to-date window information {% cite computer-networks -l 571 %}.
 
 ## TCP congestion control
 

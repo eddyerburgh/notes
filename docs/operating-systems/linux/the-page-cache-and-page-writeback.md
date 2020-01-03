@@ -13,7 +13,7 @@ permalink: /operating-systems/linux/the-page-cache-and-page-writeback
 # The page cache and page writeback
 {:.no_toc}
 
-The page cache is a disk cache used to minimize disk I/O. Instead of read requests and write operations running against a disk, they run against an in-memory cache that only reads data from disk when needed, and writes changes to disk periodically.
+The page cache is a disk cache used to minimize disk I/O. Instead of read requests and write operations running against a disk, they run against an in-memory cache that only reads data from disk when needed and writes changes to disk periodically.
 
 ## Table of contents
 {: .no_toc  }
@@ -35,9 +35,9 @@ When the kernel begins a read operation, it first checks to see if the page is i
 
 There are three strategies for implementing write requests with caches:
 
-- No-write: the write request updates the data on disk, and the cache is invalidated.
-- Write-through: the write request updates the data on disk, and in the cache.
-- Write-back: the write request updates the data in the cache, and updates the data on disk in the future.
+- No-write—the write request updates the data on disk, and the cache is invalidated.
+- Write-through—the write request updates the data on disk and in the cache.
+- Write-back—the write request updates the data in the cache and updates the data on disk in the future.
 
 Linux uses the write-back strategy. Write requests update the cached data. The updated pages are then marked as dirty, and added to the dirty list. A process then periodically updates the blocks corresponding to pages in the dirty list {% cite lkd -l 324 %}.
 

@@ -33,13 +33,13 @@ Events that occur at regular intervals are driven by the **system timer**. "The 
 
 Dynamic events that happen once at some period in the future are also handled by the kernel.
 
-## Kernel notion of time
+## The Kernel's notion of time
 
 The kernel must work with system hardware in order to manage time. The system timer provides the kernel the ability to track the passing of time {% cite lkd -l 207 %}.
 
 The system timer uses an electronic time source, like a digital clock or the frequency of the processor. The system timer runs at a preprogrammed frequency, called the **tick rate** {% cite lkd -l 208 %}.
 
-The period between two successive timer interrupts is called the **tick**. A tick is equal to 1/tick rate seconds. The kernel can use the tick to calculate the passage of time {% cite lkd -l 208 %}.
+The period between two successive timer interrupts is called the **tick**. A tick is equal to $$1/\text{tick rate}$$ seconds. The kernel can use the tick to calculate the passage of time {% cite lkd -l 208 %}.
 
 The kernel uses ticks to keep track of both wall time and system uptime. Wall time is the actual time of day, the system uptime is "the relative time since the system booted" {% cite lkd -l 208 %}.
 
@@ -82,7 +82,7 @@ The downside to larger `HZ` values is that there is more overhead related to han
 extern unsigned long volatile jiffies;
 ```
 
-Since `jiffies` is an `unsigned long`, on a 32 bit machine with `HZ` of 1000, it would only be able to hold 49.7 days worth of ticks {% cite lkd -l 213 %}.
+Since `jiffies` is an `unsigned long`, on a 32-bit machine with `HZ` of 1000, it would only be able to hold 49.7 days worth of ticks {% cite lkd -l 213 %}.
 
 A second `jiffies_64` variable is defined in <linux/jiffies.h>:
 
@@ -116,13 +116,13 @@ The parameter `unknown` is typically jiffies, `known` is the value to compare to
 
 ## Hardware clocks and timers
 
-Architectures include two hardware devices for time keeping: the system timer, and the real-time clock. The exact behavior differs between machines, but the design is similar between machines.
+Architectures include two hardware devices for time keeping: the system timer, and the real-time clock. The exact behavior differs between machines, but the design is usually similar.
 
 ### Real-time clock
 
-The real-time clock (RTC) provides a non-volatile device for storing system time. RTC keeps track of time by using a battery, normally included on the system board {% cite lkd -l 216 %}.
+The RTC (Real-Time Clock) provides a non-volatile device for storing system time. The RTC keeps track of time by using a battery, normally included on the system board {% cite lkd -l 216 %}.
 
-On PC architecture the RTC and CMOS are integrated. A single battery keeps the RTC running and the BIOS settings preserved {% cite lkd -l 219 %}.
+On a PC architecture the RTC and CMOS are integrated. A single battery keeps the RTC running and the BIOS settings preserved {% cite lkd -l 219 %}.
 
 On boot, the kernel reads the RTC and uses it to initialize wall time, which is stored in the `xtime` variable {% cite lkd -l 219 %}.
 
@@ -130,7 +130,7 @@ On boot, the kernel reads the RTC and uses it to initialize wall time, which is 
 
 The system timer provides a timer interrupt that runs at a regular interval. The system timer can be implemented using an electronic clock that oscillates at a programmable frequency, or with a decrementer: a counter that decrements at a fixed-rate until the counter reaches zero {% cite lkd -l 219 %}.
 
-The primary interrupt timer on x86 is the programmable interrupt timer (PIT). The kernel programs the PIT on boot to run the timer at `HZ` frequency {% cite lkd -l 219 %}.
+The primary interrupt timer on x86 is the PIT (Programmable Interrupt Timer). The kernel programs the PIT on boot to run the timer at `HZ` frequency {% cite lkd -l 219 %}.
 
 ## The timer interrupt handler
 
@@ -141,7 +141,7 @@ The architecture-dependant routine runs each time the interrupt timer hits. The 
 - Obtain the `xtime_lock` lock.
 - Acknowledge or reset the system timer.
 - Save the updated wall time to RTC.
-- Call architecture independent `tick_periodic()`.
+- Call the architecture-independent `tick_periodic()`.
 
 `tick_periodic()` then runs and:
 
