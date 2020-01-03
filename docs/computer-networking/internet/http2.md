@@ -80,7 +80,7 @@ Streams go through multiple states: idle, open, half-closed, and closed {% cite 
 All streams start idle. Sending or receiving a HEADERS frame causes stream to become open {% cite rfc7540 -l 17 %}.
 
 <!-- prettier-ignore-start -->
-<!-- Prettier can't handle underscores (_) -->
+<!-- Prettier can't handle underscores ("_") -->
 Sending a PUSH_PROMISE reserves an idle (local) stream. Receiving PUSH_PROMISE reserves an idle (remote) stream. A PUSH_PROMISE frame references the stream to be reserved in a _Promised Stream Id_ field {% cite rfc7540 -l 17 %}.
 <!-- prettier-ignore-end -->
 
@@ -285,7 +285,7 @@ Server push enables a server to preemptively send responses to a client that has
 Pushed responses are associated with an explicit request from a client. PUSH_PROMISE frames are sent on the stream of the associated request. A PUSH_PROMISE frame includes a promised stream identifier, created from the valid list of stream identifiers {% cite rfc7540 -l 62 %}.
 
 <!-- prettier-ignore-start -->
-<!-- Prettier can't handle underscores (_) -->
+<!-- Prettier can't handle underscores ("_") -->
 
 A PUSH_PROMISE frame creates a stream in a reserved (local) state for the server and reserved (remote) state for the client using the identifier sent in the _Promised Stream ID_ field {% cite rfc7540 -l 62 %}.
 <!-- prettier-ignore-end -->
