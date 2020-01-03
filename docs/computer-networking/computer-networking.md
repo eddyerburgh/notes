@@ -166,8 +166,6 @@ Ethernet switches must maintain a forwarding table in order to know where to sen
 
 A wide area network (WAN) covers a large geographical area, like a country or continent.
 
-WANs are often made up of different kinds of networking technology, and lots WANs are made up of connected networks.
-
 The Internet is an example of a WAN. Another example of a WAN is the cellular telephone network.
 
 ## References
