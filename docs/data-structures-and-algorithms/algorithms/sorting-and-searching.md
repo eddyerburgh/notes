@@ -55,7 +55,7 @@ Merging two arrays like this uses a third array to store the results, which must
 
 _Note: It's possible to implement merge sort in an array without using much extra storage (see Kronrod's algorithm) {% cite algorithm-design-manual -l 138 %}._
 
-Merge sort runs in $$O(n\log n)$$ {% cite algorithm-design-manual -l 122 %} in the worst-case.
+Merge sort runs in $$O(n\lg n)$$ {% cite algorithm-design-manual -l 122 %} in the worst-case.
 
 The following code implements merge sort:
 
