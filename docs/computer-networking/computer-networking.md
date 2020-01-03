@@ -83,7 +83,7 @@ The **session layer** can be used to establish sessions between machines.
 
 The **presentation layer** ensures that the syntax and semantics of the data that’s being transmitted will be understood by other machines.
 
-The **application layer** can contain a variety of protocols that are used by an application. HTTP is a popular application layer protocol.
+The **application layer** can contain a variety of protocols that are used by an application. HTTP is a popular application-layer protocol.
 
 {% cite computer-networks -l 43-5 %}
 
