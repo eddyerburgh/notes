@@ -15,11 +15,11 @@ This page details the arbitrary conventions I've chosen to follow in these notes
 
 1. Use American English.
 
-2. Write initialisms before the words they stand for:
+2. Define the full form of initialisms in parentheses when used for the first time:
 
    > UDP (User Datagram Protocol) is a connectionless transport protocol.
 
-3. Write bullet points in sentence case and end them with a period:
+3. Use sentence case for bullet points and end them with a period:
 
    > - Handles multiplexing and demultiplexing of multiple packet sources.
    > - Handles error control and retransmission.
@@ -31,9 +31,9 @@ This page details the arbitrary conventions I've chosen to follow in these notes
 
 4. Place references at the end of a paragraph, before the terminating punctuation mark:
 
-   > The host part is only used when a packet has arrived in the network specified with the network part {% cite intro-computer-networks -l 193 %}.
+   > BGP4 supports CIDR and subnetting {% cite internet-routing-architecture --locator 101 %}.
 
-5. Follow Latin abbreviations (like e.g. and i.e.) with a comma:
+5. Place a comma after Latin abbreviations (like _e.g._ and _i.e._):
 
    > Each component is separated by a dot (e.g., _eng.cisco.com._).
 
@@ -45,31 +45,28 @@ This page details the arbitrary conventions I've chosen to follow in these notes
 
    > _Note: this approach can be improved further by storing results in two single variables._
 
-8. Write em dashes without spaces on either side:
+8. Use em dashes without a space on either side:
 
    > Linux is a **monolithic kernel**—it runs as a single process in a single address space.
 
 9. Capitalize figures and tables when referencing them in the text:
 
-   > see Figure 1.
+   > For more information, see Figure 1.
 
-10. Append _es_ to plural form of initialisms that end in s:
+10. Append _es_ to the plural form of an initialism that end in s:
 
-    > OSes, like Linux, ...
+    > The last mainstream cooperative OSes were Mac OS 9 and Windows 3.1.
+    > Single-homed ASes connect to another AS via a single exit.
 
-11. Reference characters by name, followed by the character encased in parentheses and quotation marks:
+11. Use ID, IDs, UID, and UIDs:
 
-    > The root (\"/\") directory.
-
-12. Use ID, IDs, UID, and UIDs:
-
-> The next step is to allocate a new UID.
+  > The next step is to allocate a new UID.
 
 ## Math
 
 1. Use MathJax for formulas, variables, and functions:
 
-> BFS runs in $$O(n + m)$$ time on a graph of $$n$$ vertices and $$m$$ edges
+  > BFS runs in $$O(n + m)$$ time on a graph of $$n$$ vertices and $$m$$ edges
 
 2. Use angle brackets (\"<\>\") for tuples written in text:
 
@@ -77,7 +74,7 @@ This page details the arbitrary conventions I've chosen to follow in these notes
 
 ## Code
 
-1. Write functions and methods with parentheses:
+1. Use parentheses for functions and methods:
 
    > Blink is initialized with `BlinkInitializer::Initialize()`.
 
@@ -99,11 +96,11 @@ This page details the arbitrary conventions I've chosen to follow in these notes
 
 ## Protocols
 
-1. Italicize fields in a packet header:
+1. Italicize header field names:
 
    > _Type_ is the type of frame.
 
-2. Write field names in title case:
+2. Write header field names in title case:
 
    > `| Total Length |`
 
