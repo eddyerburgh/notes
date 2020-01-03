@@ -29,7 +29,7 @@ This page details the arbitrary conventions I've chosen to follow in these notes
 
    > BGP4 supports CIDR and subnetting {% cite internet-routing-architecture --locator 101 %}.
 
-4. Place a comma after Latin abbreviations (like _e.g._ and _i.e._):
+4. Place a comma after i.e. and e.g. when they are used as part of a sentence:
 
    > Each component is separated by a dot (e.g., _eng.cisco.com._).
 
