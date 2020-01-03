@@ -60,13 +60,13 @@ This page details the arbitrary conventions I've chosen to follow in these notes
 
 11. Use ID, IDs, UID, and UIDs:
 
-  > The next step is to allocate a new UID.
+> The next step is to allocate a new UID.
 
 ## Math
 
 1. Use MathJax for formulas, variables, and functions:
 
-  > BFS runs in $$O(n + m)$$ time on a graph of $$n$$ vertices and $$m$$ edges
+> BFS runs in $$O(n + m)$$ time on a graph of $$n$$ vertices and $$m$$ edges
 
 2. Use angle brackets (\"<\>\") for tuples written in text:
 
