@@ -29,7 +29,7 @@ A sorted list reduces the amount of work required to solve common problems like:
 
 - Closest pair (which pair of numbers are closest to each other).
 - Element uniqueness.
-- Frequency distribution (which element occurs largest number of times in a set).
+- Frequency distribution.
 - Selection (what is the kth largest element in an array).
 
 {% cite algorithm-design-manual -l 104-5 %}
@@ -53,9 +53,9 @@ The base case for merge sort is when the array element is one (hence sorted) {% 
 
 The number of elements in each subproblem are halved on each level, and the number of halves until reaching 1 element is $$\lg_2 n$$. Because recursion goes $$\lg n$$ levels deep, and linear work is done per level, the total running time is $$O(n\log n)$$ {% cite algorithm-design-manual -l 122 %}.
 
-Merging two arrays like this uses a third array to store the results, which must be the size of both arrays. Thus, the memory use of merge sort is $$O(n)$$ memory of the size of the array being sorted check {% cite algorithm-design-manual -l 122 %}.
+Merging two arrays like this uses a third array to store the results, which must be the size of both arrays. Thus, the space complexity of merge sort is $$O(n)$$ {% cite algorithm-design-manual -l 122 %}.
 
-_Note: It's possible to implement merge sort in an array without using much extra storage (see Kronrod's algorithm) {% cite algorithm-design-manual -l 138 %}_
+_Note: It's possible to implement merge sort in an array without using much extra storage (see Kronrod's algorithm) {% cite algorithm-design-manual -l 138 %}._
 
 The following code implements merge sort:
 
@@ -117,9 +117,7 @@ In the best case the median value is chosen as the pivot each time. This results
 
 In the worst case the pivot is always the smallest or largest element in the array. This requires n partitions to sort the array, leading to a worst case of $$O(n^2)$$.
 
-The average case for quicksort is $$O(n\log n)$$. This can be understood intuitively by categorizing keys from $$n/4$$ to $$3n/4$$ as _good enough_. The worst _good enough_ pivot leaves the larger half of the partition with $$3n/4$$ items. Therefore, a tree made from the worst possible _good enough_ pivot would have height $$\log4/3 n$$ {% cite algorithm-design-manual -l 126 %}.
-
-Each pick has a $$1/2$$ probability of picking a _good enough_ pivot. Since the expected number of good picks and bad picks is the same, the bad picks will only double the height of the tree. Thus, the average case is roughly $$2\log 4/3n$$, or $$O(\log n)$$ {% cite algorithm-design-manual -l 126 %}.
+The average case for quicksort is $$O(n\log n)$$.
 
 You can see an implementation of quicksort:
 
@@ -176,7 +174,7 @@ In total, heapsort has a worst-case running time of $$O(n\log n)$$.
 
 ## Sorting in practice
 
-The best way to define how a sorting algorithm behaves (e.g. whether it should sort in descending or ascending order) is with an application-specific **comparison function**.
+The best way to define how a sorting algorithm behaves (e.g., whether it should sort in descending or ascending order) is with an application-specific **comparison function**.
 
 A comparison function receives pointers to two items and uses the return value to determine which item should be positioned before the other {% cite algorithm-design-manual -l 107 %}.
 
@@ -223,7 +221,7 @@ int binary_search(int arr[], int n, int val) {
   int mid;
 
   while(min <= max) {
-    mid = max + min / 2;
+    mid = min + (max - min) / 2;
     if (arr[mid] > val) {
       max = mid - 1;
     } else if (arr[mid] < val) {
@@ -236,6 +234,8 @@ int binary_search(int arr[], int n, int val) {
   return -1;
 }
 ```
+
+_Note: Use `min + (max - min) / 2` to calculate the middle value. This avoids overflow which could occur from using `max + min / 2`_
 
 ### Counting occurrences
 
@@ -253,7 +253,7 @@ int binary_search_max_position(int arr[], int n, int val) {
   int max_position = -1;
 
   while(min <= max) {
-    mid = max + min / 2;
+    mid = min + (max - min) / 2;
     if (arr[mid] > val) {
       max = mid - 1;
     } else if (arr[mid] < val) {
