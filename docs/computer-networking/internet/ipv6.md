@@ -48,22 +48,22 @@ The main header:
 
 ```
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |Version| Traffic class |           Flow label                  |
+   |Version| Traffic Class |           Flow Label                  |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |         Payload length        |  Next header  |   Hop limit   |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                                                               |
-   +                                                               +
-   |                                                               |
-   +                         Source address                        +
-   |                                                               |
-   +                                                               +
-   |                                                               |
+   |         Payload Length        |  Next Header  |   Hop Limit   |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                                                               |
    +                                                               +
    |                                                               |
-   +                      Destination address                      +
+   +                         Source Address                        +
+   |                                                               |
+   +                                                               +
+   |                                                               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                                                               |
+   +                                                               +
+   |                                                               |
+   +                      Destination Address                      +
    |                                                               |
    +                                                               +
    |                                                               |
@@ -74,23 +74,23 @@ The main header:
 
 The _Version_ field is always `6`. Routers use this field to determine whether to process packets as IPv4 packets or IPv6 packets.
 
-The _Traffic class_ field describes the class of service, e.g., VoIP.
+The _Traffic Class_ field describes the class of service, e.g., VoIP.
 
-The _Flow label_ field is used to mark groups of packets as having the same requirements.
+The _Flow Label_ field is used to mark groups of packets as having the same requirements.
 
-The _Payload length_ field specifies the number of bytes that follow the 40 byte header.
+The _Payload Length_ field specifies the number of bytes that follow the 40 byte header.
 
-The _Next header_ field can specify whether another header follows the current one. If this header is the last IP header, _Next header_ defines which transport protocol is contained in the IP payload.
+The _Next Header_ field can specify whether another header follows the current one. If this header is the last IP header, _Next Header_ defines which transport protocol is contained in the IP payload.
 
-The _Hop limit_ field is the TTL field renamed. It limits the number of hops a packet can take before it's dropped.
+The _Hop Limit_ field is the TTL field renamed. It limits the number of hops a packet can take before it's dropped.
 
-The _Source address_ and _Destination address_ fields specify the IPv6 address of the source and destination respectively.
+The _Source Address_ and _Destination Address_ fields specify the IPv6 address of the source and destination respectively.
 
 {% cite computer-networks -l 458-9 %}
 
 Some fields included in the IPv4 header were removed from the IPv6 header:
 
-- _Protocol_ (_Next header_ is used instead).
+- _Protocol_ (_Next Header_ is used instead).
 - Fragmentation fields (IPv6 takes different approach to fragmentation).
 - The _Checksum_ field (calculating it reduces performance, and other protocols perform their own checksums anyway).
 
@@ -119,7 +119,7 @@ Some headers are a fixed length, others contain a variable number of variable-le
 
 For fields that contain variable number of items, each item is encoded as a \<Type, Length, Value\> tuple. _Type_ is a 1-byte field that specifies the type of option, _Length_ is a 1-byte field that tells how long the value is (up to 255 bytes). _Value_ can be any information required {% cite computer-networks -l 461 %}.
 
-Each extension header includes a _Next header_ field which works the same way as the Next header field in the IP main header, and is used to specify which extension header (if any) comes next.
+Each extension header includes a _Next Header_ field which works the same way as the Next header field in the IP main header, and is used to specify which extension header (if any) comes next.
 
 ## IPv6 addresses
 
