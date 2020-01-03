@@ -136,7 +136,7 @@ The first field is an access code that usually identifies the master.
 
 Next is a 54-bit header that contains several fields. The Address field identifies which of the active devices the frame is intended for. The Type field identifies the frame type (ACL, SCO, poll, or null), the type of error correction used in the data field, and how many slots long the frame is {% cite computer-networks -l 325-6 %}.
 
-The Flow bit (_F_) is set by a slave when its buffer is full and it can't receive any more data. The Acknowledgement bit (_A_) adds an ACK to the frame, The Sequence bit (_S_) is used to number frames, to enable retransmission. Since the protocol is is stop-and-wait, 1 bit is enough {% cite computer-networks -l 326 %}.
+The Flow bit (_F_) is set by a slave when its buffer is full and it can't receive any more data. The Acknowledgement bit (_A_) adds an ACK to the frame, The Sequence bit (_S_) is used to number frames, to enable retransmission. Since the protocol is is stop-and-wait, 1 bit is enough to number frames adequately {% cite computer-networks -l 326 %}.
 
 The header is repeated three times. This is to add redundancy. Redundancy is important in Bluetooth, which runs in a noisy environment over low-powered devices {% cite computer-networks -l 326 %}.
 
