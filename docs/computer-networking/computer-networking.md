@@ -33,7 +33,7 @@ Each switch/ router is responsible for the next destination of packets (the **ne
 
 Network nodes must be connected by a shared link, which could be a physical cable, or a wireless link. There are two main type of transmission links: broadcast links and point-to-point links.
 
-**Point-to-point** links connect one machine to another. **Broadcast links** connect multiple machines together. A wireless network is an example of a broadcast link. Ethernet is now (mostly) an example of point-to-point link {% cite computer-networks -l 17 %}.
+**Point-to-point** links connect one machine to another. **Broadcast links** connect multiple machines together. A wireless network is an example of a broadcast link. Ethernet is now (mostly) an example of a point-to-point link {% cite computer-networks -l 17 %}.
 
 On a broadcast network, packets sent by one machine are received by all others. Each machine receives every packet. If the packet is addressed to the receiving machine, the machine will process the packet {% cite computer-networks %}.
 
