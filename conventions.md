@@ -49,7 +49,7 @@ This page details the arbitrary conventions I've chosen to follow in these notes
 
    > For more information, see Figure 1.
 
-9. Append _es_ to the plural form of an initialism that ends in s:
+9. Create the plural form of initialisms that end in s by appending _es_:
 
    > The last mainstream cooperative OSes were Mac OS 9 and Windows 3.1.
 
