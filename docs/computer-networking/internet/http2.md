@@ -184,7 +184,7 @@ DATA frames contain application data. They are associated with a stream and are 
 
 ```
     +---------------+
-    |Pad length? (8)|
+    |Pad Length? (8)|
     +---------------+-----------------------------------------------+
     |                            Data (*)                         ...
     +---------------------------------------------------------------+
@@ -192,7 +192,7 @@ DATA frames contain application data. They are associated with a stream and are 
     +---------------------------------------------------------------+
 ```
 
-The _Pad length_ field is conditional: it only appears if the `PADDED` flag is set. _Pad length_ contains the length of the _Padding_.
+The _Pad Length_ field is conditional: it only appears if the `PADDED` flag is set. _Pad Length_ contains the length of the _Padding_.
 
 The _Data_ field is the application data that's being sent.
 
@@ -228,7 +228,7 @@ HEADERS frames open streams and (optionally) carry a header block fragment {% ci
     +---------------------------------------------------------------+
 ```
 
-The _Pad length_ field is conditional: it only appears if the `PADDED` flag is set. _Pad length_ contains the length of the _Padding_.
+The _Pad Length_ field is conditional: it only appears if the `PADDED` flag is set. _Pad Length_ contains the length of the _Padding_.
 
 _E_ indicates that the stream dependency is exclusive (meaning this stream is the only stream dependant on a parent stream). It's only present if the `PRIORITY` flag is set {% cite rfc7540 -l 33 %}.
 
@@ -266,7 +266,7 @@ The PUSH_PROMISE frame is used to implement server push.
     +---------------------------------------------------------------+
 ```
 
-The _Pad length_ field is conditional: it only appears if the _PADDED_ flag is set. _Pad length_ contains the length of the _Padding_.
+The _Pad Length_ field is conditional: it only appears if the _PADDED_ flag is set. _Pad Length_ contains the length of the _Padding_.
 
 _R_ is a reserved bit.
 
