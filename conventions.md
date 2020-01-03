@@ -15,7 +15,7 @@ This page details the arbitrary conventions I've chosen to follow in these notes
 
 1. Use American English.
 
-2. Use sentence case for bullet points and end them with a period:
+2. Write bullet points in sentence case and end them with a period:
 
    > - Handles multiplexing and demultiplexing of multiple packet sources.
    > - Handles error control and retransmission.
