@@ -13,7 +13,7 @@ permalink: /operating-systems
 # Operating systems
 {:.no_toc}
 
-As a software engineer, most of the code you write will be run by an operating system. Understanding the internals of operating systems will make you a better programmer.
+As a software engineer, most of the code you write will be run by an operating system. Therefore, it's useful to understand the internals of operating systems.
 
 ## Table of contents
 {: .no_toc }

@@ -115,7 +115,7 @@ struct fox {
         (type *)( (char *)__mptr - offsetof(type,member) );})
 ```
 
-`container_of` can find the parent structure given a pointer to the member, because the offset of a given variable in a structure is fixed by the ABI at compile time {% cite lkd -l 89 %}.
+`container_of()` can find the parent structure given a pointer to the member, because the offset of a given variable in a structure is fixed by the ABI at compile time {% cite lkd -l 89 %}.
 
 ### Defining a linked list
 
