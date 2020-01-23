@@ -25,7 +25,6 @@ Writing notes helps me retain the knowledge I gain from reading books, papers, a
 
 - Computer architecture
 - Compilers
-- Software design
 - Databases
 
 ## References
