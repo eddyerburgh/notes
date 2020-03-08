@@ -1,18 +1,14 @@
 ---
 layout: page
-title: Edd's Notes
+title: CS Notes
 nav_exclude: true
 has_children: true
 has_toc: false
 ---
 
-# Edd's notes
+# CS Notes 📚
 
-A collection of notes I've taken while self-studying computer science.
-
-## Motivation
-
-Writing notes helps me retain the knowledge I gain from reading books, papers, and specifications.
+A collection of notes and references for self-studying computer science.
 
 ## Topics
 
@@ -21,7 +17,7 @@ Writing notes helps me retain the knowledge I gain from reading books, papers, a
 - Operating systems
 - Distributed systems
 
-## Future Topics
+## Planned Topics
 
 - Computer architecture
 - Compilers

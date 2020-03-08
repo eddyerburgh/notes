@@ -1,12 +1,8 @@
-# Notes 📚
+# CS Notes 📚
 
-A collection of notes I’ve taken while self-studying computer science.
+A collection of notes and references for self-studying computer science.
 
 https://notes.eddyerburgh.me/
-
-## Motivation
-
-Writing notes helps me retain the knowledge I gain from reading books, papers, and specifications.
 
 ## Topics
 
@@ -15,7 +11,7 @@ Writing notes helps me retain the knowledge I gain from reading books, papers, a
 - Operating systems
 - Distributed systems
 
-## Future Topics
+## Planned Topics
 
 - Computer architecture
 - Compilers
