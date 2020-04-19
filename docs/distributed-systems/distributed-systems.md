@@ -10,9 +10,12 @@ permalink: /distributed-systems
 
 <!-- prettier-ignore-start -->
 
-# Distribtued systems
+# Distributed systems
 {:.no_toc}
 
+A distributed system is a collection of computers that appears to an end-user as a single system.
+
+Most websites today are made up of multiple computers communicating over a network, so learning about distributed systems is useful for any web programmer.
 
 ## Table of contents
 {: .no_toc }
@@ -22,95 +25,95 @@ permalink: /distributed-systems
 
 <!-- prettier-ignore-end -->
 
-"A distributed system is a collection of autonomous computing elements that appears to its users as a single coherent system" {% cite distributed-systems -l 2 %}.
-
 ## Introduction
 
-Distributed systems consist of autonomous computing elements, defined as either hardware devices or software processes. Generally, these computing elements are referred to as **nodes** {% cite distributed-systems -l 2 %}.
+Distributed systems consist of autonomous computing elements defined as either hardware devices or software processes. Generally, these computing elements are referred to as **nodes** {% cite distributed-systems -l 2 %}.
 
-A fundamental principle of distributed systems is that nodes can act independently of each other. They communicate by sending and receiving messages and then use these messages to determine how they should behave {% cite distributed-systems -l 2-3 %}.
+Some examples of distributed systems include multi-tier web applications, distributed storage systems, and the Internet itself.
 
-In practice, distributed systems are often organized as an **overlay network**—a network built on top of another network. There are two common overlay networks:
+A fundamental principle of distributed systems is that nodes can act independently of each other. Nodes communicate by sending and receiving messages, which the nodes then use to determine how they should behave {% cite distributed-systems -l 2-3 %}.
 
-1. Structured overlay, where each node has a well-defined set of neighbors it can communicate with.
-2. Unstructured overlay, where nodes communicate with a randomly selected set of nodes.
+Distributed systems are often organized as an **overlay network**—a network built on top of another network. There are two common overlay networks:
+
+1. **Structured overlay** where each node has a well-defined set of neighbors it can communicate with.
+2. **Unstructured overlay** where nodes communicate with a randomly selected set of nodes.
 
 {% cite distributed-systems -l 3 %}
 
-Distributed systems are often organized with a layer of software that is placed between the applications running on a computer, and the operating system. This software is often known as **middleware** {% cite distributed-systems -l 5 %}.
+Often nodes in a distributed system run a layer of software that is placed between the applications running on a computer and the OS. This software is known as **middleware** {% cite distributed-systems -l 5 %}.
 
 <figure>
   <img src="{{site.baseurl}}/assets/img/distributed-systems/middleware.svg" alt="">
   <figcaption><h4>Figure: A distributed system using a middleware layer {% cite distributed-systems -l 5 %}</h4></figcaption>
 </figure>
 
-Middleware acts as an operating system for nodes in a distributed system. It provides a similar set of services as an operating system (facilities for interprocess communication, accounting services, recovery from failure). The difference is that the services are provided in a networked environments {% cite distributed-systems -l 5 %}.
+Middleware provides a similar set of services as an operating system, such as facilities for interprocess communication, accounting services, and recovery from failure {% cite distributed-systems -l 5 %}.
 
-## Design goals
+The two common reasons for creating distributed systems are:
 
-The design goals of distributed systems include:
+1. To improve performance by splitting work across multiple computers.
+2. To make a system fault tolerant.
 
-1. Supporting resource sharing.
-2. Making distribution transparent.
-3. Being scalable.
+## Performance and scalability
 
-{% cite distributed-systems -l 8 %}
+You can monitor the performance of a system by measuring the latency and the throughput.
 
-Distributed systems provide transparency, which hides the fact that the resources are distributed. There are different types of transparency:
+**Latency** is the time it takes to perform an action.
 
-| Transparency | Description                                                             |
-| ------------ | ----------------------------------------------------------------------- |
-| Access       | Hide differences in data representation and how a resource is accessed. |
-| Location     | Hide where a resource is located.                                       |
-| Migration    | Hide that a resource may have moved locations.                          |
-| Replication  | Hide that a resource is replicated.                                     |
-| Concurrency  | Hide that a resource may be shared by several users.                    |
-| Failure      | Hide failure and recovery of resources.                                 |
+**Throughput** is the number of actions that are completed in a specified time period (e.g., per second).
 
-{% cite distributed-systems -l 8 %}
+Generally, you should aim for maximal throughput with acceptable latency.
 
-## Scalability
+**Scalability** is the ability of a system to scale. It's an important design goal for developers of distributed systems.
 
-Scalability is an important design goal for developers of distributed systems.
+"A service is said to be scalable if when we increase the resources in a system, it results in increased performance in a manner proportional to resources added" {% cite a-word-on-scalability %}.
 
-Scalability can be described in three dimensions:
+In order to remain scalable, you need to remove bottlenecks in a system. A server can become a bottleneck for multiple reasons:
 
-- Size scalability
-- Geographical scalability
-- Administrative scalability
-
-Many systems rely on centralized servers, or a centralized cluster of servers acting as a single service. This can become a bottleneck as traffic grows in size {% cite distributed-systems -l 15 %}.
-
-There are three root causes for bottlenecks:
-
-1. Computational capacity.
-2. Storage capacity, including the I/O transfer rate.
-3. The network between the user and the centralized service.
+1. Insufficient computational capacity.
+2. Insufficient storage capacity (including the I/O transfer rate).
+3. Poor network conditions.
 
 {% cite distributed-systems -l 15-6 %}
 
-Geographical scaling also comes with problems. Interprocess communication across large geographical regions can take hundreds of milliseconds, and wide-area networks are inherently unreliable {% cite distributed-systems -l 17-8 %}.
+These bottlenecks can be improved by applying scaling techniques.
 
 ### Scaling techniques
 
-If performance problems are caused by capacity, then increasing the size of a machines resources (**scaling up**) can solve the problem. The downside to scaling up is that the price of hardware grows exponentially.
+There are two main scaling techniques: vertical scaling and horizontal scaling.
 
-The other approach is to **scale out** by increasing the number of nodes in a system. There are two common techniques for scaling out:
+**Vertical scaling** (scaling up) involves adding more resources to a machine (i.e., adding more RAM or processing power). The downside to vertical scaling is that the price of hardware grows exponentially and quickly becomes prohibitive.
 
-1. Partitioning and distribution.
-2. Replication.
+**Horizontal scaling** (scaling out) involves increasing the number of nodes in a system (often these nodes use commodity hardware).
 
-**Partitioning** and **distribution** involves splitting a component into smaller parts and spreading it throughout a system {% cite distributed-systems -l 21 %}.
+There are two common techniques for scaling out:
 
-**Replication** involves replicating components throughout a distributed system. Replication improves availability and helps balance load {% cite distributed-systems -l 22 %}.
+1. Partitioning and distribution
+2. Replication
 
-**Caching** is a special form of replication, where a resource is copied by a client and saved for later use. The distinction here is that the decision to cache is made by a client, whereas the decision to replicate is made by the owner of a resource {% cite distributed-systems -l 23 %}.
+**Partitioning and distribution** involves splitting a component into smaller parts and spreading it throughout a system {% cite distributed-systems -l 21 %}.
 
-The downside of caching and replication is that they can lead to problems with **consistency**, where resources get out-of-date {% cite distributed-systems -l 23 %}.
+**Replication** involves replicating components throughout a system. Replication improves availability and helps balance load {% cite distributed-systems -l 22 %}.
+
+**Caching** is a special form of replication where a resource is copied by a client and saved for later use. The distinction here is that the decision to cache is usually made by the client, whereas the decision to replicate is made by the owner of the resource {% cite distributed-systems -l 23 %}.
+
+The downside to caching and replication is that they can lead to problems with **consistency**, where data gets out-of-sync across replications {% cite distributed-systems -l 23 %}.
 
 The required level of consistency depends on the system. It may be acceptable for Internet users to be served an out-of-date blog post, but it's not acceptable for a bank's customers to receive out-of-date account balances {% cite distributed-systems -l 23 %}.
 
-Strong consistency requirements introduces new problems. Any update must be immediately propagated to all replicas and if two updates occur at the same time, they will need to be made in the same order on each replica. Solving this requires the use of a global synchronization mechanism, which can be difficult to implement in a scalable way {% cite distributed-systems -l 23 %}.
+Achieving strong consistency introduces new problems. Any update must be immediately propagated to all replicas and if two updates occur at the same time, they will need to be made in the same order on each replica. Solving this requires the use of a global synchronization mechanism, which can be difficult to implement in a scalable way {% cite distributed-systems -l 23 %}.
+
+## Fault tolerance
+
+**Fault tolerance** is the ability of systems to continue operating in the event of failure.
+
+When a distributed system is made up of a large number of nodes, rare failures become commonplace. Therefore, distributed systems should have fault tolerance built into their design.
+
+One aspect of fault tolerance is availability. **Availability** is the degree to which a system will continue operating under a certain set of failures. There is always some set of failures that will mean the system is no longer available (e.g., if there are failures at multiple data centers at the same time).
+
+Availability is measured as a percentage of uptime. Commonly, a system might guarantee 99.99% availability (known as "four nines"), meaning that the system will only be down for 52.6 minutes per year. Systems that guarantee several nines of availability are said to be highly available.
+
+Another aspect of fault tolerance is recoverability. **Recoverability** is the ability of a system to recover after becoming unavailable due to failure. This could be achieved by saving the system state to non-volatile storage (in the form of logs or checkpoints) or by replicating data across nodes.
 
 ## The fallacies of distributed computing
 
