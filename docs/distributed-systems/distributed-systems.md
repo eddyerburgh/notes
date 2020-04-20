@@ -115,6 +115,60 @@ Availability is measured as a percentage of uptime. Commonly, a system might gua
 
 Another aspect of fault tolerance is recoverability. **Recoverability** is the ability of a system to recover after becoming unavailable due to failure. This could be achieved by saving the system state to non-volatile storage (in the form of logs or checkpoints) or by replicating data across nodes.
 
+## Virtualization
+
+**Virtualization** "deals with extending or replacing an existing interface so as to mimic the behavior of another system" {% cite distributed-systems -l 116 %}.
+
+Virtualization is often used to run multiple server applications on a shared platform {% cite distributed-systems -l 117-8 %}.
+
+In general, there are three different levels of abstraction for virtualization:
+
+1. At the interface between hardware and software (the instruction set architecture).
+2. At the system call interface.
+3. As part of a library API interface.
+
+{% cite distributed-systems -l 118 %}
+
+One approach to virtualization is to create a runtime environment that provides an abstract instruction set that's used by executing applications {% cite distributed-systems -l 118 %}.
+
+Another approach is to provide a system that layers the hardware but provides an identical interface as the hardware it's shielding. This is the approach used by many Virtual Machine Monitors, more commonly known as hypervisors.
+
+A **hypervisor** is software (or hardware) that's used to run **virtual machines**—emulations of a computer system. They are often used in data centers and in cloud computing (e.g., AWS use hypervisors to run EC2 instances) {% cite distributed-systems -l 119-20 %}.
+
+Virtual machines provide several benefits:
+
+- Isolation.
+- Portability.
+- More efficient use of hardware.
+
+{% cite distributed-systems -l 124 %}
+
+## Servers
+
+A server is "a process implementing a specific service on behalf of a collection of clients". Normally, servers listen for incoming requests from clients and respond to those requests in some way {% cite distributed-systems -l 129 %}.
+
+Server architectures are either concurrent or iterative. **Concurrent servers** pass requests to a new process or thread, after which the server then waits for the next incoming request {% cite distributed-systems -l 129 %}.
+
+**Iterative servers** handle requests in the same server process. These tend to be event-driven, like Nginx.
+
+Clients send requests to end points (ports) and a server listens to a specific **endpoint**.
+
+Stateful servers keep state about clients locally. Stateless servers don't keep state locally (or at least, service will not be disrupted if the state is lost) {% cite distributed-systems -l 131 %}.
+
+**Session state** is state that's associated with operations of a single user. It's maintained for a period of time but not permanently {% cite distributed-systems -l 132 %}.
+
+**Server clusters** are groups of servers connected through a network. Local-area clusters often have high bandwidth and low latency {% cite distributed-systems -l 141 %}.
+
+Clusters are usually organized logically into three tiers:
+
+- A logical switch.
+- Application servers.
+- Distributed file/data systems.
+
+Often commodity machines are used to build clusters {% cite distributed-systems -l 142 %}.
+
+Wide-area clusters are clusters connected across the Internet. These are becoming more common with the popularity of cloud computing, where cloud computing companies often have data centers distributed across the world.
+
 ## The fallacies of distributed computing
 
 Peter Deutsch codified the following false assumptions that engineers make when dealing with distributed systems, known as the **fallacies of distributed computing**:
