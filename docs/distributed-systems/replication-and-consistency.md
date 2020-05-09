@@ -82,7 +82,7 @@ There are various forms of strong consistency:
 
 The difference between linearizable consistency and sequential consistency is that linearizable consistency requires that the order of operations seen by the processes is the same as the real-time order that they were issued in.
 
-Strong consistency can only be guaranteed if systems use mechanisms like transactions or synchronization variables {% cite distributed-systems -l 375 %}.
+Strong consistency can only be guaranteed if systems use mechanisms like transactions or synchronization variables, which will decrease the overall performance of the system {% cite distributed-systems -l 375 %}.
 
 ### Weak consistency models
 
@@ -149,6 +149,26 @@ During each write operation, the updated replicas are given a new version number
 The values of r and w can be configured to change the reliability and performance of a system {% cite gifford79weightedvoting -l 152 %}.
 
 There are many different variations of quorum-based protocols.
+
+### Chain replication
+
+**Chain replication** works by replicating data across a chain of servers {% cite renesserobert2004 %}.
+
+<!-- TODO: Add image of chain replication -->
+
+The servers are treated as a linked list with each node containing a link to the next node in the chain (its successor). One node is designated as the head and one node is designated as the tail. The head receives writes, which are then propagated through the chain. All reads go to the tail node. {% cite renesserobert2004 -l 3 %}.
+
+Chain replication offers strong consistency since all reads are processed serially by the tail node {% cite renesserobert2004 -l 3 %}.
+
+### CRAQ
+
+**CRAQ** (Chain Replication with Apportioned Queries) is a variation of chain replication where read operations are spread across all nodes in the chain, improving the overall read performance of the system {% cite 10.5555/1855807.1855818 -l 2 %}.
+
+Object versions are identified with a monotonically increasing number. When a node receives a new version for an object, the node appends the object to its object list. If the node is not a tail node, it marks the version as dirty and propagates the new version to its successor node. If the node is the tail, it marks the version as clean and notifies other nodes that it has written the version by sending an ack. When a predecessor node receives an ack, it marks the corresponding version as clean {% cite 10.5555/1855807.1855818 -l 3 %}.
+
+When a node receives a read request for an object, if the latest version is clean then the node returns the value. If the latest version is dirty then the node forwards the request to the tail {% cite 10.5555/1855807.1855818 -l 3 %}.
+
+CRAQ works best for read-mostly workloads {% cite 10.5555/1855807.1855818 %}.
 
 ## References
 
