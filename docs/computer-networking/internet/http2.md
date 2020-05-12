@@ -2,7 +2,7 @@
 layout: default
 title: HTTP/2
 description: Notes on the HTTP/2 protocol.
-nav_order: 12
+nav_order: 13
 parent: Internet
 grand_parent: Computer networking
 permalink: /computer-networking/internet/http2
