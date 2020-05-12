@@ -252,8 +252,49 @@ permalink: /references
 	title =		{User Datagram Protocol},
 	pagetotal =	3,
 	year =		1980,
-	month =		aug,
-	abstract =	{},
+	month =		aug
+}
+
+@misc{rfc7234,
+	series =	{Request for Comments},
+	number =	7234,
+	howpublished =	{RFC 7234},
+	publisher =	{RFC Editor},
+	doi =		{10.17487/RFC7234},
+	url =		{https://rfc-editor.org/rfc/rfc7234.txt},
+	 author =	{Roy T. Fielding and Mark Nottingham and Julian Reschke},
+	title =		{Hypertext Transfer Protocol (HTTP/1.1): Caching},
+	pagetotal =	43,
+	year =		2014,
+	month =		jun
+}
+
+@misc{rfc7232,
+	series =	{Request for Comments},
+	number =	7232,
+	howpublished =	{RFC 7232},
+	publisher =	{RFC Editor},
+	doi =		{10.17487/RFC7232},
+	url =		{https://rfc-editor.org/rfc/rfc7232.txt},
+  author =	{Roy T. Fielding and Julian Reschke},
+	title =		{Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests},
+	pagetotal =	28,
+	year =		2014,
+	month =		jun
+}
+
+@misc{rfc5861,
+	series =	{Request for Comments},
+	number =	5861,
+	howpublished =	{RFC 5861},
+	publisher =	{RFC Editor},
+	doi =		{10.17487/RFC5861},
+	url =		{https://rfc-editor.org/rfc/rfc5861.txt},
+  author =	{Mark Nottingham},
+	title =		{HTTP Cache-Control Extensions for Stale Content},
+	pagetotal =	6,
+	year =		2010,
+	month =		may
 }
 
 ## Operating systems
@@ -390,7 +431,7 @@ year	= {2017}
 
 @inproceedings{Lamport2001PaxosMS,
   title={Paxos Made Simple},
-  author={Leslie Lamport},
+  author={Lamport, L},
   year={2001}
 }
 
@@ -434,4 +475,41 @@ year	= {2017}
 	month = {01},
 	pages = {91-104},
 	title = {Chain Replication for Supporting High Throughput and Availability.}
+}
+
+@article{LamportSP82,
+  author = {Lamport, Leslie and Shostak, Robert E. and Pease, Marshall C.},
+  ee = {https://www.wikidata.org/entity/Q55879356},
+  interhash = {729e7f793ab0a2b84ac8920f45d0ac07},
+  intrahash = {8137f9567e62169e92e22ba060761120},
+  journal = {ACM Trans. Program. Lang. Syst.},
+  keywords = {dblp},
+  number = 3,
+  pages = {382-401},
+  timestamp = {2018-11-15T15:39:31.000+0100},
+  title = {The Byzantine Generals Problem.},
+  url = {http://dblp.uni-trier.de/db/journals/toplas/toplas4.html#LamportSP82},
+  volume = 4,
+  year = 1982
+}
+
+@techreport{awscaching2017,
+  author = {AWS},
+  title = {Database Caching Strategies Using Redis},
+  url = {https://d0.awsstatic.com/whitepapers/Database/database-caching-strategies-using-redis.pdf},
+  year = 2017
+}
+
+@techreport{redis15reasons,
+	author = {Haber, I},
+	title = {15 Reasons to use Redis as an Application Cache},
+	url = {https://redislabs.com/wp-content/uploads/2016/03/15-Reasons-Caching-is-best-with-Redis-RedisLabs-1.pdf},
+	year = 2016
+}
+
+@techreport{oracle2018caching,
+	author = {Haber, I},
+	title = {Whitepaper: Deploying a Highly Available Distributed Caching Layer on Oracle Cloud Infrastructure using Memcached & Redis},
+	url = {https://docs.cloud.oracle.com/en-us/iaas/Content/Resources/Assets/whitepapers/deploying-memcached-and-redis-on-oci.pdf},
+	year = 2018
 }
