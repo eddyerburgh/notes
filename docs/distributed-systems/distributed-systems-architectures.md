@@ -2,7 +2,6 @@
 layout: default
 title: Distributed systems architectures
 description: Notes on the architectures of distributed systems.
-has_children: true
 has_toc: false
 nav_order: 1
 parent: Distributed systems

@@ -2,7 +2,6 @@
 layout: default
 title: Data processing
 description: Notes on distributed data processing.
-has_children: true
 has_toc: false
 nav_order: 7
 parent: Distributed systems

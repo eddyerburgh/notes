@@ -2,7 +2,6 @@
 layout: default
 title: Coordination and time
 description: Notes on coordination and time in distributed systems.
-has_children: true
 has_toc: false
 nav_order: 3
 parent: Distributed systems

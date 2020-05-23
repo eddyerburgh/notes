@@ -2,7 +2,6 @@
 layout: default
 title: Fault tolerance
 description: Notes on fault tolerance in distributed systems.
-has_children: true
 has_toc: false
 nav_order: 5
 parent: Distributed systems

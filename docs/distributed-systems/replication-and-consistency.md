@@ -2,7 +2,6 @@
 layout: default
 title: Replication and consistency
 description: Notes on replication and consistency.
-has_children: true
 has_toc: false
 nav_order: 4
 parent: Distributed systems
