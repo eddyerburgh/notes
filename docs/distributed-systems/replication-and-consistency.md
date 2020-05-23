@@ -49,19 +49,19 @@ There are two main approaches to replication: state transfer and state machine r
 
 ## CAP theorem
 
-The CAP theorem asserts that any shared-data system operating across a network can only have two of three desirable properties at one time. The properties are consistency, availability, and partition tolerance {% cite Brewer12computer -l 23 %}.
+CAP stands for consistency, availability, and partition tolerance. The **CAP theorem** asserts that any networked shared-data system can have only two of the three desirable CAP properties at one time {% cite Brewer12computer -l 23 %}.
 
-**Consistency** is defined as having a single up-to-date copy of data {% cite Brewer12computer -l 23 %}.
+In CAP theorem, **consistency** is defined to mean that all nodes see the same data at the same time {% cite Brewer12computer -l 23 %}.
 
 _Note: The definition of consistency used in CAP theorem is different to the definition of consistency used in ACID 24._
 
-**Availability** is the availability of the data for updates {% cite Brewer12computer -l 23 %}.
+**Availability** is defined to mean that each request to the system receives a response {% cite Brewer12computer -l 23 %}.
 
-**Partition tolerance** is the ability to tolerate network partitions {% cite Brewer12computer -l 23 %}.
+**Partition tolerance** is defined as the ability to tolerate network partitions {% cite Brewer12computer -l 23 %}.
 
-Since partition tolerance is required when communicating over a network (partitions are always possible in a network), designers must make a choice between consistency (C) or availability (A). Often, databases are described as AP or CP depending on which property they forfeit in the event of a network partition.
+Since partition tolerance is required when communicating over a network (partitions are always possible in a network), designers must choose between consistency (C) or availability (A). Often, databases are described as AP or CP depending on which property they forfeit in the event of a network partition.
 
-In reality, partitions are rare. This has led Google to offer an "effectively" highly available _and_ strongly consistent database—Google Spanner. In the case of a partition, Spanner will choose consistency over availability, but because network partitions on Google's private global network are so rare, users can assume that the system is CA {% cite 45855 -l 1,3 %}{% cite Brewer12computer -l 23 %}.
+In reality, partitions are rare. This has led Google to offer an "effectively" highly available _and_ strongly consistent database—Google Spanner. In the case of a partition, Spanner will choose consistency over availability, but network partitions on Google's private network are so rare that users can assume that the system is CA {% cite 45855 -l 1,3 %}{% cite Brewer12computer -l 23 %}.
 
 ## Consistency models
 
