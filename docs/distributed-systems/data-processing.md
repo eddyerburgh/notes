@@ -4,7 +4,7 @@ title: Data processing
 description: Notes on distributed data processing.
 has_children: true
 has_toc: false
-nav_order: 5
+nav_order: 7
 parent: Distributed systems
 permalink: /distributed-systems/data-processing
 ---

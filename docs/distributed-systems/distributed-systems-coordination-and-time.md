@@ -4,7 +4,7 @@ title: Coordination and time
 description: Notes on coordination and time in distributed systems.
 has_children: true
 has_toc: false
-nav_order: 5
+nav_order: 3
 parent: Distributed systems
 permalink: /distributed-systems/coordination-and-time
 ---

@@ -4,7 +4,7 @@ title: Caching
 description: Notes on caching.
 has_children: true
 has_toc: false
-nav_order: 5
+nav_order: 6
 parent: Distributed systems
 permalink: /distributed-systems/caching
 ---

@@ -4,7 +4,7 @@ title: Distributed systems architectures
 description: Notes on the architectures of distributed systems.
 has_children: true
 has_toc: false
-nav_order: 5
+nav_order: 1
 parent: Distributed systems
 permalink: /distributed-systems/distributed-systems-architectures
 ---
