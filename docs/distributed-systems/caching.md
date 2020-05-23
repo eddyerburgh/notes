@@ -47,7 +47,7 @@ One form of caching is in-memory caching. With in-memory caching, the result of 
 
 A **local cache** stores entries on the same machine, usually in a hash table. This makes data retrieval fast because accessing the cache doesn't involve the network, however it means that each node in a system will have its own cache. {% cite awscaching2017 -l 2 %}.
 
-A more robust solution is to use a remote (or distributed) cache. A **remote cache** is a separate instance that is dedicated to storing cached values in memory. Commonly, remote caches are distributed key-value store like Redis or Memcached which can handle millions of requests per second per node. With a remote cache, multiple nodes can share the same cache {% cite awscaching2017 -l 2-3 %}.
+A more robust solution is to use a remote (or distributed) cache. A **remote cache** is a separate instance that is dedicated to storing cached values in memory. Commonly, remote caches are distributed key-value stores like Redis or Memcached which can handle millions of requests per second per node. With a remote cache, multiple nodes can share the same cache {% cite awscaching2017 -l 2-3 %}.
 
 In-memory caches generally expose an API to get, set, and delete entries:
 
@@ -79,11 +79,11 @@ HTTP distinguishes between shared caches and private caches. Shared caches can b
 
 HTTP caches normally store cached assets to disk, with the mapping keys stored in memory.
 
-For more details on the specifics of HTTP/1 caching, see [the HTTP1 section on caching]({ '/computer-networking/internet/http1#caching' | relative_url }).
+For more details on the specifics of HTTP/1 caching, see [the HTTP1 section on caching]({{'/computer-networking/internet/http1#caching' | relative_url }}).
 
 ## Caching patterns
 
-**Caching patterns** are design patterns integrating a cache into a system.
+**Caching patterns** are design patterns for integrating a cache into a system.
 
 ### Cache-aside
 
@@ -113,7 +113,7 @@ def get_image(image_id):
 
 One advantage of the cache-aside pattern is that the cache only contains data that the application has actually requested {% cite awscaching2017 -l 5 %}.
 
-A downside to the cache-aside pattern is that each cache miss adds extra latency {% cite awscaching2017 -l 5 %}.
+One downside of the cache-aside pattern is that each cache miss adds extra latency {% cite awscaching2017 -l 5 %}.
 
 ### Read-through
 
@@ -144,7 +144,7 @@ In the **write-back pattern** (also known as the write-behind pattern) the clien
 
 The write-back pattern improves write performance and works well for write-heavy workloads {% cite oracle2018caching -l 9 %}.
 
-The downside to the write-back pattern is that pending updates can be lost in the case of failure {% cite oracle2018caching -l 9 %}.
+One downside of the write-back pattern is that pending updates can be lost in the case of failure {% cite oracle2018caching -l 9 %}.
 
 ### Pre-warming
 
@@ -169,7 +169,7 @@ Request-routing infrastructure directs user requests to the closest edge server.
   <figcaption><h4>Figure: A request to a CDN {% cite distributed-systems -l 5 %}</h4></figcaption>
 </figure>
 
-Commonly, CDNs take a pull-based approach to serving content. If an edge server is unable to fulfill the user request (e.g., it does not have the requested content in its cache), then it must make a request to an origin server to get the content. Once the CDN has the content, it can cache the response for future use {% cite 10.1145/1842733.1842736 -l 16 %}.
+Commonly, CDNs take a pull-based approach to serving content. If an edge server is unable to fulfill the user request (e.g., if it does not have the requested content in its cache), then it must make a request to an origin server to get the content. Once the CDN has the content, it can cache the response for future use {% cite 10.1145/1842733.1842736 -l 16 %}.
 
 Some CDNs take a push-based approach, for example Netflix's Open Connect.
 
@@ -177,11 +177,11 @@ Some CDNs take a push-based approach, for example Netflix's Open Connect.
 
 Open Connect is Netflix's push-based CDN for serving video and image files {% cite netflixopenconnect2017 -l 3 %}.
 
-Open Connect is made up of OCAs (Open Connect Appliances) and a control plane that manages the OCAs. The control plane is also responsible for resolving client requests to a list of OCA URLs that client can use to fetch static assets from {% cite netflixopenconnect2017 -l 3 %}.
+Open Connect is made up of OCAs (Open Connect Appliances) and a control plane that manages the OCAs. The control plane is also responsible for resolving client requests to a list of OCA URLs that clients can use to fetch static assets from {% cite netflixopenconnect2017 -l 3 %}.
 
 Each OCA stores a portion of the Netflix catalog. During off-peak hours, the OCAs contact control plane services to update their content {% cite netflixopenconnect2017 -l 5 %}.
 
-OSCAs are installed at thousands of IXPs and in ISP data centers around the world {% cite netflixopenconnect2017 -l 2 %}.
+OCAs are installed at thousands of IXPs and in ISP data centers around the world {% cite netflixopenconnect2017 -l 2 %}.
 
 ## References
 
