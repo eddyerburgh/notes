@@ -278,7 +278,7 @@ A **load balancer** is a server that distributes traffic between a cluster of ba
 
 A load balancer can be implemented in hardware (expensive) or as software running on a commodity machine (cheaper).
 
-Load balancers perform health checks to determine which nodes in a cluster are available. They then distribute requests between the healthy nodes (commonly requests are distributed round-robin style) {% cite salchow2007load -l 8 %}.
+Load balancers periodically perform health checks to determine which nodes in a cluster are available. They distribute requests between the healthy nodes (commonly requests are distributed round-robin style) {% cite salchow2007load -l 8 %}.
 
 The two main types of load balancer are application load balancers and network load balancers.
 
@@ -286,7 +286,7 @@ An **application load balancer** (also known as a layer 7 load balancer) can use
 
 A **network load balancer** (also known as a layer 4 load balancer) performs NAT to forward transport packets using the IP address and port number to make load balancing decisions.
 
-To avoid a load balancer becoming a single point of failure you can have two servers running load balancers in an active/passive configuration using a single virtual IP address. If the active server goes down, the passive server will takeover and start receiving traffic for the virtual IP.
+To avoid a load balancer becoming a single point of failure you can have two servers running load balancers in an active-passive configuration using a single virtual IP address. If the active server goes down, the passive server will take over and start receiving traffic for the virtual IP.
 
 ### Reverse proxies
 
@@ -304,7 +304,7 @@ The benefits of using a reverse proxy include:
 3. Caching
 4. SSL encryption/decryption
 
-An **API gateway** is a special type of reverse proxy that takes API calls from a client and routes them to the correct backend service.
+An **API gateway** is a special type of reverse proxy that takes API calls from a client and routes them to the correct backend service. API gateways often invoke multiple backend services and then aggregate the result.
 
 ## References
 
