@@ -16,8 +16,6 @@ permalink: /distributed-systems/fault-tolerance
 
 In large distributed systems failures are a common occurrence, so fault tolerance must be built in by design.
 
-<!-- <-- TODO: Add details -->
-
 ## Table of contents
 {: .no_toc }
 
