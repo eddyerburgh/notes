@@ -68,7 +68,7 @@ Generally, you should aim for maximal throughput with acceptable latency.
 
 "A service is said to be scalable if when we increase the resources in a system, it results in increased performance in a manner proportional to resources added" {% cite a-word-on-scalability %}.
 
-The **thundering herd problem** occurs when a large number of processes waiting on an event are woken up when the event happens. All woken events attempt to handle the event but (usually) only one will win. This can cause severe performance issues.
+The **thundering herd problem** occurs when a large number of processes waiting on an event get woken up when the event happens. All woken events attempt to handle the event but (usually) only one will win. This can cause severe performance issues.
 
 In order to remain scalable, you need to remove bottlenecks in a system. A server can become a bottleneck for multiple reasons:
 
