@@ -166,7 +166,10 @@ Chain replication offers strong consistency since all reads are processed serial
 
 Object versions are identified with a monotonically increasing number. When a node receives a new version for an object, the node appends the object to its object list. If the node is not a tail node, it marks the version as dirty and propagates the new version to its successor node. If the node is the tail, it marks the version as clean and notifies other nodes that it has written the version by sending an ack. When a predecessor node receives an ack, it marks the corresponding version as clean {% cite 10.5555/1855807.1855818 -l 3 %}.
 
-When a node receives a read request for an object, if the latest version is clean then the node returns the value. If the latest version is dirty then the node forwards the request to the tail {% cite 10.5555/1855807.1855818 -l 3 %}.
+When a node receives a read request for an object it does one of two things:
+
+- If the latest version is clean then the node returns the value.
+- If the latest version is dirty then the node forwards the request to the tail {% cite 10.5555/1855807.1855818 -l 3 %}.
 
 CRAQ works best for read-mostly workloads {% cite 10.5555/1855807.1855818 %}.
 
