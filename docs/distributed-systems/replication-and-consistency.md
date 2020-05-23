@@ -53,7 +53,7 @@ CAP stands for consistency, availability, and partition tolerance. The **CAP the
 
 In CAP theorem, **consistency** is defined to mean that all nodes see the same data at the same time {% cite Brewer12computer -l 23 %}.
 
-_Note: The definition of consistency used in CAP theorem is different to the definition of consistency used in ACID 24._
+_Note: The definition of consistency used in CAP theorem is different to the definition of consistency used in ACID._
 
 **Availability** is defined to mean that each request to the system receives a response {% cite Brewer12computer -l 23 %}.
 
