@@ -58,7 +58,7 @@ The two common reasons for creating distributed systems are:
 
 You can monitor the performance of a system by measuring the latency and the throughput.
 
-**Latency** is the time it takes to perform an action.
+**Latency** is the time it takes to perform an action. Services often make SLAs (Service Level Agreements) with their customers, which can include a maximum latency.
 
 **Throughput** is the number of actions that are completed in a specified time period (e.g., per second).
 
@@ -67,6 +67,8 @@ Generally, you should aim for maximal throughput with acceptable latency.
 **Scalability** is the ability of a system to scale. It's an important design goal for developers of distributed systems.
 
 "A service is said to be scalable if when we increase the resources in a system, it results in increased performance in a manner proportional to resources added" {% cite a-word-on-scalability %}.
+
+The **thundering herd problem** occurs when a large number of processes are waiting on an event and are woken up when the event happens. All woken events attempt to handle the event but (usually) only one will win. This can cause severe performance issues.
 
 In order to remain scalable, you need to remove bottlenecks in a system. A server can become a bottleneck for multiple reasons:
 
@@ -109,7 +111,7 @@ Achieving strong consistency introduces new problems. Any update must be immedia
 
 When a distributed system is made up of a large number of nodes, rare failures become commonplace. Therefore, distributed systems should have fault tolerance built into their design.
 
-One aspect of fault tolerance is availability. **Availability** is the degree to which a system will continue operating under a certain set of failures. There is always some set of failures that will mean the system is no longer available (e.g., if there are failures at multiple data centers at the same time).
+One aspect of fault tolerance is availability. **Availability** is "the property that a system is ready to be used immediately" {% cite distributed-systems -l 424 %}. There is always some set of failures that will mean the system is no longer available (e.g., if there are failures at multiple data centers at the same time).
 
 Availability is measured as a percentage of uptime. Commonly, a system might guarantee 99.99% availability (known as "four nines"), meaning that the system will only be down for 52.6 minutes per year. Systems that guarantee several nines of availability are said to be highly available.
 

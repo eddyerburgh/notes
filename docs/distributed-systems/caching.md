@@ -79,7 +79,7 @@ HTTP distinguishes between shared caches and private caches. Shared caches can b
 
 HTTP caches normally store cached assets to disk, with the mapping keys stored in memory.
 
-_Note: for more details on the specifics of HTTP/1 caching, see [the HTTP1 section on caching]({{ '/computer-networking/internet/http1#caching' | relative\_url }})._
+For more details on the specifics of HTTP/1 caching, see [the HTTP1 section on caching]({ '/computer-networking/internet/http1#caching' | relative_url }).
 
 ## Caching patterns
 
