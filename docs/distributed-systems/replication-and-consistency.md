@@ -138,15 +138,15 @@ Active replication requires operations to be executed in the same order on all r
 
 Quorum-based protocols use voting to determine whether read and write operations can be completed. Clients must acquire permission from other nodes to either write or read replicated data items {% cite distributed-systems -l 402 %}.
 
-A **read quorum** (r) is the minimum number of replicas required to agree to a read {% cite gifford79weightedvoting -l 150 %}.
+A **read quorum** (R) is the minimum number of replicas required to agree to a read {% cite gifford79weightedvoting -l 150 %}.
 
-A **write quorum** (w) is the minimum number of replicas required to agree to a write {% cite gifford79weightedvoting -l 150 %}.
+A **write quorum** (W) is the minimum number of replicas required to agree to a write {% cite gifford79weightedvoting -l 150 %}.
 
 One way to ensure that each read/write set contains at least one node with current data is by setting a read quorum and a write quorum of $$(N / 2) + 1$$ servers, where $$N$$ is the number of replicas. In other words, a majority of the replicas must also agree to perform the read/write.
 
 During each write operation, the updated replicas are given a new version number (which is the same number for each replica). The version number can then be used during future reads and writes to determine if a version is current or not. If all the nodes in a read set have the same version, then this is the most recent value, otherwise the highest version number is the most recent value {% cite distributed-systems -l 402 %}.
 
-The values of r and w can be configured to change the reliability and performance of a system {% cite gifford79weightedvoting -l 152 %}.
+The values of R and W can be configured to change the reliability and performance of a system {% cite gifford79weightedvoting -l 152 %}.
 
 There are many different variations of quorum-based protocols.
 
