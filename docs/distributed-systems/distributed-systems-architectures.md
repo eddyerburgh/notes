@@ -2,9 +2,8 @@
 layout: default
 title: Distributed systems architectures
 description: Notes on the architectures of distributed systems.
-has_children: true
 has_toc: false
-nav_order: 5
+nav_order: 1
 parent: Distributed systems
 permalink: /distributed-systems/distributed-systems-architectures
 ---
@@ -262,6 +261,49 @@ Locating data items can become difficult as the network grows, since there is no
 An alternative is to abandon symmetric communication and use a broker node to coordinate communication between a client and a server.
 
 Nodes that maintain an index or act as a broker are known as **super peers**. Super peers are often organized in a peer-to-peer relationship.
+
+## Components
+
+This section documents common components used in distributed systems.
+
+### Load balancers
+
+A **load balancer** is a server that distributes traffic between a cluster of backend servers. Load balancers are used to implement horizontal scaling.
+
+<figure>
+  <img src="{{site.baseurl}}/assets/img/distributed-systems/distributed-systems-architectures/load-balancer.svg" alt="">
+  <figcaption><h4>Figure: Load balancer</h4></figcaption>
+</figure>
+
+A load balancer can be implemented in hardware (expensive) or as software running on a commodity machine (cheaper).
+
+Load balancers periodically perform health checks to determine which nodes in a cluster are available. They distribute requests between the healthy nodes (commonly requests are distributed round-robin style) {% cite salchow2007load -l 8 %}.
+
+The two main types of load balancer are application load balancers and network load balancers.
+
+An **application load balancer** (also known as a layer 7 load balancer) can use application layer information to determine how to route requests. For example, they can perform HTTP path-based routing.
+
+A **network load balancer** (also known as a layer 4 load balancer) performs NAT to forward transport packets using the IP address and port number to make load balancing decisions.
+
+To avoid a load balancer becoming a single point of failure you can have two servers running load balancers in an active-passive configuration using a single virtual IP address. If the active server goes down, the passive server will take over and start receiving traffic for the virtual IP.
+
+### Reverse proxies
+
+A **reverse proxy** is a server that receives incoming requests and forwards them to the relevant server.
+
+<figure>
+  <img src="{{site.baseurl}}/assets/img/distributed-systems/distributed-systems-architectures/reverse-proxy.svg" alt="">
+  <figcaption><h4>Figure: Reverse proxy</h4></figcaption>
+</figure>
+
+The benefits of using a reverse proxy include:
+
+1. Load balancing
+2. Controlling incoming traffic to a private network
+3. Caching
+4. SSL encryption/decryption
+
+An **API gateway** is a special type of reverse proxy that takes API calls from a client and routes them to the correct backend service. API gateways often invoke multiple backend services and then aggregate the result.
 
 ## References
 

@@ -2,9 +2,8 @@
 layout: default
 title: Coordination and time
 description: Notes on coordination and time in distributed systems.
-has_children: true
 has_toc: false
-nav_order: 5
+nav_order: 3
 parent: Distributed systems
 permalink: /distributed-systems/coordination-and-time
 ---
@@ -66,6 +65,25 @@ The Berkley algorithm is an internal clock synchronization algorithm. It works b
 
 The Berkley algorithm works well for systems that don't have a UTC receiver {% cite distributed-systems -l 306 %}.
 
+## Ordering
+
+Ordering is the process of assigning an order to events in a distributed system.
+
+Histories are sequences of operations. Ordered histories are used to ensure operations are executed deterministically on multiple distributed nodes.
+
+In distributed systems, a **total order** is an order where each event happens one after another. A total order can be created by ordering according to the time that an event happened and then breaking ties in the case of two events occurring at the same time (e.g., by comparing the originator's process ID) {% cite Lamport:1978:TCO %}.
+
+A **partial order** is where some events are ordered one after but other events are not ordered relative to each other.
+
+<figure>
+  <img src="{{site.baseurl}}/assets/img/distributed-systems/distributed-systems-coordination/ordering.svg" alt="">
+  <figcaption><h4>Figure: Total and partial ordering</h4></figcaption>
+</figure>
+
+### Serializability
+
+A transaction history is defined as **serializable** if the outcome of executing the transactions in the history is the same as if the transactions were executed sequentially one after the other {% cite papadimitriou1979serializability -l 631 %}.
+
 ## Logical clocks
 
 **Logical clocks** are abstract clocks that have no relation to physical time. They can be used in distributed systems to create an ordering of events {% cite Lamport:1978:TCO -l 559 %}.
@@ -85,11 +103,6 @@ Using Lamport's assumptions, there are only three ways to determine that event $
 3. If $$a \rightarrow  b$$ and $$b \rightarrow  c$$ then $$a \rightarrow  c$$ (happened-before is a transitive relation).
 
 The happened-before relation can be used to create a _partial ordering_ of events. A _total ordering_ can also be created by breaking ties arbitrarily.
-
-<figure>
-  <img src="{{site.baseurl}}/assets/img/distributed-systems/distributed-systems-coordination/ordering.svg" alt="">
-  <figcaption><h4>Figure: Total and partial ordering</h4></figcaption>
-</figure>
 
 Lamport's logical clocks work by sending a time value (an event counter) along with messages that are sent by the processes. If the receiving process has a time value that is less than the time value sent with the message, then the receiving process' time value is incorrect (because $$a \rightarrow b$$ when $$a$$ is a message being sent and $$b$$ is the same message being received). In this case, the receiver updates it's time to be one more than the sender's time {% cite distributed-systems -l 312 %}.
 

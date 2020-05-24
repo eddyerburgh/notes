@@ -2,9 +2,8 @@
 layout: default
 title: Communication
 description: Notes on communication in distributed systems.
-has_children: true
 has_toc: false
-nav_order: 5
+nav_order: 2
 parent: Distributed systems
 permalink: /distributed-systems/communication
 ---
