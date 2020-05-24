@@ -27,9 +27,9 @@ In large distributed systems failures are a common occurrence, so fault toleranc
 
 **Fault tolerance** is the ability of a system to continue operating despite partial failures. Achieving fault tolerance is one of the benefits of creating a distributed system {% cite distributed-systems -l 423 %}.
 
-Availability, reliability, and recoverability are important concepts in fault tolerance.
+Availability, reliability, and recoverability are all important concepts in fault tolerance.
 
-**Availability** is "the property that a system is ready to be used immediately". It's usually measured as a percentage of uptime (e.g., 99.99%) {% cite distributed-systems -l 424 %}4.
+**Availability** is "the property that a system is ready to be used immediately". It's usually measured as a percentage of uptime (e.g., 99.99%) {% cite distributed-systems -l 424 %}.
 
 **Reliability** is the property that a system can run continuously without failure.
 
@@ -63,11 +63,13 @@ Failure detection can be done at the same time as exchanging information, such a
 
 ### Split brain
 
-**Split brain** is a situation that can occur in systems that use a single primary when two nodes that are unable to communicate with each other both believe they are the primary node. Split brain can quickly lead to data inconsistency between nodes.
+**Split brain** is a situation that can occur during network partitions where multiple nodes believe they are the primary. Split brain can quickly lead to data inconsistency between nodes.
+
+Using write quorums can help avoid split brain.
 
 ## Redundancy
 
-**Redundancy** is where duplicate components are provided in order to improve the reliability of a system. If one of the components fails, the others can continue operating.
+**Redundancy** is where components are duplicated in order to improve the reliability of a system. If one of the components fails, the others can continue operating.
 
 A system is k-fault-tolerant if it can handle the failure of k components {% cite distributed-systems -l 435 %}.
 
@@ -89,13 +91,13 @@ One way to improve resiliency is to group processes together into **process grou
 
 In some groups, all processes are equal, in other groups (like a database cluster) some processes are designated special roles {% cite distributed-systems -l 433 %}.
 
-In a process group where nodes contain shared state, each node should execute the same commands in the same order as every other non-faulty processes. This means that nodes need to reach consensus on a command to execute {% cite distributed-systems -l 433, 436 %}.
+In a process group where nodes contain shared state, each node should execute the same commands in the same order as every other non-faulty processes. This means that nodes need to reach consensus on which commands to execute {% cite distributed-systems -l 433, 436 %}.
 
 ## Consensus
 
 A consensus algorithm is an algorithm that's used to get distributed processes to agree on a value.
 
-One use of consensus algorithms is to keep a sequence of replicated logs consistent between replicated state machines. A server can receive commands from clients and add them to its log, it would then communicate with the consensus modules on other servers to ensure that the replicated log contains the same commands in the same order {% cite 10.5555/2643634.2643666 -l 2 %}.
+One use of consensus algorithms is to keep a sequence of replicated logs consistent between replicated state machines. A server can receive commands from clients and add them to its log, the server would then communicate with the consensus modules on other servers to ensure that the replicated log contains the same commands in the same order on a majority of participating nodes {% cite 10.5555/2643634.2643666 -l 2 %}.
 
 A practical consensus algorithm will:
 
@@ -108,7 +110,7 @@ A practical consensus algorithm will:
 
 ### Paxos
 
-Paxos is a distributed consensus protocol that can handle failures of some participating processes {% cite distributed-systems -l 438 %}.
+Paxos is a distributed consensus protocol that can handle failures of some participating processes.
 
 The aim of Paxos is to agree upon a single proposed value {% cite Lamport2001PaxosMS -l 1 %}.
 
@@ -120,7 +122,7 @@ There are five roles in Paxos:
 4. Learner
 5. Leader
 
-_Note: in an implementation, a single process can perform multiple roles 1{% cite Lamport2001PaxosMS -l 1 %}._
+_Note: in an implementation, a single process can perform multiple roles {% cite Lamport2001PaxosMS -l 1 %}._
 
 **Clients** send requests to the system and wait for a response.
 
@@ -144,7 +146,7 @@ In the promise phase:
 In the accept phase:
 
 - If the proposer receives a response to its PREPARE requests (numbered $$n$$) from a majority of acceptors, then it sends an ACCEPT request to each of those acceptors for a proposal numbered $$n$$ with a value $$v$$, where $$v$$ is the value of the highest-numbered proposal among the responses, or is any value if the responses reported no proposals.
-- If an acceptor receives an accept request for a proposal numbered $$n$$, it accepts the proposal unless it has already responded to a PREPARE request having a number greater than $$n$$.
+- If an acceptor receives an ACCEPT request for a proposal numbered $$n$$, it accepts the proposal unless it has already responded to a PREPARE request having a number greater than $$n$$.
 
 {% cite Lamport2001PaxosMS -l 5-6 %}
 
@@ -156,7 +158,7 @@ One of the issues with Paxos is that it focusses on agreeing on a single value, 
 
 Raft is "an algorithm for managing a replicated log" {% cite 10.5555/2643634.2643666 -l 3 %}. It was designed as an alternative to Paxos, which the Raft authors consider difficult to understand and hard to implement {% cite 10.5555/2643634.2643666 -l 1 %}.
 
-Whereas Paxos focusses on gaining consensus for a single value, Raft focuses on replicating a log across servers. The intention is that the log is then used by servers following the distributed state machine model to execute operations contained in the log entries locally so as to keep their state up-to-date with the leader.
+Whereas Paxos focusses on gaining consensus for a single value, Raft focuses on replicating a log across servers. The intention is that the log is then used by servers following the replicated state machine model to execute operations contained in the log entries locally so as to keep their state up-to-date with the leader.
 
 The three subproblems of raft are:
 
@@ -166,7 +168,7 @@ The three subproblems of raft are:
 
 {% cite 10.5555/2643634.2643666 -l 3-5 %}
 
-#### Log replication
+#### Log replication
 
 During normal operation, a node is either a leader of a follower. There can only be a single leader.
 
@@ -174,7 +176,7 @@ Initially all nodes are followers and a leader must be elected. The leader accep
 
 The replication process follows these steps:
 
-1. The leader appends a commands to its own log.
+1. The leader appends a command to its own log.
 2. The leader sends an `AppendEntries()` RPC to each of the followers to replicate the log entry.
 3. When the log has been replicated by a follower, it replies with an acknowledgement.
 4. When the entry has been replicated successfully to a majority of the machines, the leader applies the entry to its state machine.
@@ -188,7 +190,7 @@ Raft spits time into terms, where each term begins with an election. In some cas
 
 Terms are used as a logical clock in raft that can detect obsolete information (like stale leaders) {% cite 10.5555/2643634.2643666 -l 5 %}.
 
-A leader maintains its position by sending heartbeats (in the form of an AppendEntries RPC). If a follower does not receive a heartbeats for a period of time, the follower begins an election by increasing its current term value and entering the candidate state. The candidate votes for itself and issues a `RequestVote()` RPCs to the other servers in the cluster {% cite 10.5555/2643634.2643666 -l 6 %}.
+A leader maintains its position by sending heartbeats (in the form of an `AppendEntries()` RPC). If a follower does not receive a heartbeats for a period of time, the follower begins an election by increasing its current term value and entering the candidate state. The candidate votes for itself and issues a `RequestVote()` RPCs to the other servers in the cluster {% cite 10.5555/2643634.2643666 -l 6 %}.
 
 A candidate continues in the candidate state until:
 
@@ -209,7 +211,7 @@ Raft ensures that the following two properties are met for log entries to be rep
 
 The first property is maintained by the fact that there is only one leader that creates one log entry per index {% cite 10.5555/2643634.2643666 -l 7 %}.
 
-The second property is maintained by each follower checking each `AppendEntries()` RPC. Each AppendEntries RPC includes the preceding entry index and term. If the follower does not find an entry matching the term and index, then the follower refuses new entries {% cite 10.5555/2643634.2643666 -l 7 %}.
+The second property is maintained by each follower checking each `AppendEntries()` RPC. Each `AppendEntries()` RPC includes the preceding entry index and term. If the follower does not find an entry matching the term and index, then the follower refuses new entries {% cite 10.5555/2643634.2643666 -l 7 %}.
 
 Leader crashes can cause logs to become inconsistent, where the new leader's logs don't match the logs of the followers. This is handled by the leader forcing followers to copy its own log, meaning conflicting entries in the follower's logs will be overwritten {% cite 10.5555/2643634.2643666 -l 7 %}.
 
@@ -235,7 +237,7 @@ Messaging semantics are commonly encountered when working with message queuing s
 
 An operation is **idempotent** if it can be performed many times without any damage being done. Making an operation idempotent helps a system deal with at-least-once message delivery {% cite distributed-systems -l 468 %}.
 
-One way to avoid non-idempotent requests being executed multiple times is to add a sequence number to each request. A server would then keep record of the sequence numbers of executed requests, and would not execute any request multiple times (this then introduces the problem of keeping track of many requests) {% cite distributed-systems -l 469 %}.
+One way to avoid non-idempotent requests being executed multiple times is to add a sequence number to each request. A server would then keep a record of the sequence numbers of executed requests and would not execute any request multiple times (this then introduces the problem of keeping track of many requests) {% cite distributed-systems -l 469 %}.
 
 ## Atomic commit protocols
 
@@ -296,9 +298,9 @@ To recover from a failure, processes can recreate the state either locally or gl
 
 **Coordinated checkpointing** involves processes coordinating with each other to write their state to local storage. With coordinated checkpointing, saved state can be made globally consistent by the coordinator {% cite distributed-systems -l 494 %}.
 
-**Uncoordinated checkpointing** (also known as independent checkpointing) involves each process independently recording its state periodically. During recovery, checkpoints are rolled back until there is a globally consistent state 494-5.
+**Uncoordinated checkpointing** (also known as independent checkpointing) involves each process independently recording its state periodically. During recovery, checkpoints are rolled back until there is a globally consistent state {% cite distributed-systems -l 494-5 %}.
 
-Uncoordinated checkpointing can lead to **the domino effect** where processes may be forced to rollback to the initial state due to inconsistent checkpoints created by rolling back local states {% cite distributed-systems -l 494-5 %}.
+Uncoordinated checkpointing can lead to **the domino effect** where processes may be forced to rollback to the initial state due to inconsistent global state created by rolling back local states independently {% cite distributed-systems -l 494-5 %}.
 
 An alternative to checkpointing is message logging.
 
@@ -312,18 +314,18 @@ In **sender-based logging**, a process logs its messages before sending them to 
 
 ## Zookeeper
 
-Zookeeper is a popular coordination service for distributed systems that uses a consensus algorithm to ensure fault tolerance. It provides fault-tolerant primitives that more complex systems can be built on top of {% cite 10.5555/1855840.1855851 1 %}.
+Zookeeper is a popular coordination service for distributed systems that uses a consensus algorithm to ensure fault tolerance. It provides fault-tolerant primitives that more complex systems can be built on top of {% cite zookeeper2010 -l 1 %}.
 
-Zookeeper implements an API that manipulates data objects that are organized hierarchically, like a file system. The Zookeeper API resembles a file system API (including calls like `create()`, `setData()`, and `getData()`) {% cite 10.5555/1855840.1855851 1,3 %}.
+Zookeeper implements an API that manipulates data objects that are organized hierarchically like a file system. The Zookeeper API resembles a file system API (including calls like `create()`, `setData()`, and `getData()`) {% cite zookeeper2010 -l 1,3 %}.
 
 Zookeeper has two ordering guarantees:
 
 1. Linearizable writes. All requests that update Zookeeper's state are serializable and respect precedence.
 2. FIFO client order: all requests from a given client are executed in the order that they were sent from the client.
 
-{% cite 10.5555/1855840.1855851 4 %}
+{% cite zookeeper2010 -l 4 %}
 
-To improve the read performance of Zookeeper, reads are weakly consistent, meaning it's possible for reads to receive stale data. Reads can ensure that they get up-to-date data by forcing pending updates to complete with `sync()` {% cite 10.5555/1855840.1855851 4 %}.
+To improve the read performance of Zookeeper, reads are weakly consistent, meaning it's possible for reads to receive stale data. Reads can ensure that they get up-to-date data by forcing pending updates to complete with `sync()` {% cite zookeeper2010 -l 4 %}.
 
 Zookeeper can perform a variety of functions in a fault-tolerant manner, for example Zookeeper can:
 
@@ -331,7 +333,7 @@ Zookeeper can perform a variety of functions in a fault-tolerant manner, for exa
 2. Store system configuration.
 3. Be used to elect a master.
 
-Popular projects that use Zookeeper include Hadoop and Kafka.
+Popular projects that use Zookeeper include Hadoop and Kafka (although Kafka voted removed Zookeeper in 2019).
 
 ## References
 
