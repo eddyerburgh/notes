@@ -13,7 +13,7 @@ permalink: /operating-systems
 # Operating systems
 {:.no_toc}
 
-As a software engineer, most of the code you write will be run by an operating system. Therefore, it's useful to understand the internals of operating systems.
+As a software engineer, most of the code you write will be run by an operating system. Understanding the internals of operating systems will help you write more performant programs.
 
 ## Table of contents
 {: .no_toc }
@@ -25,9 +25,9 @@ As a software engineer, most of the code you write will be run by an operating s
 
 ## Introduction
 
-An operating system (OS) is the "software that manages a computer’s resources for its users and their applications" {% cite oses-principles-and-practice -l 4 %}.
+An operating system (OS) is the software that manages a computer’s resources for the computer's users and their applications {% cite oses-principles-and-practice -l 4 %}.
 
-OSes provide:
+An OS provides:
 
 - Resource allocation
 - Isolation
