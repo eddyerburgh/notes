@@ -14,7 +14,7 @@ permalink: /data-structures-and-algorithms/data-structures
 # Data structures
 {:.no_toc}
 
-Data structures affect how long it takes to access and update data. Being able to choose the right data structure for a problem is in an important skill to develop.
+Data structures affect how long it takes to access and update data. Selecting appropriate data structures for a problem is in an important skill for software engineers to develop.
 
 ## Table of contents
 {: .no_toc }
