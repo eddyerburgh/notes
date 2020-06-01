@@ -25,7 +25,6 @@ permalink: /data-structures-and-algorithms/algorithms/divide-and-conquer
 
 ## Introduction
 
-
 Divide-and-conquer algorithms involve three steps:
 
 1. **Divide** the problem into smaller subproblems.
