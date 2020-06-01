@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Divide and conquer
-description: Notes on divide and conquer.
+description: Notes on divide-and-conquer algorithms.
 nav_order: 6
 parent: Algorithms
 grand_parent: Data structures and algorithms
