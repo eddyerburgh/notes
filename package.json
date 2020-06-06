@@ -5,9 +5,13 @@
   "license": "MIT",
   "scripts": {
     "dev": "rm -rf _site && bundle exec jekyll serve -Ilo",
-    "format": "prettier --write '**/*.md'"
+    "format": "npm run format:md && npm run format:bib",
+    "format:md": "prettier --write '**/*.md'",
+    "format:bib": "bibtex-tidy bibliography/references.bib && rimraf bibliography/references.bib.original"
   },
   "dependencies": {
-    "prettier": "^1.18.2"
+    "bibtex-tidy": "^1.3.0",
+    "prettier": "^1.18.2",
+    "rimraf": "^3.0.2"
   }
 }
