@@ -65,24 +65,24 @@ The Berkley algorithm is an internal clock synchronization algorithm. It works b
 
 The Berkley algorithm works well for systems that don't have a UTC receiver {% cite distributed-systems -l 306 %}.
 
-## Ordering
+## History
 
-Ordering is the process of assigning an order to events in a distributed system.
+A **history** is a sequence of events (or transactions) that occur in a distributed system.
 
-Histories are sequences of operations. Ordered histories are used to ensure operations are executed deterministically on multiple distributed nodes.
+Informally, a history is said to be **totally ordered** if each event occurs one after the other. A total order can be created by ordering events according to the time each event occured. In the case of multiple events occuring at the same time (concurrent events), the tie can be broken arbritarily (e.g., by comparing the process ID of the event's originator) {% cite Lamport:1978:TCO %}.
 
-In distributed systems, a **total order** is an order where each event happens one after another. A total order can be created by ordering according to the time that an event happened and then breaking ties in the case of two events occurring at the same time (e.g., by comparing the originator's process ID) {% cite Lamport:1978:TCO %}.
-
-A **partial order** is where some events are ordered one after but other events are not ordered relative to each other.
+Informally, a history is said to be **partially ordered** if some events are not ordered relative to each other.
 
 <figure>
   <img src="{{site.baseurl}}/assets/img/distributed-systems/distributed-systems-coordination/ordering.svg" alt="">
   <figcaption><h4>Figure: Total and partial ordering</h4></figcaption>
 </figure>
 
+_Note: For the formal definition of total ordering and partial ordering, see the [total order Wikipedia page](https://en.wikipedia.org/wiki/Total_order) and the [partial order Wikipedia page](https://en.wikipedia.org/wiki/Partially_ordered_set#Formal_definition)._
+
 ### Serializability
 
-A transaction history is defined as **serializable** if the outcome of executing the transactions in the history is the same as if the transactions were executed sequentially one after the other {% cite papadimitriou1979serializability -l 631 %}.
+A history is defined as **serializable** if the outcome of executing transactions (or operations) in the history is the same as if the transactions were executed sequentially one after the other {% cite papadimitriou1979serializability -l 631 %}.
 
 ## Logical clocks
 
