@@ -61,6 +61,17 @@ In an asynchronous distributed system, it's not possible for a node to ascertain
 
 Failure detection can be done at the same time as exchanging information, such as during gossip dissemination {% cite distributed-systems -l 463 %}.
 
+### Failure metrics
+
+Useful metrics when dealing with failures include:
+
+- MTTF (Mean Time To Failure)
+- MTTR (Mean Time To Repair)
+
+The MTTF of a hardware component is the average amount of time the component can be expected to run for before it fails.
+
+MTTR is the amount of time required to fix (or more commonly, to replace) a failed hardware component. A low MTTR can be achieved by running standby components that can replace failed live components automatically {% cite patterson1988 -l 111 %}.
+
 ### Split brain
 
 **Split brain** is a situation that can occur during network partitions where multiple nodes believe they are the primary. Split brain can quickly lead to data inconsistency between nodes.
