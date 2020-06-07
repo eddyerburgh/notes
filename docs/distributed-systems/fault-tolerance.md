@@ -230,6 +230,22 @@ There is also a restriction on which Raft server can be elected leader to ensure
 
 Since a candidate must gain a majority of servers to become elected, every committed entry must exist in at least one of those servers. A node sends its log information along with the `RequestVote()` RPC. If the recipient has a more up-to-date log, then the recipient denies giving the server its vote {% cite 10.5555/2643634.2643666 -l 8 %}.
 
+## Failover patterns
+
+**Failover** is the process of switching from a failed component to a redundant or standby component.
+
+Two common failover patterns are active-passive failover and active-active failover.
+
+### Active-passive failover
+
+In the **active-passive** failover pattern (also known as master-slave) replicas run alongside the component they will be replacing. If the active server fails, the passive replica becomes active and begins receiving traffic.
+
+Active-passive can be implemented using a virtual IP address that can be assigned dynamically. If the active server goes down, the IP address is reassigned to the passive server.
+
+### Active-active failover
+
+In the **active-active** failover pattern (also known as master-master) multiple replicas serve traffic. In the case of failure, traffic stops being sent to the failed component.
+
 ## Message delivery
 
 > There are only two hard problems in distributed systems: 2. Exactly-once delivery 1. Guaranteed order of messages 2. Exactly-once delivery.
