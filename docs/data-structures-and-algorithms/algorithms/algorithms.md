@@ -100,7 +100,7 @@ Modelling is the process of formulating your application in terms of well-define
 
 Most problems are real-world problems. For example, you might need to create a system to route traffic. Algorithms don't work on real-world objects, they work abstractions, like a graph. In order to write effective algorithms you must learn how to describe your problems in terms of abstract structures {% cite algorithm-design-manual -l 19 %}.
 
-In order to model a problem, you should have a solid understanding of the [data structures](../data-structures-and-algorithms/data-structures.md) available to you.
+In order to model a problem, you should have a solid understanding of the [data structures](/data-structures-and-algorithms/data-structures) available to you.
 
 ## References
 
