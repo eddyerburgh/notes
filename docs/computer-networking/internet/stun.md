@@ -31,7 +31,7 @@ STUN is a client-server protocol and a STUN implementation is known as a STUN Ag
 
 The main STUN method is `Binding`, which is used to determine the particular "binding" a NAT has allocated to a STUN client {% cite rfc5389 -l 7 %}.
 
-In a `Binding` transaction, a request is sent from a client STUN Agent to a server STUN Agent. As the request passes through NATs along its route the NATs will modify the source IP and port address. When the request reaches the STUN server, the request's source will be the public IP address and port created by the NAT closest to the STUN server agent. This is known as the reflexive transport address {% cite rfc5389 -l 7 %}.
+In a `Binding` transaction, a request is sent from a client STUN Agent to a server STUN Agent. As the request passes through NATs along its route the NATs will modify the source IP address and port number. When the request reaches the STUN server, the request's source will be the public IP address and port created by the NAT closest to the STUN server agent. This is known as the reflexive transport address {% cite rfc5389 -l 7 %}.
 
 The STUN server then copies the reflexive transport address into an XOR-MAPPED-ADDRESS attribute in the STUN Binding response and sends a response to the client {% cite rfc5389 -l 7 %}.
 
