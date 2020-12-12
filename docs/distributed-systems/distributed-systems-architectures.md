@@ -23,164 +23,13 @@ permalink: /distributed-systems/distributed-systems-architectures
 
 ## Introduction
 
-The **system architecture** of a distributed system is how the distributed system's software and hardware are organized.
+The **system architecture** of a distributed system is how the system's software and hardware are organized.
 
-You can make a distinction between the logical organization of distributed systems and the physical organization {% cite distributed-systems -l 55 %}.
+There is a distinction between the logical organization of distributed systems (software architecture) and the physical organization {% cite distributed-systems -l 55-6 %}.
 
-## Architectural styles
+A **component** is a modular unit with a well-defined interface. Components should be replaceable without requiring the system to be powered down {% cite distributed-systems -l 56 %}.
 
-The logical organization of a distributed system is known as its **software architecture** {% cite distributed-systems -l 56 %}.
-
-There are different architectural styles that are formulated in terms of how different components are connected to each other.
-
-A **component** is a "modular unit with well-defined required and provided **interfaces** that is replaceable within its environment". Components should be replaceable without requiring the system to be powered down {% cite distributed-systems -l 56 %}.
-
-A **connector** is a mechanism that "mediates communication, coordination, or cooperation among components" {% cite distributed-systems -l 56 %}.
-
-The most common distributed systems architectures are:
-
-- Layered architectures
-- Object-based and service-oriented architectures
-- Resource-based architectures
-- Event-based architectures
-
-{% cite distributed-systems -l 56 %}
-
-_Note: in the real-world, many systems don't follow one style exactly._
-
-### Layered architectures
-
-Layered architectures are where components are organized in layers. Network communication is an example of a layered architecture {% cite distributed-systems -l 57 %}.
-
-In layered architectures, a component $$L_i$$ can make a downcall to a component at a lower-level (e.g. $$L_{i-1}$$). $$L_i$$ generally expects a response from the lower-level component {% cite distributed-systems -l 57 %}.
-
-<figure>
-  <img src="{{site.baseurl}}/assets/img/distributed-systems/distributed-systems-architectures/layered-architectures.svg" alt="">
-  <figcaption><h4>Figure: Making a downcall in a layered architecture {% cite distributed-systems -l 57 %}</h4></figcaption>
-</figure>
-
-**Layered communication protocols** are defined protocols for interacting between layers. A communication protocol "describes the rules that parties will follow in order to exchange information" {% cite distributed-systems -l 58 %}.
-
-### Object-based and service-oriented architectures
-
-Object-based architectures are where components (objects) are connected loosely through a (possibly remote) procedure call mechanism {% cite distributed-systems -l 62 %}.
-
-<figure>
-  <img src="{{site.baseurl}}/assets/img/distributed-systems/distributed-systems-architectures/object-based-architecture.svg" alt="">
-  <figcaption><h4>Figure: Object-based architecture {% cite distributed-systems -l 62 %}</h4></figcaption>
-</figure>
-
-In object-based architectures, each object has a defined interface that conceals implementation details {% cite distributed-systems -l 62 %}.
-
-Because the interface and the object can be separated, it's possible to interface at one machine while the object exists on a different machine. This organization is commonly referred to as a distributed object {% cite distributed-systems -l 62 %}.
-
-<figure>
-  <img src="{{site.baseurl}}/assets/img/distributed-systems/distributed-systems-architectures/distributed-object-system.svg" alt="">
-  <figcaption><h4>Figure: Distributed object system 63</h4></figcaption>
-</figure>
-
-A **proxy** is an implementation of the object's interface. When a client binds to a distributed object, a proxy is loaded into the client's address space. A proxy marshals method invocations into messages, and unmarshals reply messages {% cite distributed-systems -l 62 %}.
-
-In a distributed object system, an object exists on a server machine where it has the same interface as it does on the client machine. Incoming requests are passed to a server stub, known as a **skeleton** {% cite distributed-systems -l 62-3 %}.
-
-For most distributed object systems, state is not distributed. Instead, state exists on individual machines. Only the object interfaces are made available on other machines (known as **remote objects**). In a general distributed object system, state might be distributed across physical machines, but the distribution would be hidden to a client {% cite distributed-systems -l 63 %}.
-
-Objects provide good encapsulation, where a service is a self-contained interface. This makes it possible to organize systems using a service-oriented architecture (SOA) {% cite distributed-systems -l 63 %}.
-
-In **service-oriented architectures** a system is constructed from multiple services that interact with each other. The services might not all be administered by the same organization {% cite distributed-systems -l 63 %}.
-
-### Resource-based architectures
-
-Resource-based architectures are architectures where systems are viewed as a collection of resources that are individually managed by components {% cite distributed-systems -l 64 %}.
-
-An example is REST. RESTful architectures have four key characteristics:
-
-- Resource are identified using a single naming scheme.
-- All services offer the same interface with four methods.
-- Messages sent to or from a service are fully self-described.
-- Execution is stateless.
-
-{% cite distributed-systems -l 65 %}
-
-A RESTful API only offers four methods: `PUT` (or `PATCH`), `GET`, `POST`, and `DELETE`.
-
-### Publish-subscribe architectures
-
-Publish-subscribe architectures have a strong separation of processing and coordination {% cite distributed-systems -l 67 %}.
-
-One way of conceptualizing a system is as a collection of autonomously executing processes. In this model, coordination is the communication between processes {% cite distributed-systems -l 67 %}.
-
-[Cabri et al.](http://crystal.uta.edu/~kumar/cse6306/papers/13.pdf) created a taxonomy of coordination models that can be applied to distributed systems. Tanenbaum et al. modified this taxonomy to create a distinction between them across temporal and referential dimensions:
-
-|                             | **Temporally coupled** | **Temporally decoupled** |
-| --------------------------- | ---------------------- | ------------------------ |
-| **Referentially coupled**   | Direct                 | Mailbox                  |
-| **Referentially decoupled** | Event-based            | Shared data space        |
-
-{% cite distributed-systems -l 67 %}
-
-**Referentially coupled** means that a communicating process must address a target process directly. **Temporally coupled** means that a process must receive a message at the same time a message is sent {% cite distributed-systems -l 67 %}.
-
-If a process is temporally and referentially coupled, communication is direct. An example is talking over cellphones {% cite distributed-systems -l 67 %}.
-
-**Mailbox coordination** is where communication is referentially coupled but temporally decoupled, like in email {% cite distributed-systems -l 67 %}.
-
-**Event-based communication** is temporally coupled, but not referentially coupled. An event will be published by a process without knowing what other processes are subscribed to the event {% cite distributed-systems -l 67 %}.
-
-A **shared data space** is where a process communicates entirely in tuples, which are structured data records (like rows in a database). A process can put a tuple into the shared data space, and another process can later retrieve the tuple {% cite distributed-systems -l 68 %}.
-
-In publish-subscribe systems, communication takes place by describing the event that took place. This makes naming of events an important consideration {% cite distributed-systems -l 70 %}.
-
-<figure>
-  <img src="{{site.baseurl}}/assets/img/distributed-systems/distributed-systems-architectures/event-based-architecture.svg" alt="">
-  <figcaption><h4>Figure: Event-based architecture 68</h4></figcaption>
-</figure>
-
-Assume that an event is described by a series of attributes. An event is published when it's available for other processes to read. A subscription must be passed to the middleware, using a name to identify the event that the subscription listens for {% cite distributed-systems -l 70 %}.
-
-There are two common forms of publish-subscribe systems:
-
-1. Topic-based publish-subscribe systems
-2. Content-based publish-subscribe systems
-
-In a **topic-based publish-subscribe system**, a subscriber subscribes to a named logical _channel_ (a topic). The events published to the channel typically contain <attribute, value\> pairs.
-
-In a **content-based publish-subscribe system**, a subscription can also consist of <attribute, value\> pairs. An event is only sent to a subscriber if the event's attributes match constraints provided by the subscriber {% cite distributed-systems -l 70 %}.
-
-If data is immediately forwarded to subscribers, the system is temporally coupled. If data must be explicitly read by subscribers, the system is temporally-decoupled. In this case, the middleware will need to store the event data {% cite distributed-systems -l 7-1 %}.
-
-## Middleware organization
-
-There are two important design patterns in middleware organization:
-
-1. Wrappers
-2. Interceptors
-
-### Wrappers
-
-A wrapper is a component that offers an interface to a client application. It solves the problem of incompatible interfaces {% cite distributed-systems -l 72 %}.
-
-The wrapper pattern is common in object-oriented programming {% cite distributed-systems -l 72 %}.
-
-An **object adapter** is a wrapper that provides an interface for accessing remote objects {% cite distributed-systems -l 72 %} .
-
-### Interceptors
-
-An interceptor is a pattern where the normal execution flow is interrupted in order to execute other code.
-
-For example, consider an object-based distributed system. An object $$A$$ can call a method that belongs to an object $$B$$, where $$B$$ exists on a different computer than $$A$$. Remote invocation involves:
-
-1. Object $$A$$ has same local interface as the interface offered by object $$B$$.
-2. The call by $$A$$ is transformed to a generic object invocation by the middleware running on machine $$A$$.
-3. The object invocation is transformed into a message that's sent over the network to $$B$$.
-
-{% cite distributed-systems -l 73-4 %}
-
-<!-- TODO : copy image p74 -->
-
-A **request-level interceptor** can interrupt an invocation as the method is called on the remote interface {% cite distributed-systems -l 74 %}.
-
-A **message-level interceptor** can interrupt an invocation just before the message is sent {% cite distributed-systems -l 74 %}.
+A **connector** is a mechanism that handles communication, coordination, or cooperation between components {% cite distributed-systems -l 56 %}.
 
 ## System architectures
 
@@ -223,7 +72,7 @@ The server running at the processing layer will act as a client to the database 
 
 ### Peer-to-peer systems
 
-Peer-to-peer systems are system architectures that support distribution across clients and servers. A client or server might be physically split into logically equivalent parts, where each part is operating on its own share of the complete data set {% cite distributed-systems -l 81 %}.
+Peer-to-peer systems support distribution across clients and servers. A client or server might be physically split into logically equivalent parts, where each part is operating on its own share of the complete data set {% cite distributed-systems -l 81 %}.
 
 In a peer-to-peer system, all processes that constitute the system are equal. Interaction between processes is symmetric: a process will act as a client and as a server at the same time {% cite distributed-systems -l 81 %}.
 
@@ -231,7 +80,7 @@ Peer-to-peer architectures are concerned with organizing processes in an overlay
 
 #### Structured peer-to-peer systems
 
-In a structured peer-to-peer system, the overlay follows a predetermined topology (e.g. a ring or a grid). The topology is used to look up data.
+In a structured peer-to-peer system, the overlay follows a predetermined topology (e.g., a ring or a grid). The topology is used to look up data.
 
 Generally, structured peer-to-peer systems use a semantic-free index to access data. Each data item maintained by the system is uniquely associated with a key, and the key is used as an index:
 
@@ -250,17 +99,37 @@ In an unstructured peer-to-peer system, each node maintains a dynamic list of ne
 Unstructured peer-to-peer systems must search for a requested value. Some examples of search methods are:
 
 1. Flooding
-2. Random walks
+2. Random walk
 
-In flooding, an issuing node, $$U$$, passes a request for an item to each of its neighbors. A request is ignored if the receiving node, $$V$$, has seen it before. If the request hasn't been seen before, $$V$$ will search locally for the item. If the item isn't available locally, $$V$$ will issue a request to each of its neighbors and then returns the response to $$U$$ if it receives one {% cite distributed-systems -l 85 %}.
+In flooding, an issuing node, $$U$$, passes a request for an item to each of its neighbors. A request is ignored if the receiving node, $$V$$, has seen it before. If the request hasn't been seen before, $$V$$ will search locally for the item. If the item isn't available locally, $$V$$ will issue a request to each of its neighbors and return the response to $$U$$ if it receives one {% cite distributed-systems -l 85 %}.
 
-Random walks involves an issuing node, $$U$$, asking one of its neighbors at random. If the neighbor cannot satisfy the request, $$U$$ asks another neighbor at random, and so on until it receives an answer {% cite distributed-systems -l 85 %}.
+Random walk involves an issuing node, $$U$$, asking one of its neighbors at random. If the neighbor cannot satisfy the request, $$U$$ asks another neighbor at random, and so on until it receives an answer {% cite distributed-systems -l 85 %}.
 
 Locating data items can become difficult as the network grows, since there is no deterministic way to route a lookup request to a specific node. Some peer-to-peer systems use special index nodes to overcome this problem {% cite distributed-systems -l 87 %}.
 
 An alternative is to abandon symmetric communication and use a broker node to coordinate communication between a client and a server.
 
 Nodes that maintain an index or act as a broker are known as **super peers**. Super peers are often organized in a peer-to-peer relationship.
+
+### Pubsub systems
+
+A pubsub system is based on asynchronous communication between publishers and subscribers.
+
+**Publishers** publish events and relevant **subscribers** are notified of the published event.
+
+<figure>
+  <img src="{{site.baseurl}}/assets/img/distributed-systems/distributed-systems-architectures/event-based-architecture.svg" alt="">
+  <figcaption><h4>Figure: Event-based architecture 68</h4></figcaption>
+</figure>
+
+There are two common forms of pubsub systems:
+
+1. Topic-based systems
+2. Content-based systems
+
+In a **topic-based pubsub system**, a subscriber subscribes to a named _logical channel_ (a topic). Events published to the channel typically contain <attribute, value\> pairs.
+
+In a **content-based publish-subscribe system**, a subscription can also consist of <attribute, value\> pairs. An event is only sent to a subscriber if the event's attributes match constraints provided by the subscriber {% cite distributed-systems -l 70 %}.
 
 ## Components
 
