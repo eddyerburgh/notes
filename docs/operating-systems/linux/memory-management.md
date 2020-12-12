@@ -13,8 +13,6 @@ permalink: /operating-systems/linux/memory-management
 # Memory Management
 {:.no_toc}
 
-Memory management in the kernel is more constrained than memory management in user space. The kernel can't deal well with memory allocation errors, and often the kernel must allocate memory without sleeping.
-
 This section is about memory management in the kernel: how the kernel manages memory, and how to manage memory as a kernel developer.
 
 ## Table of contents
@@ -27,9 +25,9 @@ This section is about memory management in the kernel: how the kernel manages me
 
 ## Pages
 
-"The kernel treats physical pages as the basic unit of memory management." The hardware memory management unit (MMU) that manages the translation between virtual and physical memory, typically deals in pages. The MMU maintains the system's page tables with page-size granularity, and so in terms of virtual memory, pages are the smallest size that matters {% cite lkd -l 231 %}.
+A **page** is a block of virtual memory. Pages are the basic unit of memory management in the kernel {% cite lkd -l 231 %}.
 
-Each architecture determines its page size, and many architectures can support multiple page sizes. "Most 32-bit architectures have 4KB pages, whereas most 64-bit architectures have 8KB pages". So a machine with 8KB pages and 1GB memory is split into 131,072 pages {% cite lkd -l 231 %}.
+Each architecture determines its page size, and many architectures can support multiple page sizes. Most 32-bit architectures support 4KB pages, and most 64-bit architectures support 8KB pages {% cite lkd -l 231 %}.
 
 The kernel represents a physical page with the `page` struct, defined in \<linux/mm_types.h\>. A simplified copy of the struct is:
 
@@ -46,20 +44,22 @@ struct page {
 };
 ```
 
-The `flags` field stores the status of the page. For example it can store whether the page is dirty or not, or whether it is locked in memory. The flag values are defined in \<linux/page-flags.h\>.
+The `flags` field stores the status of the page. For example, whether the page is dirty or not, or whether the page is locked in memory.
 
-The `_count` field stores the usage count of the page: how many references there are to the page. If `_count` is -1 then the page is free. Instead of accessing `_count` directly, developers should use the `page_count` function to determine whether a page is free or not. `page_count` returns 0 if the page is free and a non-negative integer if the page is in use. A page can be in use by the page cache, as private data, or as a mapping in a process's page table {% cite lkd -l 232 %}.
+The `_count` field stores the usage count of the page, i.e., how many references there are to the page. If `_count` is -1 then the page is free {% cite lkd -l 232 %}.
 
 The `virtual` field is the page's virtual address. Although this is normally the page's virtual memory address, some memory (called **high memory**) isn't permanently mapped in the kernel's address space. For high memory the value will be `NULL` {% cite lkd -l 232 %}.
 
 ## Zones
 
-Because of limits in the hardware, the kernel can't treat all pages as equal. Some pages cannot be used for certain tasks because of their physical address. Because of this, the kernel divides pages with similar properties into **zones** {% cite lkd -l 232 %}.
+**Zones** are groups of pages with similar hardware-assigned properties (e.g., DMA zones, normal zones) {% cite lkd -l 233 %}.
 
-There are two main limits in hardware:
+There are two main hardware limitations that are relevant to zones:
 
-1. Some hardware devices can only perform direct memory access (DMA) to certain address spaces.
-2. Some architectures can physically address larger areas than they can virtually address. As a consequence, some memory is not permanently mapped into the kernel address space.
+1. Some hardware devices can only perform DMA (Direct Memory Access) to certain address spaces.
+2. Some architectures can physically address larger areas than they can virtually address. In these cases some memory is not permanently mapped into the kernel address space.
+
+{% cite lkd -l 233 %}
 
 There are four primary address zones:
 
@@ -70,9 +70,7 @@ There are four primary address zones:
 
 {% cite lkd -l 233 %}
 
-The use and layout of memory is architecure-specific. Some architectures have no problem performing DMA into any memory address. For those architectures, `ZONE_DMA` is empty, and `ZONE_NORMAL` is used for allocation. Conversely, "on the x86 architecture, ISA devices cannot perform DMA into the full 32-bit address space1 because ISA devices can access only the first 16MB of physical memory. Consequently, `ZONE_DMA` on x86 consists of all memory in the range 0MB–16MB" {% cite lkd -l 233 %}.
-
-`ZONE_HIGHMEM` is similar. "On 32-bit x86 systems, `ZONE_HIGHMEM` is all memory above the physical 896MB mark. On other architectures, `ZONE_HIGHMEM` is empty because all memory is directly mapped" {% cite lkd -l 233 %}.
+Memory layout and usage is architecture-specific. For architectures that can perform DMA into any memory address `ZONE_DMA` is empty, and `ZONE_NORMAL` is used for allocation, whereas for other architectures `ZONE_DMA` could contain all memory in the range 0-16MB {% cite lkd -l 233 %}.
 
 `ZONE_NORMAL` tends to be what is remaining after `ZONE_DMA` and `ZONE_HIGHMEM`. The following table shows the zones on an x86 architecture:
 
@@ -84,7 +82,7 @@ The use and layout of memory is architecure-specific. Some architectures have no
 
 {% cite lkd -l 234 %}
 
-Zones are used to allocate pages when they are needed. Although some allocations require pages from a particular zone, other allocations can use pages from multiple zones. For example, a normal allocation can come from `ZONE_NORMAL` or `ZONE_DMA`, but not both. Allocations must come from a single zone at once {% cite lkd -l 234 %}.
+Zones are used during page allocation where some allocations require pages from a particular zone. Allocations must come from a single zone at once {% cite lkd -l 234 %}.
 
 Each zone is represented by a `zone` struct:
 
@@ -117,11 +115,9 @@ struct zone {
 };
 ```
 
-`lock` is a spin lock that protects the structure from concurrent access.
+## Memory allocation
 
-The `watermark` array holds the minimum low and high watermarks for the zone. Watermarks are used to set benchmarks for suitable per-zone memory consumption {% cite lkd -l 235 %}.
-
-## Getting pages
+Memory allocation is the process of assigning sections of memory.
 
 The main function to allocate memory from the kernel is `alloc_pages()`:
 
@@ -129,7 +125,7 @@ The main function to allocate memory from the kernel is `alloc_pages()`:
 struct page * alloc_pages(gfp_t gfp_mask, unsigned int order)
 ```
 
-This allocates $$2^\text{order}$$ contiguous pages, and returns a pointer to the first page's `page` struct. On error, `alloc_pages()` returns `NULL`.
+This allocates $$2^\text{order}$$ contiguous pages, and returns a pointer to the first page's `page` struct {% cite lkd -l 235 %}.
 
 You can convert a given page to its logical address with `page_address()`:
 
@@ -137,7 +133,7 @@ You can convert a given page to its logical address with `page_address()`:
 void * page_address(struct page *page)
 ```
 
-This returns a pointer to the logical address where the given physical page currently resides. If you have no need for the actual `page` struct, you can call `__get_free_pages()`:
+`page_address()` returns a pointer to the logical address where the given physical page currently resides. If you have no need for the actual `page` struct, you can call `__get_free_pages()`:
 
 ```c
 unsigned long __get_free_pages(gfp_t gfp_mask, unsigned int order)
@@ -168,21 +164,23 @@ void free_pages(unsigned long addr, unsigned int order)
 void free_page(unsigned long addr)
 ```
 
-`kmalloc()` can be used to allocate byte-size chunks. `kmalloc()` works similarly to `malloc()`, except it also takes a `flags` parameter. `kmalloc()` returns a pointer to a byte-size chunk that is at least `bytes` size in length. On error it returns `NULL` {% cite lkd -l 238 %}.
+`kmalloc()` can be used to allocate byte-size chunks. `kmalloc()` works similarly to `malloc()`, except it also takes a `flags` parameter. `kmalloc()` returns a pointer to a chunk of memory _at least_ `bytes` size in length that is physically and virtually contiguous {% cite lkd -l 238 %}.
+
+Memory allocated with `kmalloc()` is freed with `kfree()`.
+
+A alternative to `kmalloc()` is `vmalloc()`. `vmalloc()` returns a chunk of virtually contiguous memory (with no guarantees that it's physically contiguous) {% cite lkd -l 244 %}.
 
 ### GFP mask flags
 
-GFP (Get Free Page) mask flags are flags that are passed to kernel allocator functions {% cite lkd -l 238 %}
+**GFP (Get Free Page) mask flags** are flags that are passed to kernel allocator functions {% cite lkd -l 238 %}
 
 GFP flags are represented with the `gfp_t` type. There are three types of flags:
 
-- Action modifiers—specify how the kernel should allocate memory.
-- Zone modifiers—specify what zone to allocate from.
-- Type flags—specify a combination of a zone and an action type.
+- Action modifiers—how the kernel should allocate memory.
+- Zone modifiers—what zone to allocate from.
+- Type flags—a combination of a zone and an action type.
 
 {% cite lkd -l 238-9 %}
-
-The flags are declared in \<linux/gfp.h\>, which is included in \<linux/slab.h\> {% cite lkd -l 239 %}.
 
 You can see the action modifiers in the following table:
 
@@ -210,9 +208,7 @@ These flags can be specified together. For example:
 ptr = kmalloc(size, __GFP_WAIT | __GFP_IO | __GFP_FS);
 ```
 
-#### Zone Modifiers
-
-Zone modifiers specify the zones that the memory allocation should originate from. Normally the allocation will happen from any zone, with the kernel preferring `ZONE_NORMAL`.
+Zone modifiers specify the zones that a memory allocation should originate from. Normally the allocation will happen from any zone, with the kernel preferring `ZONE_NORMAL`.
 
 You can see the zone modifiers in the following table:
 
@@ -243,48 +239,24 @@ You can see the type flags in the following table:
 
 {% cite lkd -l 241-2 %}
 
-The majority of allocations in the kernel use the `GFP_KERNEL` flag. "The resulting allocation is a normal priority allocation that might sleep". This flag can only be used from process context, because it might block {% cite lkd -l 242 %}.
+The majority of allocations in the kernel use the `GFP_KERNEL` flag which creates a normal priority memory allocation that might sleep (thus it must only be used when it's safe to sleep) {% cite lkd -l 242 %}.
 
-Memory allocated with `kmalloc()` should be freed with `kfree()`.
+## Slab allocation
 
-A alternative to `kmalloc()` is `vmalloc()`. While `kmalloc()` returns a pointer to a chunk of contiguous physical and virtual memory, `vmalloc()` only guarantees contiguous virtual memory. `vmalloc()` updates page tables to ensure that the memory block it returns is virtually contiguous {% cite lkd -l 244 %}.
+**Slab allocation** is a mechanism for efficient memory allocation of objects. Slab allocation reduces memory fragmentation compared to earlier approaches {% cite lkd -l 246 %}.
 
-## Slab layer
+In the kernel, a slab allocator divides objects into groups called caches. Each cache stores a different object (e.g., one cache for `task_struct` structs, another for `inode` structs) {% cite lkd -l 246 %}.
 
-The slab layer is an abstraction to make free lists more efficient.
+Caches are divided into slabs. A **Slab** consists of one or more contiguous pages that contains a number of objects of the data structure that's being cached {% cite lkd -l 246 %}.
 
-A free list is a block of pre-allocated memory that is used to allocate memory from for objects in the future. When the data is no longer needed, it's returned to the free list rather than deallocating {% cite lkd -l 245 %}.
-
-The problem with free lists in the kernel is that there isn't any global control. If memory is low then there is no way for the kernel to communicate with the free lists in order to free some of their cached memory. The slab layer solves this problem {% cite lkd -l 245 %}.
-
-The slab layer follows several tenets:
-
-- Frequently used data structures tend to be allocated and freed often, so cache them.
-- Cached free lists avoid fragmentation because they are arranged contiguously.
-- Free lists improve performance during frequent allocation and deallocation.
-- The allocator can make more intelligent decisions if it's aware of object size, page size, and total cache size.
-- Allocations on SMP can be made without a lock if cache is per-processor.
-- Allocator can fulfill allocations from same node as requester if allocator is NUMA aware.
-- Coloring can be used to prevent multiple objects from mapping to the same cache line.
-
-{% cite lkd -l 246 %}
-
-The slab layer divides objects into groups called caches. Each cache stores a different object. For example, one cache is for `task_struct` structs, and another for `inode` structs. `kmalloc()` is built on top of the slab allocator using general purpose caches {% cite lkd -l 246 %}.
-
-Caches are divided into slabs. Slabs can consist of multiple contiguous pages, although normally they are only a single page {% cite lkd -l 246 %}.
-
-Each slab contains a number of objects (the data structure that's being cached). A slab is in one of three states: full, partial, or empty. When the kernel requests a new object, the request is satisfied by a partial slab if one exists, otherwise an empty slab is used {% cite lkd -l 246 %}.
-
-Take the `inode` structure. An `inode` is a filesystem structure that represents a disk inode, and is allocated by the slab allocated {% cite lkd -l 247 %}.
-
-An `inode` is allocated from the `inode_cachep` cache (this is the standard naming convention). The cache is made up from many slabs, and each slab contains as many inode objects as can fit. When the kernel requests a new `inode` object, the slab allocator returns a pointer to an already allocated, but currently unused structure from a partial slab if one exists, or an empty slab if one does not. When the kernel is finished with the inode, the slab allocator will mark the object as free.
+A slab is in one of three states: full, partial, or empty. When the kernel requests a new object, the request is satisfied by a partial slab if one exists, otherwise an empty slab is used {% cite lkd -l 246 %}.
 
 <figure>
   <img src="{{site.baseurl}}/assets/img/operating-systems/linux/memory-management/slab-cache.svg" alt="">
   <figcaption><h4>Figure: The relationship between caches, slabs, and objects {% cite lkd -l 247 %}</h4></figcaption>
 </figure>
 
-A cache is represented with a `kmem_cache` structure. The structure contains three lists stored inside a `kmem_list3` structure: `slabs_full`, `slabs_partial`, and `slabs_empty`. The list contains all slabs associated with the cache.
+A cache is represented with the `kmem_cache` struct. `kmem_cache` contains three slab lists stored inside a `kmem_list3` struct: `slabs_full`, `slabs_partial`, and `slabs_empty`.
 
 A `slab` struct represents a slab:
 
@@ -297,8 +269,6 @@ struct slab {
   kmem_bufctl_t free; /* first free object, if any */
 };
 ```
-
-"Slab descriptors are allocated either outside the slab in a general cache or inside the slab itself, at the beginning. The descriptor is stored inside the slab if the total size of the slab is sufficiently small, or if internal slack space is sufficient to hold the descriptor." {% cite lkd -l 248 %}
 
 The slab allocator creates new slabs with the `__get_free_pages()` function:
 
@@ -334,7 +304,7 @@ static void *kmem_getpages(struct kmem_cache *cachep, gfp_t flags, int nodeid)
 }
 ```
 
-Memory is freed by `kmem_freepages()`, which calls `free_pages()` on the given cache’s pages. The freeing function is only called when available memory grows low, or when a cache is explicitly destroyed {% cite lkd -l 249 %}.
+Memory is freed with `kmem_freepages()`, which calls `free_pages()` on the given cache’s pages. The freeing function is only called when available memory grows low, or when a cache is explicitly destroyed {% cite lkd -l 249 %}.
 
 A new cache is created with `kmem_cache_create()`:
 
@@ -353,7 +323,7 @@ struct kmem_cache * kmem_cache_create(const char *name,
 - `SLAB_HWCACHE_ALIGN`—instructs the slab layer to align each object within a slab to a cache line.
 - `SLAB_POISON`—causes the slab layer to fill the slab with a known value. This is called poisoning, and can be useful to catch access to uninitialized memory.
 - `SLAB_RED_ZONE`—causes the slab layer to insert red zones around the cache to detect buffer overflows.
-- `SLAB_PANIC`—causes the kernel to panic if the slab allocation fails.
+- `SLAB_PANIC`—causes the kernel to panic if slab allocation fails.
 - `SLAB_CACHE_DMA`—instructs slab layer to allocate each slab in DMA-able memory.
 
 {% cite lkd -l 249-50 %}
@@ -380,7 +350,9 @@ This marks the object `objp` in `cachep` as free {% cite lkd -l 251 %}.
 
 ## High Memory Mappings
 
-Pages in high memory might not be permanently mapped into the kernel address space. Thus, pages obtained via `alloc_pages()` with the `__GFP_HIGHMEM` flag might not have a logical address {% cite lkd -l 253 %}.
+**High memory** is memory that isn't permanently mapped into the kernel address space {% cite lkd -l 253 %}.
+
+Pages obtained via `alloc_pages()` with the `__GFP_HIGHMEM` flag might not have a logical address {% cite lkd -l 253 %}.
 
 To map a `page` structure into the kernel’s address space, use `kmap`, declared in \<linux/highmem.h\>:
 
@@ -388,44 +360,16 @@ To map a `page` structure into the kernel’s address space, use `kmap`, declare
 void *kmap(struct page *page)
 ```
 
-`kmap()` works on both high memory and low memory. If the `page` structure represents a page in low memory, then the virtual address is simply returned. If the page is in low memory, a permanent mapping is created and the address is returned. `kmap()` may sleep, so it works only in process context {% cite lkd -l 254 %}.
+`kmap()` works on both high memory and low memory. If the `page` structure represents a page in low memory, then the virtual address is returned. If the page is in low memory, a permanent mapping is created and the address is returned. `kmap()` might sleep, so it works only in process context {% cite lkd -l 254 %}.
 
 Since the number of permanent mappings of high memory are limited, you should unmap high memory when it's no longer needed. You do this with the `kunmap()` function.
 
-When you need to create a mapping but the current context can't sleep, you can create a temporary mapping. "These are a set of reserved mappings that can hold a temporary mapping. The kernel can atomically map a high memory page into one of these reserved mappings" {% cite lkd -l 254 %}.
+When you need to create a mapping but the current context can't sleep, you can create a temporary mapping which uses a reserved mapping {% cite lkd -l 254 %}.
 
 Setting up a temporary mapping is done with `kmap_atomic()`:
 
 ```c
 void *kmap_atomic(struct page *page, enum km_type type)
-```
-
-`type` is one of the following enums:
-
-```c
-enum km_type {
-  KM_BOUNCE_READ,
-  KM_SKB_SUNRPC_DATA,
-  KM_SKB_DATA_SOFTIRQ,
-  KM_USER0,
-  KM_USER1,
-  KM_BIO_SRC_IRQ,
-  KM_BIO_DST_IRQ,
-  KM_PTE0,
-  KM_PTE1,
-  KM_PTE2,
-  KM_IRQ0,
-  KM_IRQ1,
-  KM_SOFTIRQ0,
-  KM_SOFTIRQ1,
-  KM_SYNC_ICACHE,
-  KM_SYNC_DCACHE,
-  KM_UML_USERCOPY,
-  KM_IRQ_PTE,
-  KM_NMI,
-  KM_NMI_PTE,
-  KM_TYPE_NR
-};
 ```
 
 The mapping is undone wit `kunmap_atomic()`.
