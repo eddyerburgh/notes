@@ -72,7 +72,7 @@ The **thundering herd problem** occurs when a large number of processes waiting 
 
 In order to remain scalable, you need to remove bottlenecks in a system. A server can become a bottleneck for multiple reasons:
 
-1. Insufficient computational capacity.
+1. Insufficient compute capacity.
 2. Insufficient storage capacity (including the I/O transfer rate).
 3. Poor network conditions.
 
@@ -153,8 +153,6 @@ Server architectures are either concurrent or iterative. **Concurrent servers** 
 
 **Iterative servers** handle requests in the same server process. These tend to be event-driven, like Nginx.
 
-Clients send requests to end points (ports) and a server listens to a specific **endpoint**.
-
 Stateful servers keep state about clients locally. Stateless servers don't keep state locally (or at least, service will not be disrupted if the state is lost) {% cite distributed-systems -l 131 %}.
 
 **Session state** is state that's associated with operations of a single user. It's maintained for a period of time but not permanently {% cite distributed-systems -l 132 %}.
@@ -169,7 +167,7 @@ Clusters are usually organized logically into three tiers:
 
 Often commodity machines are used to build clusters {% cite distributed-systems -l 142 %}.
 
-Wide-area clusters are clusters connected across the Internet. These are becoming more common with the popularity of cloud computing, where cloud computing companies often have data centers distributed across the world.
+Wide-area clusters are clusters connected across the Internet. These are becoming more common with the popularity of cloud computing, where cloud providers often have data centers distributed geographically around the world.
 
 ## The fallacies of distributed computing
 
@@ -184,7 +182,7 @@ Peter Deutsch codified the following false assumptions that engineers make when 
 7. Transport cost is zero.
 8. There is one administrator.
 
-Most distributed systems principals deal directly with these assumptions {% cite distributed-systems -l 24 %}.
+Most distributed systems principles deal directly with these assumptions {% cite distributed-systems -l 24 %}.
 
 ## References
 
