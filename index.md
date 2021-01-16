@@ -12,6 +12,7 @@ A collection of notes and references for self-studying computer science.
 
 ## Topics
 
+- Computer architecture
 - Computer networking
 - Data structures and algorithms
 - Operating systems
@@ -19,7 +20,6 @@ A collection of notes and references for self-studying computer science.
 
 ## Planned Topics
 
-- Computer architecture
 - Compilers
 - Databases
 
