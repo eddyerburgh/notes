@@ -15,13 +15,13 @@ A collection of notes and references for self-studying computer science.
 - Computer architecture
 - Computer networking
 - Data structures and algorithms
-- Operating systems
+- Databases
 - Distributed systems
+- Operating systems
 
 ## Planned Topics
 
 - Compilers
-- Databases
 
 ## References
 
