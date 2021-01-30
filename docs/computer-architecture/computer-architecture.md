@@ -66,7 +66,7 @@ add x1, x2, x3
 
 ### Assembler
 
-An **assembler** is a program that converts an assembly language program into a machine language object file.
+An **assembler** is a program that converts an assembly language program (input.s) into a machine language object file (output.o).
 
 **Machine code** is the binary instructions that are fetched and executed by a processor.
 
@@ -81,6 +81,13 @@ An object file contains:
 {% cite P&H:ARM -l 125 %}
 
 Assemblers also expand **pseudoinstructions**—assembly language instructions that don't correspond to machine language instructions—into machine instructions, as well as performing other utility transformations, like splitting large constants into multiple instructions.
+
+There are often two passes in an assembler:
+
+1. Build a symbol table and expand pseudoinstructions.
+2. Generate machine code (using symbol table to resolve local labels).
+
+Assembly programs can contains assembler directives that give directions to the assembler but do not produce code. e.g., `.text` meaning put subsequent items in the text segment, `.data` meaning put subsequent items in the data segment, and `.global symbol` declares a symbol that can be referenced from other files.
 
 ### Linker
 
