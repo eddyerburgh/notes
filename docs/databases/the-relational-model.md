@@ -2,7 +2,7 @@
 layout: default
 title: The relational model
 description: Notes on the relational model.
-nav_order: 5
+nav_order: 1
 parent: Databases
 permalink: /databases/relational-model
 ---
@@ -29,6 +29,8 @@ In the relational model, tables are known as relations. A relation is a set of t
 Each attribute has a domain which specifies the valid values for the attribute. Domains must be atomic {% cite database-system-concepts -l 40 %}.
 
 The null value is a special value signifying that the value is unknown or unspecified {% cite database-system-concepts -l 40 %}.
+
+SQL is loosely based on relational algebra. Most databases use relational algebra or something based on relational algebra for their internal representation of queries.
 
 ## Database schema
 
@@ -62,49 +64,75 @@ A **foreign key** is a set of attributes in a table that refers to the primary k
 
 Relational algebra uses algebraic structures for modelling data and defining queries on it.
 
-<!-- Relational algebra consists of a set of operations. It takes one or two relations as input and produces a new relation as a result 48. -->
-
 Relational algebra consists of a set of operations that can be composed into a relational-algebra expression {% cite database-system-concepts -l 50 %}.
 
-Operations include:
+The fundamental operations include:
 
 - Select ($$\sigma$$)
 - Project ($$\Pi$$)
+- Set-union ($$\cup$$)
+- Set-difference ($$-$$)
 - Cartesian product ($$\times$$)
 - Rename ($$\rho$$)
-- Join ($$\bowtie$$)
 
 ### Select operation
 
-The **select operation** ($$\sigma$$) selects tuples that satisfy a given predicate. The predicate is indicated as a subscript to the operator and the argument relation is denoted in parentheses, e.g., $$\sigma_{\text{dept_name}="Physics"}(\text{instructor})$$ {% cite database-system-concepts -l 49 %}.
+The **select operation** ($$\sigma_{\text{p}}(\text{r})$$) selects tuples that satisfy a given predicate $$p$$ from a relation $$r$$.
 
-The select predicate supports comparison operators (=, ≠, <, ≤, >, and ≥). Predicates can be combined using the connectives and ∧, or (V) and not ¬ {% cite database-system-concepts -l 49 %}.
+For example, $$\sigma_{\text{name}="Paddington"}(\text{station})$$.
+
+The select predicate supports comparison operators (=, ≠, <, ≤, >, and ≥). Predicates can be combined using the connectives and (∧), or (∨) and not (¬) {% cite database-system-concepts -l 49 %}.
 
 ### Project
 
-The **project operation** ($$\Pi$$) returns an argument relation with some attributes omitted. The attributes to be kept are part of the subscript to the operator, e.g., $$\Pi_{\text{ID}, \text{name}, \text{salary}}(\text{instructor})$$ 49.
+The **project operation** $$\Pi_{\text{a}, \text{b}, ... }(\text{r})$$ returns a relation with the set of tuples from the argument relation $$r$$ with only the specified attributes remaining.
 
-Expressions involving attributes can be included in the project operation, e.g., $$\Pi_{\text{ID}, \text{name}, {\text{salary} / 12}}(\text{instructor})$$ {% cite database-system-concepts -l 50 %}.
+Expressions involving attributes can be included in the project operation, e.g., $$\Pi_{\text{ID}, \text{name}, {\text{salary} / 12}}(\text{employee})$$ will return a tuple containing the ID, name, and monthly pay of an employee.
+
+### Set-union
+
+The **set-union operation** ($$r \cup s$$) returns all tuples from two relations $$r$$ and $$s$$.
+
+$$r$$ and $$s$$ must have compatible schemas:
+
+- $$r$$ and $$s$$ must have the same arity.
+- For each attribute $$r[i]$$ $$s[i]$$ must have the same domain.
+
+### Set-difference
+
+The **set-difference operation** ($$ r - s $$) returns all tuples that are only in $$r$$ but not in $$s$$.
+
+$$r$$ and $$s$$ must have compatible schemas (as defined in the set-union section).
 
 ### Cartesian product
 
-The **Cartesian-product operation** ($$\times$$) combines information from two relations. e.g., $$r_1 \times r_2$$.
+The **Cartesian-product operation** ($$r \times s$$) returns each tuple in $$r$$ concatenated with each tuple of $$s$$.
 
-As opposed to a Cartesian-product of sets (which would produce pairs of tuples), a Cartesian product of relations concatenates the tuples into a single tuple {% cite database-system-concepts -l 51 %}.
+There are no constraints on the schemas of the two relations.
+
+In the case of overlapping attribute names, the attribute names are distinguished by prepending the relation name. e.g., The schema of $$r(\text{a}, \text{b}) \times s(\text{b}, \text{c})$$ could be written as $$r(\text{a}, \text{r.b}, \text{s.b}, \text{c} )$$.
+
+_Note: as opposed to a Cartesian-product of sets which would produce pairs of tuples, a Cartesian product of relations concatenates the tuples into a single tuple {% cite database-system-concepts -l 51 %}._
 
 ### Rename
 
-The **rename operation** ($$\rho$$) can be used to rename relations and/or attributes.
+The **rename operation** ($$\rho _{x}(E)$$) can be used to rename relations and/or attributes.
 
-$$\rho _{a/b}(R)$$ returns a relation identical to $$R$$ except attributes $$b$$ are renamed to $$a$$.
+$$E$$ is an expression that produces a relation ($$E$$ can also be a named relation or relation variable). $$x$$ is the new name of the relation.
+
+Rename applies within a relation expression. It does not create a relation variable.
+
+$$\rho _{a/b}(R)$$ returns a relation identical to $$r$$ except attributes $$b$$ are renamed to $$a$$.
+
+### Set-intersection
+
+The **set-intersection operation** ($$ r \cap s $$) returns all tuples that are only in both $$r$$ and $$s$$.
+
+$$r$$ and $$s$$ must have compatible schemas (as defined in the set-union section).
 
 ### Natural join
 
-The **natural join operation** ($$\bowtie$$) is a binary operator. The result of the natural join $$R \bowtie S$$ is a set of all combinations of tuples in $$R$$ and $$S$$ that are equal on their common attribute names.
-
-### Set operators
-
-Relations also support set operators like union, set difference, and intersection, for compatible relations (where the definition of compatible relation depends on the set operation) {% cite database-system-concepts -l 54 %}.
+The **natural join operation** ($$r \bowtie s$$) returns a set of all combinations of tuples in $$r$$ and $$s$$ that are equal on their common attribute names.
 
 ### Assignment
 
