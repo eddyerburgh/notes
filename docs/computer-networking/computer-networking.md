@@ -4,7 +4,7 @@ title: Computer networking
 description: An introduction to computer networking including the hardware and basic principles.
 has_children: true
 has_toc: false
-nav_order: 3
+nav_order: 2
 permalink: /computer-networking
 ---
 

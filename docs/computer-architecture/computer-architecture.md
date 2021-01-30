@@ -4,7 +4,7 @@ title: Computer architecture
 description: An introduction to computer architecture.
 has_children: true
 has_toc: false
-nav_order: 2
+nav_order: 1
 permalink: /computer-architecture
 ---
 

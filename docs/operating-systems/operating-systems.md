@@ -4,7 +4,7 @@ title: Operating systems
 description: An introduction to operating systems.
 has_children: true
 has_toc: false
-nav_order: 2
+nav_order: 6
 permalink: /operating-systems
 ---
 

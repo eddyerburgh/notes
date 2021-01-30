@@ -4,7 +4,7 @@ title: Data structures and algorithms
 description: An introduction to data structures and algorithms.
 has_children: true
 has_toc: false
-nav_order: 1
+nav_order: 3
 permalink: /data-structures-and-algorithms
 ---
 
