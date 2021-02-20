@@ -12,16 +12,13 @@ A collection of notes and references for self-studying computer science.
 
 ## Topics
 
+- Compilers
 - Computer architecture
 - Computer networking
 - Data structures and algorithms
 - Databases
 - Distributed systems
 - Operating systems
-
-## Planned Topics
-
-- Compilers
 
 ## References
 
