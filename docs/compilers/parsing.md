@@ -40,7 +40,7 @@ Top-down parsers build parse trees from the root to the leaves, whereas bottom-u
 
 In the context of parsing, a **grammar** is a set of productions that describes how to form valid strings according to a formal language's syntax.
 
-_Note: grammars can't describe all aspects of a language, e.g., a context-free grammar can't define that an identifier must be defined before it's used {% cite the-dragon-book -l 209 %}_
+_Note: grammars can't describe all aspects of a language, e.g., a context-free grammar can't define that an identifier must be defined before it's used {% cite the-dragon-book -l 209 %}._
 
 **Terminals** are the lexical elements used in specifying the rules for a grammar {% cite the-dragon-book -l 197 %}.
 
@@ -116,9 +116,6 @@ $$
 A \rightarrow A \alpha \ \vert \ \beta$$ becomes
 $$
 
-A' \rightarrow \alpha A' \ \vert \ \epsilon
-
-$$
 {% cite the-dragon-book -l 212 %}
 
 ### Left factoring
@@ -126,11 +123,9 @@ $$
 **Left factoring** is the process of rewriting productions that share a common prefix, it can be done to make a grammar suitable to predictive parsing {% cite the-dragon-book -l 214 %}.
 
 For example, $$A \rightarrow \alpha \beta_1  \ \vert \ \alpha \beta_2$$ becomes:
-$$
 
-A' => \beta_1 \ \vert \ \beta_2
+$$A' => \beta_1 \ \vert \ \beta_2$$
 
-$$
 {% cite the-dragon-book -l 214 %}
 
 ### Ambiguity
@@ -149,9 +144,9 @@ An LL parser is a top-down parser that parses from left to right, constructing a
 
 A grammar is guaranteed not to be LL(1) if it is any of:
 
-* Not left factored
-* Left recursive
-* Ambiguous
+- Not left factored
+- Left recursive
+- Ambiguous
 
 Even if a grammar does not meet one of these criteria, it is still not guaranteed to be LL(1).
 
@@ -202,7 +197,6 @@ An AST is a key data structure in a compiler.
 First and follow sets are used to help construct top-down and bottom-up parsers.
 
 ### First sets
-$$
 
 To compute $$First(X)$$ for all grammar symbols $$X$$:
 
