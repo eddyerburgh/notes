@@ -18,3 +18,20 @@ figure {
 .page-content .citation {
   white-space: nowrap!important;
 }
+
+body h4 {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  letter-spacing: 0.1em;
+}
+@media (min-width: 31.25rem) {
+  body h4 {
+    font-size: 16px !important;
+  }
+}
+
+// Hide H4 headings from TOC
+#markdown-toc > li > ol > li > ol {
+  display: none;
+}
