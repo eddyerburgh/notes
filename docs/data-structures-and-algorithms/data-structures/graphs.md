@@ -13,7 +13,7 @@ permalink: /data-structures-and-algorithms/data-structures/graphs
 # Graphs
 {:.no_toc}
 
-Graphs can be used to represent almost any relationship: from road networks, to social relationships, to electronic circuits. Many algorithmic problems can be solved by modelling data as a graph.
+Graphs can be used to represent almost any relationship: from road networks, to social relationships, to module dependencies. Many algorithmic problems can be solved by modelling data as a graph.
 
 ## Table of contents
 {: .no_toc }
@@ -25,7 +25,7 @@ Graphs can be used to represent almost any relationship: from road networks, to 
 
 ## Introduction
 
-A graph $$G=(V,E)$$ consists of a set of _vertices_ $$V$$ and a set of _edges_ $$E$$ {% cite algorithm-design-manual -l 145 %}.
+A graph $$G=(V,E)$$ consists of a set of vertices $$V$$ and a set of edges $$E$$ {% cite algorithm-design-manual -l 145 %}.
 
 A **vertex** is a node in a graph. An **edge** represents a path between two vertices.
 
@@ -52,7 +52,7 @@ Typical graph operations are:
 
 ## Graph properties
 
-Different graph properties affect the data structure used to represent them and the algorithms available to interact with them.
+Graph properties affect the data structure used to represent the graph and the algorithms available to interact with them.
 
 ### Undirected vs directed
 
@@ -63,11 +63,11 @@ A graph $$G=(V,E)$$ is undirected if an edge $$(x,y)$$ in set $$E$$ means that $
   <figcaption><h4>Figure: An undirected graph and a directed graph</h4></figcaption>
 </figure>
 
-Directed graphs are common when representing roads, which are often one-way only {% cite algorithm-design-manual -l 146 %}.
+Directed graphs are common when representing dependencies, which have a parent-child relationship.
 
 ### Weighted vs unweighted
 
-In a **weighted graph**, each edge is assigned a value (a weight). For example, the edge in a road network might be assigned a cost for drive time {% cite algorithm-design-manual -l 146 %}.
+In a **weighted graph** each edge is assigned a value (a weight). For example, the edge in a road network might be assigned a cost for drive time {% cite algorithm-design-manual -l 146 %}.
 
 <figure>
   <img src="{{site.baseurl}}/assets/img/data-structures-and-algorithms/data-structures/graphs/weighted-graph.svg" alt="">
@@ -110,7 +110,7 @@ In a labelled graph, each vertex is assigned a unique name. In an unlabelled gra
 There are two common ways to represent a graph $$G=(V,E)$$:
 
 - Adjacency matrix
-- Adjacency lists
+- Adjacency list
 
 ### Adjacency matrix
 
@@ -139,9 +139,7 @@ bool has_edge(int ix, int y) {
 }
 ```
 
-{% cite open-data-structures -l 249 %}
-
-`out_edges()` and `in_edges()` are $$O(n)$$ operations. An entire row/column must be checked to find the edges.
+Methods returning edges for a given node, e.g. `out_edges()`/`in_edges()`, are $$O(n)$$ operations. An entire row/column must be checked to find the edges.
 
 Another problem with adjacency matrices is that they quickly grow large. For this reason they are often impractical.
 
