@@ -24,15 +24,17 @@ permalink: /computer-architecture/instructions
 
 Instructions are the primitive operations that a computer can perform.
 
-An **ISA** (Instruction Set Architecture) is an abstract model of a computer that is used to create implementations (e.g., CPUs). x86 and ARMv8 are popular ISAs.
+An **ISA** (Instruction Set Architecture) is an abstract model of a computer that is used to create physical implementations (e.g. CPUs). x86 and ARMv8 are popular ISAs.
 
-ISAs usually include arithmetic/logic, data transfer, and branching instructions. ISAs also define storage interfaces (i.e., registers and memory). Despite some differences in syntax and operations, ISAs tend to be similar overall.
+ISAs usually include arithmetic/logic, data transfer, and branching instructions. ISAs also define storage interfaces (i.e. registers and memory). Despite some differences in syntax and operations, ISAs tend to be similar overall.
 
 **CISC** architectures attempt to minimize the number of instructions required for a program by offering a larger number of primitive instructions. x86 is an example of a CISC ISA.
 
 **RISC** architectures reduces the number of instructions with the intention of improving the efficiency of the processor. ARMv8 and RISC-V are examples of a RISC instruction set.
 
 This section uses the RV64 variant of the RISC-V ISA.
+
+An assembler converts a symbolic version of an instruction into the binary version. e.g.: add A,B to $$1000110010100000_2$$. The language is known as assembly language. The binary version is known as machine language.
 
 ## Registers
 
@@ -42,7 +44,7 @@ A **word** is the name given to a unit of access in a computer (normally 32 bits
 
 The size of registers depends on the ISA, but they usually store either a word or a doubleword.
 
-In RV64 there are 32 64-bit registers. Registers are 0-indexed and are referred to as xN where N is the register number, e.g., x1 or x31.
+In RV64 there are 32 64-bit registers. Registers are 0-indexed and are referred to as xN where N is the register number, e.g. x1 or x31.
 
 RISC-V registers are assigned purposes by convention:
 
@@ -65,7 +67,7 @@ There is an additional register which holds the address of the currently-executi
 
 Registers have faster access times and higher throughput than memory, and so registers are preferred to memory when possible {% cite P&H:RISC-V -l 180 %}.
 
-Programs are normally register-constrained, i.e., programs often have more variables than there are registers. **Spilling registers** is the process of storing less frequently used variables in memory {% cite P&H:RISC-V -l 180 %}.
+Programs are normally register-constrained, i.e. programs often have more variables than there are registers. **Spilling registers** is the process of storing less frequently used variables in memory {% cite P&H:RISC-V -l 180 %}.
 
 A **register-memory architecture** allows operations to be performed on (or from) memory. x86 is a register-memory architecture.
 
@@ -97,11 +99,11 @@ RISC-V instructions are all 32-bit. The instructions are split into several form
 
 _Note: not all ISAs use fixed-length instructions. x86, for example, has variable-length instructions._
 
-An address mode is the way that an operand is specified. RISC-V has four address modes:
+An addressing mode defines how the machine language identifies the operands of each instruction. RISC-V has four addressing modes:
 
 - **Immediate addressing**, where the operand is a constant within the instruction.
 - **Register addressing**, where the operand represents a register.
-- **Base addressing**, where the operand is at the memory location whose address is the sum of a register and a constant in the instruction (e.g., load and store).
+- **Base addressing**, where the operand is at the memory location whose address is the sum of a register and a constant in the instruction (e.g. load and store).
 - **PC-relative addressing**, where the branch address is the sum of the PC and a constant in the instruction
 
 {% cite P&H:RISC-V -l 244 %}
@@ -234,7 +236,7 @@ Load instructions copy data from memory to a register. In RISC-V, `ld` is the lo
 
 Store instructions copy data from a register to memory. In RISC-V, `sd` is the store doubleword instruction. The format of a store instruction is `op rs1, rs2, imm` where `rs1` is the register to be stored, `rs2` is the base register, and `imm` is an offset used to select the element {% cite P&H:RISC-V -l 179 %}.
 
-_Note: an **alignment restriction** is a requirement that data must be aligned in memory based on some unit, e.g., 32-bit words must start at addresses that are multiples of 4 and 64-bit words must start at addresses that are multiples of 8. RISC-V isn't byte-aligned, but MIPS is {% cite P&H:RISC-V -l 179 %}._
+_Note: an **alignment restriction** is a requirement that data must be aligned in memory based on some unit, e.g. 32-bit words must start at addresses that are multiples of 4 and 64-bit words must start at addresses that are multiples of 8. RISC-V isn't byte-aligned, but MIPS is {% cite P&H:RISC-V -l 179 %}._
 
 A signed load performs sign extension (filling bits to the left with the left-most bit of the word being load) to keep the value of numbers that are less than 64-bit. `lb` does signed load and sign extends the byte, whereas `lbu` (load byte unsigned) treats the byte unsigned and zero extends {% cite P&H:RISC-V -l 189-90 %}.
 

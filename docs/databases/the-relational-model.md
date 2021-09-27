@@ -87,7 +87,7 @@ The select predicate supports comparison operators (=, ≠, <, ≤, >, and ≥).
 
 The **project operation** $$\Pi_{\text{a}, \text{b}, ... }(\text{r})$$ returns a relation with the set of tuples from the argument relation $$r$$ with only the specified attributes remaining.
 
-Expressions involving attributes can be included in the project operation, e.g., $$\Pi_{\text{ID}, \text{name}, {\text{salary} / 12}}(\text{employee})$$ will return a tuple containing the ID, name, and monthly pay of an employee.
+Expressions involving attributes can be included in the project operation, e.g. $$\Pi_{\text{ID}, \text{name}, {\text{salary} / 12}}(\text{employee})$$ will return a tuple containing the ID, name, and monthly pay of an employee.
 
 ### Set-union
 
@@ -110,7 +110,7 @@ The **Cartesian-product operation** ($$r \times s$$) returns each tuple in $$r$$
 
 There are no constraints on the schemas of the two relations.
 
-In the case of overlapping attribute names, the attribute names are distinguished by prepending the relation name. e.g., The schema of $$r(\text{a}, \text{b}) \times s(\text{b}, \text{c})$$ could be written as $$r(\text{a}, \text{r.b}, \text{s.b}, \text{c} )$$.
+In the case of overlapping attribute names, the attribute names are distinguished by prepending the relation name. e.g. The schema of $$r(\text{a}, \text{b}) \times s(\text{b}, \text{c})$$ could be written as $$r(\text{a}, \text{r.b}, \text{s.b}, \text{c} )$$.
 
 _Note: as opposed to a Cartesian-product of sets which would produce pairs of tuples, a Cartesian product of relations concatenates the tuples into a single tuple {% cite database-system-concepts -l 51 %}._
 

@@ -39,7 +39,7 @@ The main reason for using binary is that it's simple to represent 0 and 1 as hig
 
 As of 2020, microprocessors are some of the most complicated digital systems and so this section focusses on microprocessors.
 
-A microprocessor is made up of multiple subcomponents (e.g., MMU, an instruction sequencer, caches). These subcomponents are made of the same building blocks: wires and transistors. Transistors are joined together to make larger abstractions (e.g., logic gates and flip-flops) that are used to build increasingly complex circuits {% cite cs61c-sds-notes -l 2-3 %}.
+A microprocessor is made up of multiple subcomponents (e.g. MMU, an instruction sequencer, caches). These subcomponents are made of the same building blocks: wires and transistors. Transistors are joined together to make larger abstractions (e.g. logic gates and flip-flops) that are used to build increasingly complex circuits {% cite cs61c-sds-notes -l 2-3 %}.
 
 An integrated circuit (chip) is a set of electronic circuits on a single piece of semiconductor material (normally silicone). A chip contains a number of connections to the outside world, many of which are connected to a low-voltage DC power supply (usually between 1-5 volts). The energy provided by the power is what drives the processor as it moves electric charge from one place to another. In the process energy is dissipated as heat {% cite cs61c-sds-notes -l 3 %}.
 

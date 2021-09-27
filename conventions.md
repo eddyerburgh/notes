@@ -29,9 +29,9 @@ This page details the arbitrary conventions I've chosen to follow in these notes
 
    > BGP4 supports CIDR and subnetting {% cite internet-routing-architecture --locator 101 %}.
 
-4. Place a comma after i.e. and e.g.:
+4. No comma after i.e. and e.g.:
 
-   > Each component is separated by a dot (e.g., _eng.cisco.com._).
+   > Each component is separated by a dot (e.g. _eng.cisco.com._).
 
 5. Always use an Oxford comma:
 
@@ -62,6 +62,10 @@ This page details the arbitrary conventions I've chosen to follow in these notes
 11. Define the full form of initialisms in parentheses when used for the first time:
 
     > UDP (User Datagram Protocol) is a connectionless transport protocol.
+
+12. Use key-value and client-server instead of key/value and client/server.
+
+> DHCP uses a client-server model.
 
 ## Math
 

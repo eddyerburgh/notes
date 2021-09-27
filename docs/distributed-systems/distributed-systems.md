@@ -60,7 +60,7 @@ You can monitor the performance of a system by measuring the latency and the thr
 
 **Latency** is the time it takes to perform an action. Services often make SLAs (Service Level Agreements) with their customers, which can include a maximum latency.
 
-**Throughput** is the number of actions that are completed in a specified time period (e.g., per second).
+**Throughput** is the number of actions that are completed in a specified time period (e.g. per second).
 
 Generally, you should aim for maximal throughput with acceptable latency.
 
@@ -84,7 +84,7 @@ These bottlenecks can be improved by applying scaling techniques.
 
 There are two main scaling techniques: vertical scaling and horizontal scaling.
 
-**Vertical scaling** (scaling up) involves adding more resources to a machine (i.e., adding more RAM or processing power). The downside to vertical scaling is that the price of hardware grows exponentially and quickly becomes prohibitive.
+**Vertical scaling** (scaling up) involves adding more resources to a machine (i.e. adding more RAM or processing power). The downside to vertical scaling is that the price of hardware grows exponentially and quickly becomes prohibitive.
 
 **Horizontal scaling** (scaling out) involves increasing the number of nodes in a system (often these nodes use commodity hardware).
 
@@ -111,7 +111,7 @@ Achieving strong consistency introduces new problems. Any update must be immedia
 
 When a distributed system is made up of a large number of nodes, rare failures become commonplace. Therefore, distributed systems should have fault tolerance built into their design.
 
-One aspect of fault tolerance is availability. **Availability** is "the property that a system is ready to be used immediately" {% cite distributed-systems -l 424 %}. There is always some set of failures that will mean the system is no longer available (e.g., if there are failures at multiple data centers at the same time).
+One aspect of fault tolerance is availability. **Availability** is "the property that a system is ready to be used immediately" {% cite distributed-systems -l 424 %}. There is always some set of failures that will mean the system is no longer available (e.g. if there are failures at multiple data centers at the same time).
 
 Availability is measured as a percentage of uptime. Commonly, a system might guarantee 99.99% availability (known as "four nines"), meaning that the system will only be down for 52.6 minutes per year. Systems that guarantee several nines of availability are said to be highly available.
 
@@ -135,7 +135,7 @@ One approach to virtualization is to create a runtime environment that provides 
 
 Another approach is to provide a system that layers the hardware but provides an identical interface as the hardware it's shielding. This is the approach used by many Virtual Machine Monitors, more commonly known as hypervisors.
 
-A **hypervisor** is software (or hardware) that's used to run **virtual machines**—emulations of a computer system. They are often used in data centers and in cloud computing (e.g., AWS use hypervisors to run EC2 instances) {% cite distributed-systems -l 119-20 %}.
+A **hypervisor** is software (or hardware) that's used to run **virtual machines**—emulations of a computer system. They are often used in data centers and in cloud computing (e.g. AWS use hypervisors to run EC2 instances) {% cite distributed-systems -l 119-20 %}.
 
 Virtual machines provide several benefits:
 

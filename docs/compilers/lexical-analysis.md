@@ -26,7 +26,7 @@ permalink: /compilers/lexical-analysis
 
 Lexical analysis (lexing) is the process of converting a sequence of characters into a sequence of tokens. A program that performs lexing is known as a lexer. Lexical analysis is normally the first phase of a compiler.
 
-A **token** consists of a token name and an optional value, e.g., \<identifier, x\> {% cite the-dragon-book -l 111 %}.
+A **token** consists of a token name and an optional value, e.g. \<identifier, x\> {% cite the-dragon-book -l 111 %}.
 
 A **lexeme** is a sequence of characters in the input source that matches the pattern for a token and is identified as an instance of that token {% cite the-dragon-book -l 111 %}.
 

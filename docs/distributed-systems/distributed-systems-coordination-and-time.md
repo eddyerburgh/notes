@@ -69,7 +69,7 @@ The Berkley algorithm works well for systems that don't have a UTC receiver wher
 
 A **history** is a sequence of events that occur in a distributed system.
 
-Informally, a history is said to be **totally ordered** if each event occurs one after the other. A total order can be created by ordering events according to the time each event occurred. In the case of multiple events occurring at the same time (concurrent events), the tie can be broken arbitrarily (e.g., by comparing the process ID of the event's originator) {% cite Lamport:1978:TCO %}.
+Informally, a history is said to be **totally ordered** if each event occurs one after the other. A total order can be created by ordering events according to the time each event occurred. In the case of multiple events occurring at the same time (concurrent events), the tie can be broken arbitrarily (e.g. by comparing the process ID of the event's originator) {% cite Lamport:1978:TCO %}.
 
 Informally, a history is said to be **partially ordered** if some events are not ordered relative to each other.
 
@@ -128,7 +128,7 @@ A **vector clock** is a data structure for determining the partial ordering of e
 
 Vector clocks extend on logical clocks to capture causality {% cite fidge1988timestamps -l 57 %}.
 
-With vector clocks, timestamps are represented as a vector where each index $$i$$ in the vector holds the event counter of a process $$P_i$$, e.g.,: $$[c_1, c_2, ..., c_n]$$.
+With vector clocks, timestamps are represented as a vector where each index $$i$$ in the vector holds the event counter of a process $$P_i$$, e.g.: $$[c_1, c_2, ..., c_n]$$.
 
 Let $$VC_i$$ be the vector clock of process $$P_i$$ and $$ts(m)$$ be the timestamp of message $$m$$:
 
@@ -164,7 +164,7 @@ In permission-based solutions, a process that wishes to access a resource must g
 
 ## Election algorithms
 
-Election algorithms are used to pick a node to perform a special role (e.g., a coordinator) {% cite distributed-systems -l 329 %}.
+Election algorithms are used to pick a node to perform a special role (e.g. a coordinator) {% cite distributed-systems -l 329 %}.
 
 Generally, election algorithms work by deciding which reachable node has the highest ID {% cite distributed-systems -l 329 %}.
 

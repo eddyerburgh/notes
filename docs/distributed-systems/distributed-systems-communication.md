@@ -93,7 +93,7 @@ When nodes are organized into a tree, there is a unique overlay path between eac
 
 Flooding-based multicasting is where each node forwards a message to each of its neighbors {% cite distributed-systems -l 226 %}.
 
-**Gossip protocols** (also known as epidemic protocols) are protocols for spreading information between nodes using only local information (i.e., there is no central control node for determining communication). One propagation model is the anti-entropy model where node $$P$$ picks a node $$Q$$ at random and then exchanges updates with $$Q$$ {% cite distributed-systems -l 229-30 %}.
+**Gossip protocols** (also known as epidemic protocols) are protocols for spreading information between nodes using only local information (i.e. there is no central control node for determining communication). One propagation model is the anti-entropy model where node $$P$$ picks a node $$Q$$ at random and then exchanges updates with $$Q$$ {% cite distributed-systems -l 229-30 %}.
 
 ## References
 

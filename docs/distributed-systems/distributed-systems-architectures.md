@@ -80,7 +80,7 @@ Peer-to-peer architectures are concerned with organizing processes in an overlay
 
 #### Structured peer-to-peer systems
 
-In a structured peer-to-peer system, the overlay follows a predetermined topology (e.g., a ring or a grid). The topology is used to look up data.
+In a structured peer-to-peer system, the overlay follows a predetermined topology (e.g. a ring or a grid). The topology is used to look up data.
 
 Generally, structured peer-to-peer systems use a semantic-free index to access data. Each data item maintained by the system is uniquely associated with a key, and the key is used as an index:
 

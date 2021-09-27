@@ -74,7 +74,7 @@ The HTTP protocol supports the caching of some responses. HTTP caching can signi
 
 Browsers, proxies, reverse proxies, and CDNs can all be used to cache HTTP assets.
 
-HTTP distinguishes between shared caches and private caches. Shared caches can be accessed by multiple users (e.g., a CDN) whereas private caches are user-specific (e.g., a browser) {% cite rfc7234 -l 4 %}.
+HTTP distinguishes between shared caches and private caches. Shared caches can be accessed by multiple users (e.g. a CDN) whereas private caches are user-specific (e.g. a browser) {% cite rfc7234 -l 4 %}.
 
 HTTP caches normally store cached assets to disk, with the mapping keys stored in memory.
 
@@ -168,7 +168,7 @@ Request-routing infrastructure directs user requests to the closest edge server.
   <figcaption><h4>Figure: A request to a CDN {% cite distributed-systems -l 5 %}</h4></figcaption>
 </figure>
 
-Commonly, CDNs take a pull-based approach to serving content. If an edge server is unable to fulfill the user request (e.g., if it does not have the requested content in its cache), then it must make a request to an origin server to get the content. Once the CDN has the content, it can cache the response for future use {% cite 10.1145/1842733.1842736 -l 16 %}.
+Commonly, CDNs take a pull-based approach to serving content. If an edge server is unable to fulfill the user request (e.g. if it does not have the requested content in its cache), then it must make a request to an origin server to get the content. Once the CDN has the content, it can cache the response for future use {% cite 10.1145/1842733.1842736 -l 16 %}.
 
 Some CDNs take a push-based approach, for example Netflix's Open Connect.
 

@@ -44,7 +44,7 @@ Examples of control unit outputs are signals used to control multiplexors, signa
 
 A **datapath** is a collection of functional units, registers, and buses that performs the required operations.
 
-Datapath elements are the functional units used to implement a data path (e.g., an ALU, or a register file) {% cite P&H:ARM -l 263 %}.
+Datapath elements are the functional units used to implement a data path (e.g. an ALU, or a register file) {% cite P&H:ARM -l 263 %}.
 
 ### ALU
 
@@ -64,7 +64,7 @@ Processors follow an instruction cycle from boot-up until the computer has shut 
 
 The instruction cycle at a high-level involves:
 
-1. Fetch an instruction from memory and increment PC by x (e.g., 4 for a byte-addressable system with 32-bit instructions).
+1. Fetch an instruction from memory and increment PC by x (e.g. 4 for a byte-addressable system with 32-bit instructions).
 2. Decode the instruction.
 3. Execute the instruction.
 
@@ -97,7 +97,7 @@ Pipeline registers are added between each stage to store results and additional 
 
 **Structural hazards** are when a planned instruction can't execute in the proper clock cycle because the hardware does not support the combination of instructions that are set to execute {% cite P&H:ARM -l 288 %}.
 
-**Data hazards** are when a planned instruction can't execute in the proper clock cycle because the data needed to execute the instruction is not yet available (one instruction is dependent on another), e.g., an instruction that uses data that's computed by the preceding instruction {% cite P&H:ARM -l 289 %}.
+**Data hazards** are when a planned instruction can't execute in the proper clock cycle because the data needed to execute the instruction is not yet available (one instruction is dependent on another), e.g. an instruction that uses data that's computed by the preceding instruction {% cite P&H:ARM -l 289 %}.
 
 A **pipeline stall** (also known as a bubble) is a stall in the pipeline that is done to avoid a data hazard. Stalls can be implemented by adding noop instructions to the pipeline {% cite P&H:ARM -l 291, 326 %}.
 
@@ -131,7 +131,7 @@ When the prediction is incorrect, the pipeline must be flushed and the processor
 
 ## Speculation
 
-**Speculation** is an approach where a compiler guesses at the outcome of an instruction to remove it as a dependency in executing other instructions, e.g., guess outcome of branch or speculate that a store which precedes a load does not refer to the same address (so the load can be executed before the store) {% cite P&H:ARM -l 344 %}.
+**Speculation** is an approach where a compiler guesses at the outcome of an instruction to remove it as a dependency in executing other instructions, e.g. guess outcome of branch or speculate that a store which precedes a load does not refer to the same address (so the load can be executed before the store) {% cite P&H:ARM -l 344 %}.
 
 Speculation can be wrong, so there must be a mechanism to verify a guess and to roll back the effects of speculatively executed instructions.
 
@@ -145,7 +145,7 @@ Exceptions thrown by speculatively executed instructions must also be buffered u
 
 ## Out-of-order execution
 
-Out-of-order execution is where a pipelined processor executes instructions in a different order to the order in which they are written in, so that the processor can make use of otherwise-wasted instruction cycles (e.g., where an instruction is blocked waiting for a memory load) {% cite P&H:ARM -l 350 %}.
+Out-of-order execution is where a pipelined processor executes instructions in a different order to the order in which they are written in, so that the processor can make use of otherwise-wasted instruction cycles (e.g. where an instruction is blocked waiting for a memory load) {% cite P&H:ARM -l 350 %}.
 
 ## SIMD
 

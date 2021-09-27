@@ -49,7 +49,7 @@ The most significant bit is the _sign bit_ {% cite IEEE754 -l 9 %}.
 
 The 8-bit _biased exponent_ field stores the exponent in biased notation. The bits represent an unsigned integer. The exponent is calculated by subtracting the bias ($$127$$) from the stored value. $$\text{exponent} = \text{biased_exponent} - 127$$ {% cite IEEE754 -l 9,13 %}.
 
-The 23-bit _trailing significand_ field represents the fractional part of the significand (i.e., the part that comes after the binary point). The significand has an inferred integer part of 1, unless the exponent fields are all 0s or all 1s.
+The 23-bit _trailing significand_ field represents the fractional part of the significand (i.e. the part that comes after the binary point). The significand has an inferred integer part of 1, unless the exponent fields are all 0s or all 1s.
 
 For normal numbers, the value of the trailing significand is an unsigned integer where $$\text{significand} = 1 + 2^{-23} \times \text{trailing_significand_value} $$.
 

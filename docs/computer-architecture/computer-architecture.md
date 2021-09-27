@@ -87,7 +87,7 @@ There are often two passes in an assembler:
 1. Build a symbol table and expand pseudoinstructions.
 2. Generate machine code (using symbol table to resolve local labels).
 
-Assembly programs can contains assembler directives that give directions to the assembler but do not produce code. e.g., `.text` meaning put subsequent items in the text segment, `.data` meaning put subsequent items in the data segment, and `.global symbol` declares a symbol that can be referenced from other files.
+Assembly programs can contains assembler directives that give directions to the assembler but do not produce code. e.g. `.text` meaning put subsequent items in the text segment, `.data` meaning put subsequent items in the data segment, and `.global symbol` declares a symbol that can be referenced from other files.
 
 ### Linker
 

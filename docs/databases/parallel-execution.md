@@ -177,7 +177,7 @@ The Wound-wait ("Young waits for old") strategy is where if $$T_i$$ has higher p
 
 ### Multiple granularity locking
 
-In **multiple granularity locking**, there is a lock hierarchy for different granularities of the DB. e.g., table, tuple, attribute.
+In **multiple granularity locking**, there is a lock hierarchy for different granularities of the DB. e.g. table, tuple, attribute.
 
 **Intention locks** allow a higher-level node to be locked in either shared or exclusive mode. If a node is in an intention mode, then explicit locking is being done at a lower level in the lock tree.
 
@@ -197,7 +197,7 @@ Hierarchical locks minimize the number of locks a transaction must acquire to do
 
 **Timestamp ordering** is a class of optimistic concurrency control protocols. Timestamp ordering protocols use timestamps assigned to transactions to determine the serializability order.
 
-Each transaction $$T_i$$ is assigned a unique fixed timestamp that is monotonically increasing. Let $$\text{TS}(T_i)$$ be the timestamp assigned to $$T_i$$. Different schemes assign timestamps at different times during the transaction (e.g., when the transaction starts or when the transaction completes).
+Each transaction $$T_i$$ is assigned a unique fixed timestamp that is monotonically increasing. Let $$\text{TS}(T_i)$$ be the timestamp assigned to $$T_i$$. Different schemes assign timestamps at different times during the transaction (e.g. when the transaction starts or when the transaction completes).
 
 If $$\text{TS}(T_i) \lt \text{TS}(T_j)$$ the DBMS must ensure that the execution schedule is equivalent to a serial schedule where $$T_i$$ appears before $$T_j$$.
 

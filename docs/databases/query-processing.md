@@ -204,7 +204,7 @@ Some statistics for relation $$R$$ might include:
 
 Generally, there is a background collector that will scan data periodically, derive statistics, and store them in an internal system catalog.
 
-The **selectivity** of a given predicate is the number of tuples that qualify for a predicate. The formula to estimate this depends on the type of predicate (e.g., equality, range, negation, conjunction, disjunction). To improve the accuracy of selectivity, you need to estimate the number of tuples for a given value attribute.
+The **selectivity** of a given predicate is the number of tuples that qualify for a predicate. The formula to estimate this depends on the type of predicate (e.g. equality, range, negation, conjunction, disjunction). To improve the accuracy of selectivity, you need to estimate the number of tuples for a given value attribute.
 
 One approach to calculate selectivity is to create a smaller temporary table by selecting a sample from the source table. You can then calculate selectivity by doing a sequential scan on the temporary table and counting the occurrences of the value.
 

@@ -31,7 +31,7 @@ Code points are represented as U+PREFIX, where PREFIX is the code point in hexad
 
 **Glyphs** are the shapes that characters can take when rendered and a **font** is a collection of glyphs with a mapping from Unicode characters to glyphs. Unicode itself doesn't specify glyphs, it only deals with abstract characters {% cite unicode-13 -l 15 %}.
 
-Unicode allows dynamic composition where new forms with modifying marks can be created from a combination of base characters followed by combining characters, e.g., ộ can be represented as:
+Unicode allows dynamic composition where new forms with modifying marks can be created from a combination of base characters followed by combining characters, e.g. ộ can be represented as:
 
 1. U+006f (o) + U+0302 (◌̂) + U+0323 (◌̣)
 2. U+006f (o) + U+0323 (◌̣) + U+0302 (◌̂)
@@ -41,7 +41,7 @@ Unicode allows dynamic composition where new forms with modifying marks can be c
 
 The Unicode Standard provides mappings from static precomposed text elements to equivalent dynamically composed sequences of characters. This makes it so that different character sequences can be considered equivalent in string comparisons {% cite unicode-13 -l 23 %}.
 
-A **grapheme cluster** is a text element that users would perceive as a single character (i.e., "any combining character sequence that contains only nonspacing combining marks"). Graphene clusters are intended to be language-independent {% cite unicode-13 -l 60 %}.
+A **grapheme cluster** is a text element that users would perceive as a single character (i.e. "any combining character sequence that contains only nonspacing combining marks"). Graphene clusters are intended to be language-independent {% cite unicode-13 -l 60 %}.
 
 As well as defining the abstract characters, Unicode also defines character semantics that include properties like casing, combination, and directionality (there are over 100 different character properties) {% cite unicode-13 -l 18 %}.
 

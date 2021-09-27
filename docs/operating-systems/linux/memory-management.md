@@ -245,7 +245,7 @@ The majority of allocations in the kernel use the `GFP_KERNEL` flag which create
 
 **Slab allocation** is a mechanism for efficient memory allocation of objects. Slab allocation reduces memory fragmentation compared to earlier approaches {% cite lkd -l 246 %}.
 
-In the kernel, a slab allocator divides objects into groups called caches. Each cache stores a different object (e.g., one cache for `task_struct` structs, another for `inode` structs) {% cite lkd -l 246 %}.
+In the kernel, a slab allocator divides objects into groups called caches. Each cache stores a different object (e.g. one cache for `task_struct` structs, another for `inode` structs) {% cite lkd -l 246 %}.
 
 Caches are divided into slabs. A **Slab** consists of one or more contiguous pages that contains a number of objects of the data structure that's being cached {% cite lkd -l 246 %}.
 

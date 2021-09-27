@@ -31,7 +31,7 @@ There were several design goals for IPv6:
 - Reduce the size of routing tables.
 - Speed up packet processing.
 - Improve security.
-- Support different types of service, e.g., VoIP.
+- Support different types of service, e.g. VoIP.
 - Enable host roaming without changing IP address.
 - Enable protocol to evolve in future.
 - Permit both protocols to coexist for long period of time.
@@ -74,7 +74,7 @@ The main header:
 
 The _Version_ field is always `6`. Routers use this field to determine whether to process packets as IPv4 packets or IPv6 packets.
 
-The _Traffic Class_ field describes the class of service, e.g., VoIP.
+The _Traffic Class_ field describes the class of service, e.g. VoIP.
 
 The _Flow Label_ field is used to mark groups of packets as having the same requirements.
 

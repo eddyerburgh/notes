@@ -148,7 +148,7 @@ from
 
 ```
 
-The from clause defines which table (rowset) to read the data from. If multiple tables are defined (e.g., `from employees, candidates`) then the rowset is a Cartesian product of the tables.
+The from clause defines which table (rowset) to read the data from. If multiple tables are defined (e.g. `from employees, candidates`) then the rowset is a Cartesian product of the tables.
 
 The where clause takes a predicate and applies it to the result table:
 
@@ -243,7 +243,7 @@ order by
 
 ### Subqueries
 
-SQL supports nested subqueries, i.e., select statements nested within select statement.
+SQL supports nested subqueries, i.e. select statements nested within select statement.
 
 In the where clause:
 

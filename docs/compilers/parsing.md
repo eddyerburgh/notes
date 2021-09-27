@@ -40,7 +40,7 @@ Top-down parsers build parse trees from the root to the leaves, whereas bottom-u
 
 In the context of parsing, a **grammar** is a set of productions that describes how to form valid strings according to a formal language's syntax.
 
-_Note: grammars can't describe all aspects of a language, e.g., a context-free grammar can't define that an identifier must be defined before it's used {% cite the-dragon-book -l 209 %}._
+_Note: grammars can't describe all aspects of a language, e.g. a context-free grammar can't define that an identifier must be defined before it's used {% cite the-dragon-book -l 209 %}._
 
 **Terminals** are the lexical elements used in specifying the rules for a grammar {% cite the-dragon-book -l 197 %}.
 
@@ -134,11 +134,11 @@ An ambiguous grammar produces more than one parse tree for a given sentence {% c
 
 Ambiguous grammars are bad since they leave the meaning of the program undefined.
 
-One way to remove ambiguity is to rewrite grammar unambiguously. Another approach is to use disambiguating declarations. The most popular forms are associativity declarations and precedence declarations, e.g., to declare left associativity in bison: `%left +`.
+One way to remove ambiguity is to rewrite grammar unambiguously. Another approach is to use disambiguating declarations. The most popular forms are associativity declarations and precedence declarations, e.g. to declare left associativity in bison: `%left +`.
 
 ### LL grammar
 
-An **LL(k) grammar** is a grammar that can be parsed by an LL parser with k tokens of lookahead. e.g., LL(1) grammar can be parsed by an LL parser with 1 token lookahead.
+An **LL(k) grammar** is a grammar that can be parsed by an LL parser with k tokens of lookahead. e.g. LL(1) grammar can be parsed by an LL parser with 1 token lookahead.
 
 An LL parser is a top-down parser that parses from left to right, constructing a left-most derivation.
 

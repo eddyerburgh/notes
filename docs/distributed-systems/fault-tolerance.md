@@ -29,7 +29,7 @@ In large distributed systems failures are a common occurrence, so fault toleranc
 
 Availability, reliability, and recoverability are all important concepts in fault tolerance.
 
-**Availability** is "the property that a system is ready to be used immediately". It's usually measured as a percentage of uptime (e.g., 99.99%) {% cite distributed-systems -l 424 %}.
+**Availability** is "the property that a system is ready to be used immediately". It's usually measured as a percentage of uptime (e.g. 99.99%) {% cite distributed-systems -l 424 %}.
 
 **Reliability** is the property that a system can run continuously without failure.
 
@@ -90,7 +90,7 @@ There are several types of redundancy:
 - Time redundancy
 - Physical redundancy
 
-With **information redundancy** extra bits are used to provide the ability to recover from flipped/incorrectly read bits (e.g., checksums) {% cite distributed-systems -l 431 %}.
+With **information redundancy** extra bits are used to provide the ability to recover from flipped/incorrectly read bits (e.g. checksums) {% cite distributed-systems -l 431 %}.
 
 With **time redundancy** operations are retried in the case of timeouts {% cite distributed-systems -l 431 %}.
 
@@ -319,7 +319,7 @@ One downsides to backward recovery is that checkpointing (saving the state) can 
 
 Normally checkpointing is performed by each node. Together, each checkpoint builds a distributed snapshot of a consistent global state {% cite distributed-systems -l 493 %}.
 
-A **distributed snapshot** is a consistent global state, i.e., there will be no misnomers like process $$P$$ receiving message $$M$$, but no recording of message $$M$$ being sent to process $$P$$ {% cite distributed-systems -l 494 %}.
+A **distributed snapshot** is a consistent global state, i.e. there will be no misnomers like process $$P$$ receiving message $$M$$, but no recording of message $$M$$ being sent to process $$P$$ {% cite distributed-systems -l 494 %}.
 
 To recover from a failure, processes can recreate the state either locally or globally by using the checkpoints of each process {% cite distributed-systems -l 493 %}.
 

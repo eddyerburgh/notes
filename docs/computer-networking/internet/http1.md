@@ -57,7 +57,7 @@ To solve this, HTTP/1.1 supports **persistent connections**. The TCP connection 
 
 It's also possible to pipeline requests (send 2 requests at the same time) {% cite computer-networks -l 684 %}.
 
-Connections are typically closed after a short time (e.g., 60 seconds) to avoid servers holding too many connections open {% cite computer-networks -l 685 %}.
+Connections are typically closed after a short time (e.g. 60 seconds) to avoid servers holding too many connections open {% cite computer-networks -l 685 %}.
 
 ## HTTP Methods
 
@@ -132,13 +132,13 @@ In HTTP, a **cache** is defined as the cache entries and the program that manage
 
 _Vary_ headers can be used to create secondary cache keys {% cite rfc7234 -l 9-10 %}.
 
-HTTP has shared caches and private caches. **Shared caches** can be accessed by multiple users whereas **private caches** are user-specific (e.g., a browser). Responses can be set to be cacheable for private caches only with the _Cache-Control_ _private_ directive {% cite rfc7234 -l 4 %}.
+HTTP has shared caches and private caches. **Shared caches** can be accessed by multiple users whereas **private caches** are user-specific (e.g. a browser). Responses can be set to be cacheable for private caches only with the _Cache-Control_ _private_ directive {% cite rfc7234 -l 4 %}.
 
 A cache entry can be either fresh or stale. "A fresh response is one whose age has not yet exceeded its freshness lifetime. Conversely, a stale response is one where it has" {% cite rfc7234 -l 11 %}.
 
-The **freshness lifetime** of a response is the time between the generation of the response by an origin server and the expiration time of the response. Explicit expiration times can be set with HTTP headers (e.g., the _Cache-Control_ _max-age_ directive), but an expiration time can be implicitly calculated if the response is missing the required headers and the response is considered cacheable {% cite rfc7234 -l 11 %}.
+The **freshness lifetime** of a response is the time between the generation of the response by an origin server and the expiration time of the response. Explicit expiration times can be set with HTTP headers (e.g. the _Cache-Control_ _max-age_ directive), but an expiration time can be implicitly calculated if the response is missing the required headers and the response is considered cacheable {% cite rfc7234 -l 11 %}.
 
-_Note: a cacheable response is defined as a response with a cacheable request method (e.g., GET), and either a cacheable status code (e.g., 200, 301, 404) or a header marking the request as cacheable (e.g., with the public response directive) {% cite rfc7234 -l 13 %}._
+_Note: a cacheable response is defined as a response with a cacheable request method (e.g. GET), and either a cacheable status code (e.g. 200, 301, 404) or a header marking the request as cacheable (e.g. with the public response directive) {% cite rfc7234 -l 13 %}._
 
 A fresh response can be returned to a client by a cache without the cache contacting the origin server. A stale response can be served if the origin server returns an error, or while the cache is revalidating a request (using the _stale-if-error_ and _stale-while-revalidate_ directives) {% cite rfc7234 -l 11 15 %}{% cite rfc5861 -l 2 %}.
 

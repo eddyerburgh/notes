@@ -23,13 +23,13 @@ permalink: /compilers
 
 ## Introduction
 
-A compiler takes a program as input and produces an executable (e.g., assembly code code or bytecode).
+A compiler takes a program as input and produces an executable (e.g. assembly code code or bytecode).
 
 A compiler generally has five phases:
 
 1. Lexical analysis
 2. Parsing
-3. Semantic analysis (e.g., types and scope rules)
+3. Semantic analysis (e.g. types and scope rules)
 4. Optimization
 5. Code generation (translation)
 

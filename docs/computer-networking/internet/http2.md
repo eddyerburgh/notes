@@ -131,7 +131,7 @@ The last frame in a sequence has its END_STREAM flag set. END_STREAM puts the st
 
 HTTP2 uses pseudoheaders that begins with a colon (:) to convey metadata like the target URI (:path), the HTTP method (:method), and the status code of the response (:status) {% cite rfc7540 -l 54 %}.
 
-HTTP/2 connections are persistent, and it's expected that a client won't close a connection until it determines that no further communication is necessary (e.g., if a user navigates away from a webpage). Servers should maintain connections for as long as possible, but are allowed to close connections if necessary (e.g., if a server is running low on memory) {% cite rfc7540 -l 65 %}.
+HTTP/2 connections are persistent, and it's expected that a client won't close a connection until it determines that no further communication is necessary (e.g. if a user navigates away from a webpage). Servers should maintain connections for as long as possible, but are allowed to close connections if necessary (e.g. if a server is running low on memory) {% cite rfc7540 -l 65 %}.
 
 ## Frames
 

@@ -27,7 +27,7 @@ A DB is represented by a number of on-disk files.
 
 A file normally includes a file header and a sequence of records, which are then mapped to disk blocks. A block can contain several records depending on the DB schema and physical organization {% cite database-system-concepts6 -l 451 %}.
 
-A **data dictionary** stores table metadata (e.g., table name, row count). Often, data dictionaries are implemented as tables themselves {% cite database-system-concepts6 -l 463 %}.
+A **data dictionary** stores table metadata (e.g. table name, row count). Often, data dictionaries are implemented as tables themselves {% cite database-system-concepts6 -l 463 %}.
 
 _Note: For simplicity, these notes assume that a record is no larger than a block and that each record is entirely contained within one block, but it's possible to support larger records._
 
@@ -37,13 +37,13 @@ In **fixed-length records**, fields start and ends at the same place in each rec
 
 Typically, deletion would involve leaving open space that was occupied by the deleted record, which is only written to when a new record is inserted. Deleted record spaces can be stored in a free list (a linked list of addresses) {% cite database-system-concepts6 -l 454 %}.
 
-In **variable-length records**, fields can start and end at different places in different records (e.g., a `varchar` field).
+In **variable-length records**, fields can start and end at different places in different records (e.g. a `varchar` field).
 
 One approach to handle variable-length records is to store records of the same size in the same block. The alternative is to support variable-length records in the same block {% cite database-system-concepts6 -l 452 %}.
 
 Variable-length records usually have two parts: an initial part with fixed-length attributes, also containing \<offset, length\> data for the variable-length parts. Followed by variable-length values (sometimes records also contain a null bitmap indicating which values are null) {% cite database-system-concepts6 -l 456 %}.
 
-The **slotted-page structure** is commonly used for storing variable-length records in a block. A block using slotted-page structure includes a header containing metadata (e.g., number of record entries, the end of free space in the block, a list containing the location and size of each record). Records are then placed contiguously in the block from the end of the block. So the free space in the block is between the final entry in the header array and the first record {% cite database-system-concepts6 -l 456 %}.
+The **slotted-page structure** is commonly used for storing variable-length records in a block. A block using slotted-page structure includes a header containing metadata (e.g. number of record entries, the end of free space in the block, a list containing the location and size of each record). Records are then placed contiguously in the block from the end of the block. So the free space in the block is between the final entry in the header array and the first record {% cite database-system-concepts6 -l 456 %}.
 
 <figure>
   <img src="{{site.baseurl}}/assets/img/databases/storage/slotted-page-structure.svg" alt="">
@@ -142,7 +142,7 @@ A nonunique search key occurs when multiple records can have the same search key
 
 Nonunique search keys make deletions less efficient in the case of duplicates because in the worst-case each duplicate would need to be checked.
 
-One solution is to make search keys unique by creating a composite search key containing the original search key and a **uniquifier attribute** which makes the search key unique, e.g., a pointer to the record {% cite database-system-concepts6 -l 497-8 %}.
+One solution is to make search keys unique by creating a composite search key containing the original search key and a **uniquifier attribute** which makes the search key unique, e.g. a pointer to the record {% cite database-system-concepts6 -l 497-8 %}.
 
 #### Indexing strings
 

@@ -27,7 +27,7 @@ This section is about the process address space and how it's implemented in Linu
 
 The process address space is the virtual memory addressable by a process {% cite lkd -l 305 %}.
 
-Each process is given a flat 32 or 64-bit address space. Normally the address space is unique to each process, although it can be shared between processes (e.g., with threads).
+Each process is given a flat 32 or 64-bit address space. Normally the address space is unique to each process, although it can be shared between processes (e.g. with threads).
 
 A process doesn't have permission to access all memory. The area of legal addresses are called memory areas. A process can dynamically add and remove memory areas via the kernel {% cite lkd -l 306 %}.
 

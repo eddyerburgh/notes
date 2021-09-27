@@ -36,7 +36,7 @@ Domains can be represented as a tree.
 
 Top-level domains are run by registrars, appointed by ICANN (The Internet Corporation for Assigned Names and Numbers). Getting a domain name normally involves paying the registrar an annual fee {% cite computer-networks -l 612-3 %}.
 
-A domain is named from the path to the root. Each component is separated by a dot (e.g., _eng.cisco.com._). Domain names can be absolute or relative. Absolute domain names end with a period, relative domain names do not. Domain names are case sensitive {% cite computer-networks -l 615 %}.
+A domain is named from the path to the root. Each component is separated by a dot (e.g. _eng.cisco.com._). Domain names can be absolute or relative. Absolute domain names end with a period, relative domain names do not. Domain names are case sensitive {% cite computer-networks -l 615 %}.
 
 A domain controls how it allocates domains that are under it.
 

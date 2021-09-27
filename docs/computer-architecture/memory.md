@@ -38,9 +38,9 @@ A modern memory system is made up of multiple components implemented in hardware
 
 Performance is improved by exploiting locality of reference. **Locality of reference** (the **principle of locality**) is the tendency of well-written programs to access a small portion of their address space at one time {% cite P&H:ARM -l 388 %}.
 
-**Temporal locality** is the tendency of programs to access memory that has been recently accessed (e.g., a variable that is repeatedly referenced) {% cite P&H:ARM -l 388 %}.
+**Temporal locality** is the tendency of programs to access memory that has been recently accessed (e.g. a variable that is repeatedly referenced) {% cite P&H:ARM -l 388 %}.
 
-**Spatial locality** is the tendency of programs to access memory that is close to recently accessed memory (e.g., when iterating through an array) {% cite P&H:ARM -l 388 %}.
+**Spatial locality** is the tendency of programs to access memory that is close to recently accessed memory (e.g. when iterating through an array) {% cite P&H:ARM -l 388 %}.
 
 Loops are an example of a construct that expresses both temporal and spatial locality {% cite P&H:ARM -l 389 %}.
 
@@ -452,7 +452,7 @@ Most OSes provide memory protection to control memory access.
 To support memory protection in virtual memory, the processor must:
 
 1. Offer at least two modes to indicate whether the running process is a user process or a supervisor process
-2. Provide a portion of processor state that a user process can read but not write (e.g., the TLB, the kernel mode bit, page table pointer). To write to this state the OS must use special instructions that can only run in supervisor mode.
+2. Provide a portion of processor state that a user process can read but not write (e.g. the TLB, the kernel mode bit, page table pointer). To write to this state the OS must use special instructions that can only run in supervisor mode.
 3. Provide a mode for the processor to switch between user mode and supervisor mode. User-to-supervisor switching is normally implemented with a system call exception, and supervisor-to-user switching is normally done using a special return instruction.
 
 {% cite P&H:ARM -l 459 %}
