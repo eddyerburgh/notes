@@ -20,14 +20,14 @@ figure {
 }
 
 body h4 {
-  font-size: 14px !important;
+  font-size: 15px !important;
   font-weight: 500 !important;
   text-transform: none !important;
-  letter-spacing: 0.1em;
+  letter-spacing: normal!important;
 }
 @media (min-width: 31.25rem) {
   body h4 {
-    font-size: 16px !important;
+    font-size: 17px !important;
   }
 }
 
