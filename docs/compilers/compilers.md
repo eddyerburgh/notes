@@ -34,3 +34,5 @@ A compiler generally has five phases:
 5. Code generation (translation)
 
 These notes cover the five phases.
+
+Many compilers are separated into a frontend and a backend. The frontend typically translates the source program into an IR (intermediate representation), the backend translates IR into target output languages. LLVM uses the frontend/backend concept to enable user-provided frontends to access the LLVM toolchain for optimization and codegen.
