@@ -10,10 +10,10 @@ permalink: /distributed-systems/data-processing
 
 <!-- prettier-ignore-start -->
 
-# Data processing
+# Distributed data processing
 {:.no_toc}
 
-Distributed data processing frameworks make it possible to perform large-scale data computations in a reasonable amount of time.
+Distributed data processing frameworks enable large-scale computations in a reasonable amount of time.
 
 ## Table of contents
 {: .no_toc }
@@ -23,7 +23,15 @@ Distributed data processing frameworks make it possible to perform large-scale d
 
 <!-- prettier-ignore-end -->
 
-## MapReduce
+## Batch processing
+
+**Batch processing** is where a computer runs batches of jobs without requiring human interaction. Batch jobs are typically short-lived, regularly scheduled, and operate on bounded sets of data.
+
+Batch jobs can be scheduled at regular intervals as part of data pipelines using tools like Apache Airflow, which creates a DAG of tasks to execute based on task dependencies.
+
+Batch processing is often contrasted with stream processing.
+
+### MapReduce
 
 MapReduce is programming pattern and system developed at Google to perform data manipulation on large datasets across distributed commodity devices.
 
@@ -59,7 +67,7 @@ def reduce(word, partialCounts):
 
 The MapReduce paper was extremely influential when it was published in 2004. An open-source implementation of MapReduce called Hadoop was developed and it quickly became popular in companies that handled large datasets. MapReduce has since been replaced at Google by other systems, and Hadoop is now losing ground to newer solutions like Apache Spark.
 
-## Spark
+### Spark
 
 Spark is a distributed computing framework that can be seen as a successor to MapReduce. It's widely used for Big Data computations.
 
@@ -78,6 +86,24 @@ Spark differentiates between wide dependencies and narrow dependencies. Narrow d
 Since being released, Spark has introduced another abstraction: the DataFrame. DataFrames organize data into named columns (see [Spark SQL, DataFrames and Datasets Guide](https://spark.apache.org/docs/latest/sql-programming-guide.htm)).
 
 Spark as described in the original paper didn't work well with stream processing, but Spark Streaming was later created to add support for stream processing.
+
+## Stream processing
+
+**Stream processing** involves continuously processing unbounded data. Data is normally separated into time-based windows of a given length, which is then processed to produce a result.
+
+Streaming enables low-latency results.
+
+### Streaming windows
+
+**Streaming windows** are finite, usually time-based, segments of data that are grouped and then processed together into a result.
+
+Three common window patterns:
+
+- **Sliding windows**—fixed size windows with a slide period (windows may overlap). e.g. 60m windows created every 1m.
+- **Fixed windows**—fixed-sized and generally aligned (no overlapping). e.g. 30m window. Fixed windows are a special case of sliding windows.
+- **Session windows**—windows that capture a period of activity. They are defined by a timeout gap. Any events that occur within the timeout of each other are grouped.
+
+{% cite google-43864 -l 1794 %}
 
 ## References
 
