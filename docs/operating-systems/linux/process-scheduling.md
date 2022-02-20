@@ -501,7 +501,7 @@ Kernel preemption can occur:
 
 ## Real-time scheduling policies
 
-Linux includes two real-time scheduling policies: `SCHED_FIFO`, and `SCHED_RE`. These policies are managed by a real-time scheduler (defined in [kernel/sched_rt.c](https://elixir.bootlin.com/linux/v2.6.39.4/source/kernel/sched_rt.c)), rather than by the CFS {% cite lkd -l 64 %}.
+Linux includes two real-time scheduling policies: `SCHED_FIFO`, and `SCHED_RR`. These policies are managed by a real-time scheduler (defined in [kernel/sched_rt.c](https://elixir.bootlin.com/linux/v2.6.39.4/source/kernel/sched_rt.c)), rather than by the CFS {% cite lkd -l 64 %}.
 
 `SCHED_FIFO` is a first-in-first-out scheduler that doesn’t use timeslices. A `SCHED_FIFO` task is scheduled before any `SCHED_NORMAL` tasks. "Only a higher priority `SCHED_FIFO` or `SCHED_RR` can preempt a `SCHED_FIFO` task". A `SCHED_FIFO` task runs until it blocks or yields the processor. `SCHED_FIFO` with the same priority run round-robin style {% cite lkd -l 64 %}.
 
