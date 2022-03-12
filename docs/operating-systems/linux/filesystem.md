@@ -13,7 +13,9 @@ permalink: /operating-systems/linux/filesystem
 # Filesystem
 {:.no_toc}
 
-The filesystem is a familiar abstraction. This section is about how Linux provides a consistent filesystem and how it schedules I/O operations.
+The filesystem is a well-known abstraction that is valuable to deeply understand.
+
+This section focusses on the Linux filesystem and how it schedules I/O operations.
 
 ## Table of contents
 {: .no_toc }
@@ -23,11 +25,9 @@ The filesystem is a familiar abstraction. This section is about how Linux provid
 
 <!-- prettier-ignore-end -->
 
-## The virtual filesystem
+## VFS
 
-The VFS (Virtual FileSystem ) is a subsystem that implements the file and filesystem-related interfaces. All filesystems rely on the VFS. VFS enables different filesystems on different media to interoperate {% cite lkd -l 261 %}.
-
-## Filesystem Abstraction Layer
+The VFS (Virtual FileSystem) is a subsystem that implements the file and filesystem-related interfaces. All filesystems rely on the VFS. VFS enables different filesystems on different media to interoperate {% cite lkd -l 261 %}.
 
 Linux implements an abstraction layer around its low-level filesystem interface. Nothing in the kernel needs to understand the details of the filesystems, except the filesystems themselves.
 
@@ -53,19 +53,21 @@ Unix historically provided four filesystem abstractions:
 - inodes
 - Mount points
 
-A **filesystem** is a store of data that follows a specified structure. "Filesystems contain files, directories, and asssociated control information". Typical operations are insertion, deletion, and mounting. "In Unix, filesystems are mounted at a specific mount point in a global hierarchy known as a namespace". This enables mounted filesystems to appear as a single tree. This is different from the behavior in Windows, which breaks the filesystem into drive letters such as `C:` {% cite lkd -l 263 %}.
+A **filesystem** is the method and data structures that an OS uses to control how data is stored and received. Filesystems contain files, directories, and associated information. "In Unix, filesystems are mounted at a specific mount point in a global hierarchy known as a namespace". This enables mounted filesystems to appear as a single tree. This is different from the behavior in Windows, which breaks the filesystem into drive letters such as `C:` {% cite lkd -l 263 %}.
 
-A **file** is an ordered string of bytes. The first byte is the beginning of the file, the last byte is the end of the file. Files are assigned human-readable names for identification. Typical file operations are read, write, create, and delete {% cite lkd -l 263-4 %}.
+A **file** is an ordered string of bytes. The first byte is the beginning of the file and the last byte is the end of the file. Files are assigned human-readable names for identification {% cite lkd -l 263-4 %}.
 
-Files are organized into **directories**. "A directory is analogous to a folder and usually contains related files". Directories can contain subdirectories, which can form a path, e.g., /home/edd/workspace. The root ("/") directory, the edd directory, and the workspace directory are all directory entries, called _dentries_. In Unix, directories are files that list metadata about the files contained in the directory {% cite lkd -l 264 %}.
+A directory is an organizational structure that can contain files and subdirectories. In Unix, directories are files that list metadata about the files contained in the directory {% cite lkd -l 264 %}.
 
 Unix systems separate the concept of a file from its metadata, which is stored in a separate data structure: an inode (short for index node).
 
 These parts combine with the file system's control information, which is stored in a superblock. The **superblock** data structure contains information about the entire filesystem, sometimes known as the filesystem metadata {% cite lkd -l 264 %}.
 
+A **mount point** is a directory in a currently accessible filesystem tree in which an additional filesystem is attached.
+
 VFS works based on these concepts, but it doesn't require the filesystem to implement them on-disk. VFS works with non-Unix filesystems like FAT by having the FAT filesystem code generate the data structures for inodes and files in-memory from the data that's stored physically {% cite lkd -l 264 %}.
 
-## VFS Objects and Their Data Structures
+## VFS Objects
 
 The primary object types of VFS are:
 
@@ -73,8 +75,6 @@ The primary object types of VFS are:
 - `inode`
 - `dentry`
 - `file`
-
-"A dentry represents a component in a path, which might include a regular file. In other words, a dentry is not the same as a directory, but a directory is just another kind of file" {% cite lkd -l 265 %}.
 
 Each of these primary objects contains an operations object, which describe the methods the kernel can operate against the primary objects:
 
@@ -97,48 +97,48 @@ The superblock is represented by the `super_block` struct:
 
 ```c
 struct super_block {
-  struct list_head s_list; /* list of all superblocks */
-  dev_t s_dev; /* identifier */
-  unsigned long s_blocksize; /* block size in bytes */
-  unsigned char s_blocksize_bits; /* block size in bits */
-  unsigned char s_dirt; /* dirty flag */
-  unsigned long long s_maxbytes; /* max file size */
-  struct file_system_type s_type; /* filesystem type */
-  struct super_operations s_op; /* superblock methods */
-  struct dquot_operations *dq_op; /* quota methods */
-  struct quotactl_ops *s_qcop; /* quota control methods */
-  struct export_operations *s_export_op; /* export methods */
-  unsigned long s_flags; /* mount flags */
-  unsigned long s_magic; /* filesystem’s magic number */
-  struct dentry *s_root; /* directory mount point */
-  struct rw_semaphore s_umount; /* unmount semaphore */
-  struct semaphore s_lock; /* superblock semaphore */
-  int s_count; /* superblock ref count */
-  int s_need_sync; /* not-yet-synced flag */
-  atomic_t s_active; /* active reference count */
-  void *s_security; /* security module */
-  struct xattr_handler **s_xattr; /* extended attribute handlers */
-  struct list_head s_inodes; /* list of inodes */
-  struct list_head s_dirty; /* list of dirty inodes */
-  struct list_head s_io; /* list of writebacks */
-  struct list_head s_more_io; /* list of more writeback */
-  struct hlist_head s_anon; /* anonymous dentries */
-  struct list_head s_files; /* list of assigned files */
-  struct list_head s_dentry_lru; /* list of unused dentries */
-  int s_nr_dentry_unused; /* number of dentries on list */
-  struct block_device *s_bdev; /* associated block device */
-  struct mtd_info *s_mtd; /* memory disk information */
-  struct list_head s_instances; /* instances of this fs */
-  struct quota_info s_dquot; /* quota-specific options */
-  int s_frozen; /* frozen status */
-  wait_queue_head_t s_wait_unfrozen; /* wait queue on freeze */
-  char s_id[32]; /* text name */
-  void *s_fs_info; /* filesystem-specific info */
-  fmode_t s_mode; /* mount permissions */
-  struct semaphore s_vfs_rename_sem; /* rename semaphore */
-  u32 s_time_gran; /* granularity of timestamps */
-  char *s_subtype; /* subtype name */
-  char *s_options; /* saved mount options */
+  struct list_head s_list; // list of all superblocks
+  dev_t s_dev; // identifier
+  unsigned long s_blocksize; // block size in bytes
+  unsigned char s_blocksize_bits; // block size in bits
+  unsigned char s_dirt; // dirty flag
+  unsigned long long s_maxbytes; // max file size
+  struct file_system_type s_type; // filesystem type
+  struct super_operations s_op; // superblock methods
+  struct dquot_operations *dq_op; // quota methods
+  struct quotactl_ops *s_qcop; // quota control methods
+  struct export_operations *s_export_op; // export methods
+  unsigned long s_flags; // mount flags
+  unsigned long s_magic; // filesystem’s magic number
+  struct dentry *s_root; // directory mount point
+  struct rw_semaphore s_umount; // unmount semaphore
+  struct semaphore s_lock; // superblock semaphore
+  int s_count; // superblock ref count
+  int s_need_sync; // not-yet-synced flag
+  atomic_t s_active; // active reference count
+  void *s_security; // security module
+  struct xattr_handler **s_xattr; // extended attribute handlers
+  struct list_head s_inodes; // list of inodes
+  struct list_head s_dirty; // list of dirty inodes
+  struct list_head s_io; // list of writebacks
+  struct list_head s_more_io; // list of more writeback
+  struct hlist_head s_anon; // anonymous dentries
+  struct list_head s_files; // list of assigned files
+  struct list_head s_dentry_lru; // list of unused dentries
+  int s_nr_dentry_unused; // number of dentries on list
+  struct block_device *s_bdev; // associated block device
+  struct mtd_info *s_mtd; // memory disk information
+  struct list_head s_instances; // instances of this fs
+  struct quota_info s_dquot; // quota-specific options
+  int s_frozen; // frozen status
+  wait_queue_head_t s_wait_unfrozen; // wait queue on freeze
+  char s_id[32]; // text name
+  void *s_fs_info; // filesystem-specific info
+  fmode_t s_mode; // mount permissions
+  struct semaphore s_vfs_rename_sem; // rename semaphore
+  u32 s_time_gran; // granularity of timestamps
+  char *s_subtype; // subtype name
+  char *s_options; // saved mount options
 }
 ```
 
@@ -189,64 +189,64 @@ Some common methods:
 
 {% cite lkd -l 268-9 %}
 
-## The inode object
+## Inodes
 
-The inode object represents the information needed to manipulate a file or directory. It's constructed in memory by the filesystem when it's mounted.
+An **inode** describes a filesystem object, like a file or a directory. Inodes are constructed in memory by a filesystem when it's mounted.
 
 An inode is represented by the `inode` struct:
 
 ```c
 struct inode {
-  struct hlist_node i_hash; /* hash list */
-  struct list_head i_list; /* list of inodes */
-  struct list_head i_sb_list; /* list of superblocks */
-  struct list_head i_dentry; /* list of dentries */
-  unsigned long i_ino; /* inode number */
-  atomic_t i_count; /* reference counter */
-  unsigned int i_nlink; /* number of hard links */
-  uid_t i_uid; /* user id of owner */
-  gid_t i_gid; /* group id of owner */
-  kdev_t i_rdev; /* real device node */
-  u64 i_version; /* versioning number */
-  loff_t i_size; /* file size in bytes */
-  seqcount_t i_size_seqcount; /* serializer for i_size */
-  struct timespec i_atime; /* last access time */
-  struct timespec i_mtime; /* last modify time */
-  struct timespec i_ctime; /* last change time */
-  unsigned int i_blkbits; /* block size in bits */
-  blkcnt_t i_blocks; /* file size in blocks */
-  unsigned short i_bytes; /* bytes consumed */
-  umode_t i_mode; /* access permissions */
-  spinlock_t i_lock; /* spinlock */
-  struct rw_semaphore i_alloc_sem; /* nests inside of i_sem */
-  struct semaphore i_sem; /* inode semaphore */
-  struct inode_operations *i_op; /* inode ops table */
-  struct file_operations *i_fop; /* default inode ops */
-  struct super_block *i_sb; /* associated superblock */
-  struct file_lock *i_flock; /* file lock list */
-  struct address_space *i_mapping; /* associated mapping */
-  struct address_space i_data; /* mapping for device */
-  struct dquot *i_dquot[MAXQUOTAS]; /* disk quotas for inode */
-  struct list_head i_devices; /* list of block devices */
+  struct hlist_node i_hash; // hash list
+  struct list_head i_list; // list of inodes
+  struct list_head i_sb_list; // list of superblocks
+  struct list_head i_dentry; // list of dentries
+  unsigned long i_ino; // inode number
+  atomic_t i_count; // reference counter
+  unsigned int i_nlink; // number of hard links
+  uid_t i_uid; // user id of owner
+  gid_t i_gid; // group id of owner
+  kdev_t i_rdev; // real device node
+  u64 i_version; // versioning number
+  loff_t i_size; // file size in bytes
+  seqcount_t i_size_seqcount; // serializer for i_size
+  struct timespec i_atime; // last access time
+  struct timespec i_mtime; // last modify time
+  struct timespec i_ctime; // last change time
+  unsigned int i_blkbits; // block size in bits
+  blkcnt_t i_blocks; // file size in blocks
+  unsigned short i_bytes; // bytes consumed
+  umode_t i_mode; // access permissions
+  spinlock_t i_lock; // spinlock
+  struct rw_semaphore i_alloc_sem; // nests inside of i_sem
+  struct semaphore i_sem; // inode semaphore
+  struct inode_operations *i_op; // inode ops table
+  struct file_operations *i_fop; // default inode ops
+  struct super_block *i_sb; // associated superblock
+  struct file_lock *i_flock; // file lock list
+  struct address_space *i_mapping; // associated mapping
+  struct address_space i_data; // mapping for device
+  struct dquot *i_dquot[MAXQUOTAS]; // disk quotas for inode
+  struct list_head i_devices; // list of block devices
   union {
-    struct pipe_inode_info *i_pipe; /* pipe information */
-    struct block_device *i_bdev; /* block device driver */
-    struct cdev *i_cdev; /* character device driver */
+    struct pipe_inode_info *i_pipe; // pipe information
+    struct block_device *i_bdev; // block device driver
+    struct cdev *i_cdev; // character device driver
   };
-  unsigned long i_dnotify_mask; /* directory notify mask */
-  struct dnotify_struct *i_dnotify; /* dnotify */
-  struct list_head inotify_watches; /* inotify watches */
-  struct mutex inotify_mutex; /* protects inotify_watches */
-  unsigned long i_state; /* state flags */
-  unsigned long dirtied_when; /* first dirtying time */
-  unsigned int i_flags; /* filesystem flags */
-  atomic_t i_writecount; /* count of writers */
-  void *i_security; /* security module */
-  void *i_private; /* fs private pointer */
+  unsigned long i_dnotify_mask; // directory notify mask
+  struct dnotify_struct *i_dnotify; // dnotify
+  struct list_head inotify_watches; // inotify watches
+  struct mutex inotify_mutex; // protects inotify_watches
+  unsigned long i_state; // state flags
+  unsigned long dirtied_when; // first dirtying time
+  unsigned int i_flags; // filesystem flags
+  atomic_t i_writecount; // count of writers
+  void *i_security; // security module
+  void *i_private; // fs private pointer
 }
 ```
 
-The inode `inode_operations` member points to an object containing the operations that can be performed on an inode:
+The `inode_operations` member points to an object containing the operations that can be performed on an inode:
 
 ```c
 struct inode_operations {
@@ -295,36 +295,36 @@ Some of the functions contained by the object are:
 
 {% cite lkd -l 272-4 %}
 
-## The dentry object
+## Dentries
 
-A dentry is a specific component in a path. In the path /bin/vi, bin and vi are both files, where bin is a directory file and vi is a regular file. Both these components are represented with inodes. bin, and vi are also both dentry objects.
+A **dentry** (directory entry) represents a specific component in a path.
 
-The dentry object makes it easier to traverse file paths. Dentries can also include mount points.
+e.g. in the path `/bin/vi`, `/`, `bin`, and `vi` would be represented by dentry objects. Dentries facilitate path traversal and other operations.
 
 Dentry objects are represented by the `dentry` struct:
 
 ```c
 struct dentry {
-  atomic_t d_count; /* usage count */
-  unsigned int d_flags; /* dentry flags */
-  spinlock_t d_lock; /* per-dentry lock */
-  int d_mounted; /* is this a mount point? */
-  struct inode *d_inode; /* associated inode */
-  struct hlist_node d_hash; /* list of hash table entries */
-  struct dentry *d_parent; /* dentry object of parent */
-  struct qstr d_name; /* dentry name */
-  struct list_head d_lru; /* unused list */
+  atomic_t d_count; // usage count
+  unsigned int d_flags; // dentry flags
+  spinlock_t d_lock; // per-dentry lock
+  int d_mounted; // is this a mount point?
+  struct inode *d_inode; // associated inode
+  struct hlist_node d_hash; // list of hash table entries
+  struct dentry *d_parent; // dentry object of parent
+  struct qstr d_name; // dentry name
+  struct list_head d_lru; // unused list
   union {
-    struct list_head d_child; /* list of dentries within */
-    struct rcu_head d_rcu; /* RCU locking */
+    struct list_head d_child; // list of dentries within
+    struct rcu_head d_rcu; // RCU locking
   } d_u;
-  struct list_head d_subdirs; /* subdirectories */
-  struct list_head d_alias; /* list of alias inodes */
-  unsigned long d_time; /* revalidate time */
-  struct dentry_operations *d_op; /* dentry operations table */
-  struct super_block *d_sb; /* superblock of file */
-  void *d_fsdata; /* filesystem-specific data */
-  unsigned char d_iname[DNAME_INLINE_LEN_MIN]; /* short name */
+  struct list_head d_subdirs; // subdirectories
+  struct list_head d_alias; // list of alias inodes
+  unsigned long d_time; // revalidate time
+  struct dentry_operations *d_op; // dentry operations table
+  struct super_block *d_sb; // superblock of file
+  void *d_fsdata; // filesystem-specific data
+  unsigned char d_iname[DNAME_INLINE_LEN_MIN]; // short name
 };
 ```
 
@@ -336,81 +336,51 @@ A dentry object can be in one of three states:
 2. Unused
 3. Negative
 
-A used dentry corresponds to a valid inode, where `d_inode` points to an inode. A used dentry object cannot be discarded {% cite lkd -l 276 %}.
+A used dentry corresponds to a valid inode (`d_inode` points to an inode). A used dentry object cannot be discarded {% cite lkd -l 276 %}.
 
 An unused dentry object points to a valid inode, but the VFS is not currently using the dentry. The dentry is kept in the dentry cache unless it's needed again {% cite lkd -l 276 %}.
 
 A negative dentry does not point to a valid inode. This is either because the inode was deleted or because it never existed to begin with. A negative dentry is also cached but will be deallocated if free memory is low {% cite lkd -l 276 %}.
 
-The dentry cache (dcache) is used to minimize future work to resolve paths into dentries {% cite lkd -l 276 %}. The cache consists of three parts:
+The dentry cache (dcache) is used to minimize future work to resolve paths into dentries. It consists of three parts:
 
-1. List of used dentries, linked from their associated inode object.
+1. A used dentries list, linked from their associated inode object.
 2. A doubly linked LRU list of unused and negative dentries. When the kernel needs to free memory, it removes entries from the tail.
 3. A hash table used to resolve a path into a dentry.
 
-The `dentry_operations` object contains the dentry methods:
-
-```c
-struct dentry {
-  atomic_t d_count; /* usage count */
-  unsigned int d_flags; /* dentry flags */
-  spinlock_t d_lock; /* per-dentry lock */
-  int d_mounted; /* is this a mount point? */
-  struct inode *d_inode; /* associated inode */
-  struct hlist_node d_hash; /* list of hash table entries */
-  struct dentry *d_parent; /* dentry object of parent */
-  struct qstr d_name; /* dentry name */
-  struct list_head d_lru; /* unused list */
-  union {
-  struct list_head d_child; /* list of dentries within */
-  struct rcu_head d_rcu; /* RCU locking */
-  } d_u;
-  struct list_head d_subdirs; /* subdirectories */
-  struct list_head d_alias; /* list of alias inodes */
-  unsigned long d_time; /* revalidate time */
-  struct dentry_operations *d_op; /* dentry operations table */
-  struct super_block *d_sb; /* superblock of file */
-  void *d_fsdata; /* filesystem-specific data */
-  unsigned char d_iname[DNAME_INLINE_LEN_MIN]; /* short name */
-};
-```
-
-- `d_revalidate()` determines whether an entry is still valid.
-- `d_hash()` creates a hash value from a dentry.
-- `d_compare()` compares filenames.
-- `d_iput()` is called when a dentry loses its inode.
+{% cite lkd -l 276 %}
 
 ## The file object
 
-The file object represents a file opened by a process. `file` is an in-memory representation of an open file. It's created in response to the `open()` system call, and is destroyed in response to the `close()` system call {% cite lkd -l 279 %}.
+The `file` object represents a file opened by a process. `file` is an in-memory representation of an open file. It's created in response to the `open()` system call and is destroyed in response to the `close()` system call {% cite lkd -l 279 %}.
 
-There can be multiple file objects for the same file that exists for different procceses. The object points to a dentry, which points to an inode. Both of these are unique to a file {% cite lkd -l 279 %}.
+There can be multiple file objects for the same file that exists for different procceses. The object points to a `dentry`, which points to an `inode`. Both objects are unique to a file {% cite lkd -l 279 %}.
 
 A file is represented by the `file` struct:
 
 ```c
 struct file {
   union {
-    struct list_head fu_list; /* list of file objects */
-    struct rcu_head fu_rcuhead; /* RCU list after freeing */
+    struct list_head fu_list; // list of file objects
+    struct rcu_head fu_rcuhead; // RCU list after freeing
   } f_u;
-  struct path f_path; /* contains the dentry */
-  struct file_operations *f_op; /* file operations table */
-  spinlock_t f_lock; /* per-file struct lock */
-  atomic_t f_count; /* file object’s usage count */
-  unsigned int f_flags; /* flags specified on open */
-  mode_t f_mode; /* file access mode */
-  loff_t f_pos; /* file offset (file pointer) */
-  struct fown_struct f_owner; /* owner data for signals */
-  const struct cred *f_cred; /* file credentials */
-  struct file_ra_state f_ra; /* read-ahead state */
-  u64 f_version; /* version number */
-  void *f_security; /* security module */
-  void *private_data; /* tty driver hook */
-  struct list_head f_ep_links; /* list of epoll links */
-  spinlock_t f_ep_lock; /* epoll lock */
-  struct address_space *f_mapping; /* page cache mapping */
-  unsigned long f_mnt_write_state; /* debugging state */
+  struct path f_path; // contains the dentry
+  struct file_operations *f_op; // file operations table
+  spinlock_t f_lock; // per-file struct lock
+  atomic_t f_count; // file object’s usage count
+  unsigned int f_flags; // flags specified on open
+  mode_t f_mode; // file access mode
+  loff_t f_pos; // file offset (file pointer)
+  struct fown_struct f_owner; // owner data for signals
+  const struct cred *f_cred; // file credentials
+  struct file_ra_state f_ra; // read-ahead state
+  u64 f_version; // version number
+  void *f_security; // security module
+  void *private_data; // tty driver hook
+  struct list_head f_ep_links; // list of epoll links
+  spinlock_t f_ep_lock; // epoll lock
+  struct address_space *f_mapping; // page cache mapping
+  unsigned long f_mnt_write_state; // debugging state
 };
 ```
 
@@ -478,23 +448,23 @@ struct file_operations {
 
 {% cite lkd -l 281-4 %}
 
-## Data Structures Associated with Filesystems
+## Filesystem data structures
 
 The `file_system_type` data structure describes the capabilities and behavior of a filesystem:
 
 ```c
 struct file_system_type {
-  const char *name; /* filesystem’s name */
-  int fs_flags; /* filesystem type flags */
-  /* the following is used to read the superblock off the disk */
+  const char *name;
+  int fs_flags; // filesystem type flags
+  // the following is used to read the superblock off the disk
   struct super_block *(*get_sb) (struct file_system_type *, int,
   char *, void *);
-  /* the following is used to terminate access to the superblock */
+  // the following is used to terminate access to the superblock
   void (*kill_sb) (struct super_block *);
-  struct module *owner; /* module owning the filesystem */
-  struct file_system_type *next; /* next file_system_type in list */
-  struct list_head fs_supers; /* list of superblock objects */
-  /* the remaining fields are used for runtime lock validation */
+  struct module *owner; // module owning the filesystem
+  struct file_system_type *next; // next file_system_type in list
+  struct list_head fs_supers; // list of superblock objects
+  // the remaining fields are used for runtime lock validation
   struct lock_class_key s_lock_key;
   struct lock_class_key s_umount_key;
   struct lock_class_key i_lock_key;
@@ -508,29 +478,29 @@ There is only one `file_system_type` per filesystem. When a filesystem is mounte
 
 ```c
 struct vfsmount {
-  struct list_head mnt_hash; /* hash table list */
-  struct vfsmount *mnt_parent; /* parent filesystem */
-  struct dentry *mnt_mountpoint; /* dentry of this mount point */
-  struct dentry *mnt_root; /* dentry of root of this fs */
-  struct super_block *mnt_sb; /* superblock of this filesystem */
-  struct list_head mnt_mounts; /* list of children */
-  struct list_head mnt_child; /* list of children */
-  int mnt_flags; /* mount flags */
-  char *mnt_devname; /* device file name */
-  struct list_head mnt_list; /* list of descriptors */
-  struct list_head mnt_expire; /* entry in expiry list */
-  struct list_head mnt_share; /* entry in shared mounts list */
-  struct list_head mnt_slave_list; /* list of slave mounts */
-  struct list_head mnt_slave; /* entry in slave list */
-  struct vfsmount *mnt_master; /* slave’s master */
-  struct mnt_namespace *mnt_namespace; /* associated namespace */
-  int mnt_id; /* mount identifier */
-  int mnt_group_id; /* peer group identifier */
-  atomic_t mnt_count; /* usage count */
-  int mnt_expiry_mark; /* is marked for expiration */
-  int mnt_pinned; /* pinned count */
-  int mnt_ghosts; /* ghosts count */
-  atomic_t __mnt_writers; /* writers count */
+  struct list_head mnt_hash; // hash table list
+  struct vfsmount *mnt_parent; // parent filesystem
+  struct dentry *mnt_mountpoint; // dentry of this mount point
+  struct dentry *mnt_root; // dentry of root of this fs
+  struct super_block *mnt_sb; // superblock of this filesystem
+  struct list_head mnt_mounts; // list of children
+  struct list_head mnt_child; // list of children
+  int mnt_flags; // mount flags
+  char *mnt_devname; // device file name
+  struct list_head mnt_list; // list of descriptors
+  struct list_head mnt_expire; // entry in expiry list
+  struct list_head mnt_share; // entry in shared mounts list
+  struct list_head mnt_slave_list; // list of slave mounts
+  struct list_head mnt_slave; // entry in slave list
+  struct vfsmount *mnt_master; // slave’s master
+  struct mnt_namespace *mnt_namespace; // associated namespace
+  int mnt_id; // mount identifier
+  int mnt_group_id; // peer group identifier
+  atomic_t mnt_count; // usage count
+  int mnt_expiry_mark; // is marked for expiration
+  int mnt_pinned; // pinned count
+  int mnt_ghosts; // ghosts count
+  atomic_t __mnt_writers; // writers count
 };
 ```
 
@@ -538,14 +508,14 @@ Each process on the system has its own list of open files, root filesystem, curr
 
 ```c
 struct files_struct {
-  atomic_t count; /* usage count */
-  struct fdtable *fdt; /* pointer to other fd table */
-  struct fdtable fdtab; /* base fd table */
-  spinlock_t file_lock; /* per-file lock */
-  int next_fd; /* cache of next available fd */
-  struct embedded_fd_set close_on_exec_init; /* list of close-on-exec fds */
-  struct embedded_fd_set open_fds_init /* list of open fds */
-  struct file *fd_array[NR_OPEN_DEFAULT]; /* base files array */
+  atomic_t count; // usage count
+  struct fdtable *fdt; // pointer to other fd table
+  struct fdtable fdtab; // base fd table
+  spinlock_t file_lock; // per-file lock
+  int next_fd; // cache of next available fd
+  struct embedded_fd_set close_on_exec_init; // list of close-on-exec fds
+  struct embedded_fd_set open_fds_init // list of open fds
+  struct file *fd_array[NR_OPEN_DEFAULT]; // base files array
 };
 ```
 
@@ -555,42 +525,44 @@ The `fs_struct` struct contains filesystem information that's related to a proce
 
 ```c
 struct fs_struct {
-  int users; /* user count */
-  rwlock_t lock; /* per-structure lock */
-  int umask; /* umask */
-  int in_exec; /* currently executing a file */
-  struct path root; /* root directory */
-  struct path pwd; /* current working directory */
+  int users; // user count
+  rwlock_t lock; // per-structure lock
+  int umask; // umask
+  int in_exec; // currently executing a file
+  struct path root; // root directory
+  struct path pwd; // current working directory
 };
 ```
 
-Per-process namespaces "enable each process to have a unique view of the mounted filesystems on the system—not just a unique root directory, but an entirely unique filesystem hierarchy" {% cite lkd -l 287 %}. The `namespace` struct has details on the process namespace:
+Per-process namespaces "enable each process to have a unique view of the mounted filesystems on the system—not just a unique root directory, but an entirely unique filesystem hierarchy" {% cite lkd -l 287 %}.
+
+The `mnt_namespace` struct has details on the process namespace:
 
 ```c
 struct mnt_namespace {
-  atomic_t count; /* usage count */
-  struct vfsmount *root; /* root directory */
-  struct list_head list; /* list of mount points */
-  wait_queue_head_t poll; /* polling waitqueue */
-  int event; /* event count */
+  atomic_t count; // usage count
+  struct vfsmount *root; // root directory
+  struct list_head list; // list of mount points
+  wait_queue_head_t poll; // polling waitqueue
+  int event; // event count
 };
 ```
 
-For most processes, the process descriptors points to unique `files_struct` and `fs_struct` objects. However, for processes created with clone flags, they will be shared. "The count member of each structure provides a reference count to prevent destruction while a process is still using the structure" {% cite lkd -l 288 %}.
+For most processes, the process descriptors point to unique `files_struct` and `fs_struct` objects. However, for processes created with clone flags, they will be shared. "The count member of each structure provides a reference count to prevent destruction while a process is still using the structure" {% cite lkd -l 288 %}.
 
 By default, all processes share the same `namespace`. Only when the `CLONE_NEWNS` flag is specified during `clone()` is the process given a unique copy of the `namespace` structure {% cite lkd -l 288 %}.
 
 ## Block devices
 
-Block devices are devices that offer random access to fixed size chunks (blocks) of memory. There are many types of block devices, like hard disks, floppy drives, and flash memory. These are all devices on which you mount a filesystem {% cite lkd -l 289 %}.
+**Block devices** are devices that offer random access to fixed-size blocks of memory. There are many types of block devices, like hard disks, floppy drives, and flash memory. These are all devices on which you mount a filesystem {% cite lkd -l 289 %}.
 
-The kernel subsytem that manages block devices is called the block I/O layer {% cite lkd -l 290 %}.
+The **block I/O layer** is the kernel subsytem that manages block devices.
 
-The smallest addressable unit on a block device is a **sector**. Most devices have 512-byte sectors {% cite lkd -l 290 %}.
+A **sector** is the smallest addressable unit on a block device. Most devices have 512-byte sectors {% cite lkd -l 290 %}.
 
 The smallest logically addressable unit is the block. A block is a filesystem abstraction, and the kernel performs all disk operations using blocks. The block size can't be any smaller than a sector, and must be a multiple of a sector {% cite lkd -l 290 %}.
 
-## Buffers and buffer heads
+### Buffers and buffer heads
 
 When a block is stored in memory, it’s stored in a buffer: an object that represents a disk block in memory {% cite lkd -l 291 %}.
 
@@ -598,18 +570,18 @@ A buffer is represented by the `buffer_head` struct:
 
 ```c
 struct buffer_head {
-  unsigned long b_state; /* buffer state flags */
-  struct buffer_head *b_this_page; /* list of page’s buffers */
-  struct page *b_page; /* associated page */
-  sector_t b_blocknr; /* starting block number */
-  size_t b_size; /* size of mapping */
-  char *b_data; /* pointer to data within the page */
-  struct block_device *b_bdev; /* associated block device */
-  bh_end_io_t *b_end_io; /* I/O completion */
-  void *b_private; /* reserved for b_end_io */
-  struct list_head b_assoc_buffers; /* associated mappings */
-  struct address_space *b_assoc_map; /* associated address space */
-  atomic_t b_count; /* use count */
+  unsigned long b_state; // buffer state flags
+  struct buffer_head *b_this_page; // list of page’s buffers
+  struct page *b_page; // associated page
+  sector_t b_blocknr; // starting block number
+  size_t b_size; // size of mapping
+  char *b_data; // pointer to data within the page
+  struct block_device *b_bdev; // associated block device
+  bh_end_io_t *b_end_io; // I/O completion
+  void *b_private; // reserved for b_end_io
+  struct list_head b_assoc_buffers; // associated mappings
+  struct address_space *b_assoc_map; // associated address space
+  atomic_t b_count; // use count
 };
 ```
 
@@ -641,39 +613,39 @@ The `b_state` field contains the buffer state. The buffer can be in one of the f
 
 The `b_count` field is the buffer's usage count. This must be incremented each time the buffer head is manipulated, to ensure the buffer head is not deallocated while it's being manipulated {% cite lkd -l 292 %}.
 
-"The physical block on disk to which a given buffer corresponds is the `b_blocknr`-the logical block on the block device described by `b_bdev`" {% cite lkd -l 293 %}.
+The physical block on disk to which a given buffer corresponds is the `b_blocknr`th logical block on the block device describe by `b_bdev`.
 
-"The physical page in memory to which a given buffer corresponds is the page pointed to by `b_page`" {% cite lkd -l 293 %}.
+`b_page` is the physical page in memory to which a given buffer corresponds {% cite lkd -l 293 %}.
 
 The buffer head describes the mapping between an on-disk block and the physical in-memory buffer {% cite lkd -l 293 %}.
 
 ## The `bio` struct
 
-The `bio` struct represents active I/O operations as a list of segements. "A segment is a chunk of a buffer that is contiguous in memory". Individual buffers don't need to be contiguous in memory, because the buffers can be described in chunks that make up different memory locations {% cite lkd -l 294 %}.
+The `bio` struct represents active I/O operations as a list of segements, where a segment is a chunk of a buffer that is contiguous in memory. Individual buffers don't need to be contiguous in memory, because the buffers can be described in chunks that make up different memory locations {% cite lkd -l 294 %}.
 
 You can see the `bio` struct:
 
 ```c
 struct bio {
-  sector_t bi_sector; /* associated sector on disk */
-  struct bio *bi_next; /* list of requests */
-  struct block_device *bi_bdev; /* associated block device */
-  unsigned long bi_flags; /* status and command flags */
-  unsigned long bi_rw; /* read or write? */
-  unsigned short bi_vcnt; /* number of bio_vecs off */
-  unsigned short bi_idx; /* current index in bi_io_vec */
-  unsigned short bi_phys_segments; /* number of segments */
-  unsigned int bi_size; /* I/O count */
-  unsigned int bi_seg_front_size; /* size of first segment */
-  unsigned int bi_seg_back_size; /* size of last segment */
-  unsigned int bi_max_vecs; /* maximum bio_vecs possible */
-  unsigned int bi_comp_cpu; /* completion CPU */
-  atomic_t bi_cnt; /* usage counter */
-  struct bio_vec *bi_io_vec; /* bio_vec list */
-  bio_end_io_t *bi_end_io; /* I/O completion method */
-  void *bi_private; /* owner-private method */
-  bio_destructor_t *bi_destructor; /* destructor method */
-  struct bio_vec bi_inline_vecs[0]; /* inline bio vectors */
+  sector_t bi_sector; // associated sector on disk
+  struct bio *bi_next; // list of requests
+  struct block_device *bi_bdev; // associated block device
+  unsigned long bi_flags; // status and command flags
+  unsigned long bi_rw; // read or write?
+  unsigned short bi_vcnt; // number of bio_vecs off
+  unsigned short bi_idx; // current index in bi_io_vec
+  unsigned short bi_phys_segments; // number of segments
+  unsigned int bi_size; // I/O count
+  unsigned int bi_seg_front_size; // size of first segment
+  unsigned int bi_seg_back_size; // size of last segment
+  unsigned int bi_max_vecs; // maximum bio_vecs possible
+  unsigned int bi_comp_cpu; // completion CPU
+  atomic_t bi_cnt; // usage counter
+  struct bio_vec *bi_io_vec; // bio_vec list
+  bio_end_io_t *bi_end_io; // I/O completion method
+  void *bi_private; // owner-private method
+  bio_destructor_t *bi_destructor; // destructor method
+  struct bio_vec bi_inline_vecs[0]; // inline bio vectors
 };
 ```
 
@@ -696,13 +668,13 @@ The `bio_vec` struct is defined in \<linux/bio.h\>:
 
 ```c
 struct bio_vec {
-  /* pointer to the physical page on which this buffer resides */
+  // pointer to the physical page on which this buffer resides
   struct page *bv_page;
 
-  /* the length in bytes of this buffer */
+  // the length in bytes of this buffer
   unsigned int bv_len;
 
-  /* the byte offset within the page where the buffer resides */
+  // the byte offset within the page where the buffer resides
   unsigned int bv_offset;
 };
 ```
